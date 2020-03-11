@@ -1,10 +1,10 @@
 /*
 GNU GPL v2
-Copyright (c) 2019 Hiroki Takizawa
+Copyright (c) 2020 Hiroki Takizawa
 */
 
-#ifndef RINTP_PARAMETER_H_
-#define RINTP_PARAMETER_H_
+#ifndef RINTDWR_PARAMETER_H_
+#define RINTDWR_PARAMETER_H_
 
 #include <iostream>
 #include <fstream>
@@ -44,4 +44,4 @@ extern bool counting;
 }
 
 
-#endif//RINTP_PARAMETER_H_
+#endif//RINTDWR_PARAMETER_H_

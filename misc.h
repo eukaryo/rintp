@@ -1,10 +1,10 @@
 /*
 GNU GPL v2
-Copyright (c) 2019 Hiroki Takizawa
+Copyright (c) 2020 Hiroki Takizawa
 */
 
-#ifndef RINTP_MISC_H_
-#define RINTP_MISC_H_
+#ifndef RINTDWR_MISC_H_
+#define RINTDWR_MISC_H_
 
 #include <iostream>
 #include <fstream>
@@ -44,4 +44,4 @@ std::string MatrixToDotNotation(const std::vector<std::vector<int>>& structure);
 
 }
 
-#endif//RINTP_MISC_H_
+#endif//RINTDWR_MISC_H_

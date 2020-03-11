@@ -1,6 +1,6 @@
 /*
 GNU GPL v2
-Copyright (c) 2019 Hiroki Takizawa
+Copyright (c) 2020 Hiroki Takizawa
 */
 
 #include"rintx.h"
@@ -1606,8 +1606,7 @@ std::pair<std::vector<IntervalVar>, std::vector<std::vector<std::vector<Interval
 	for (int x = 0; x <= dim; ++x) {
 		assert(z[x].log_scale.upper() <= std::numeric_limits<Floating>::max());
 		if (z[x].real.upper() <= 0.0)continue;
-		const IntervalVar zz = /*kv::*/intersect(z[x].real, IntervalVar(0.0, std::numeric_limits<Floating>::max()));
-		//const IntervalVar zz = /*kv::*/max(z[x].real, IntervalVar(0.0, 0.0));
+		const IntervalVar zz = /*kv::*/max(z[x].real, IntervalVar(0.0, 0.0));
 		z_ans_log[x] = z[x].log_scale + log(zz);
 		if (zz.lower() > 0.0)z_ans_log_max = std::max(z_ans_log_max, Floating(2.0 * z_ans_log[x].upper() - mid(z_ans_log[x])));
 	}
@@ -1620,9 +1619,8 @@ std::pair<std::vector<IntervalVar>, std::vector<std::vector<std::vector<Interval
 
 	for (int x = 0; x <= dim; ++x) {
 		z_ans[x] /= z_sum;
-		z_ans[x] = /*kv::*/intersect(z_ans[x], IntervalVar(0.0, 1.0));
-		//z_ans[x] = /*kv::*/max(z_ans[x], IntervalVar(0.0, 0.0));
-		//z_ans[x] = /*kv::*/min(z_ans[x], IntervalVar(1.0, 1.0));
+		z_ans[x] = /*kv::*/max(z_ans[x], IntervalVar(0.0, 0.0));
+		z_ans[x] = /*kv::*/min(z_ans[x], IntervalVar(1.0, 1.0));
 	}
 
 	std::vector<std::vector<std::vector<IntervalVar>>>p_ans(
@@ -1636,15 +1634,13 @@ std::pair<std::vector<IntervalVar>, std::vector<std::vector<std::vector<Interval
 		for (int i = 1; i <= n; ++i)for (int j = i + 1; j <= n && j - i <= max_span; ++j) {
 			assert(p[x][i][j - i].log_scale.upper() <= std::numeric_limits<Floating>::max());
 			if (p[x][i][j - i].real.upper() <= 0.0)continue;
-			const IntervalVar pp = /*kv::*/intersect(p[x][i][j - i].real, IntervalVar(0.0, std::numeric_limits<Floating>::max()));
-			//const IntervalVar pp = /*kv::*/max(p[x][i][j - i].real, IntervalVar(0.0, 0.0));
+			const IntervalVar pp = /*kv::*/max(p[x][i][j - i].real, IntervalVar(0.0, 0.0));
 			const IntervalVar p_log = p[x][i][j - i].log_scale + log(pp);
 			if (p_log.upper() == -FINF)continue;
 
 			p_ans[x][i][j - i] = exp(IntervalVar(p_log) - z_ans_log[x]);
-			p_ans[x][i][j - i] = /*kv::*/intersect(p_ans[x][i][j - i], IntervalVar(0.0, 1.0));
-			//p_ans[x][i][j - i] = /*kv::*/max(p_ans[x][i][j - i], IntervalVar(0.0, 0.0));
-			//p_ans[x][i][j - i] = /*kv::*/min(p_ans[x][i][j - i], IntervalVar(1.0, 1.0));
+			p_ans[x][i][j - i] = /*kv::*/max(p_ans[x][i][j - i], IntervalVar(0.0, 0.0));
+			p_ans[x][i][j - i] = /*kv::*/min(p_ans[x][i][j - i], IntervalVar(1.0, 1.0));
 		}
 	}
 

@@ -1,6 +1,6 @@
 /*
 GNU GPL v2
-Copyright (c) 2019 Hiroki Takizawa
+Copyright (c) 2020 Hiroki Takizawa
 */
 
 #ifndef RINTP_RINTCAPR_H_

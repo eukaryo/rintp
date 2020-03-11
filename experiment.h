@@ -1,24 +1,25 @@
 /*
 GNU GPL v2
-Copyright (c) 2019 Hiroki Takizawa
+Copyright (c) 2020 Hiroki Takizawa
 */
 
-#ifndef RINTP_EXPERIMENT_H_
-#define RINTP_EXPERIMENT_H_
+#ifndef RINTDWR_EXPERIMENT_H_
+#define RINTDWR_EXPERIMENT_H_
 
 namespace rintp {
 
 void ComputationTimeExperiment1();
 void ComputationTimeExperiment2();
+void ComputationTimeExperiment3();
 void ComputationTimeExperiment4();
+void ComputationTimeExperiment5(const int W);
+
 void AccuracyExperiment1(const int num, const bool perform_non_fourier);
 void AccuracyExperiment2();
 
 void SuppMaxDistExperiment1();
 void SuppMaxDistExperiment2();
 void SuppMaxDistExperiment3();
-void AccuracyGlitchVisualization();
-
 
 int ComputeBestMaxSpan(
 	const std::string& sequence,
@@ -37,4 +38,4 @@ void RrnaAccuracyExperiment(const std::string filename);
 
 
 
-#endif//RINTP_EXPERIMENT_H_
+#endif//RINTDWR_EXPERIMENT_H_

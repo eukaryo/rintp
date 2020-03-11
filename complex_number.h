@@ -1,10 +1,10 @@
 /*
 GNU GPL v2
-Copyright (c) 2019 Hiroki Takizawa
+Copyright (c) 2020 Hiroki Takizawa
 */
 
-#ifndef RINTP_COMPLEX_NUMBER_H_
-#define RINTP_COMPLEX_NUMBER_H_
+#ifndef RINTDWR_COMPLEX_NUMBER_H_
+#define RINTDWR_COMPLEX_NUMBER_H_
 
 #include <algorithm>
 #include <cassert>
@@ -217,4 +217,4 @@ public:
 
 }
 
-#endif//RINTP_COMPLEX_NUMBER_H_
+#endif//RINTDWR_COMPLEX_NUMBER_H_

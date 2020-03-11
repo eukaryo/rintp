@@ -1,10 +1,10 @@
 /*
 GNU GPL v2
-Copyright (c) 2019 Hiroki Takizawa
+Copyright (c) 2020 Hiroki Takizawa
 */
 
-#ifndef RINTP_REAL_LOGSUMEXP_H_
-#define RINTP_REAL_LOGSUMEXP_H_
+#ifndef RINTDWR_REAL_LOGSUMEXP_H_
+#define RINTDWR_REAL_LOGSUMEXP_H_
 
 #include <iostream>
 #include <fstream>
@@ -28,25 +28,35 @@ namespace rintp {
 
 template<typename RealScalar>class WideRealNumber {
 
-private:
-
-	static IntervalVar add_(const IntervalVar&, const IntervalVar&);
-	static Floating add_(const Floating&, const Floating&);
-
-	static IntervalVar sub_(const IntervalVar&, const IntervalVar&);
-	static Floating sub_(const Floating&, const Floating&);
-
 public:
 
 	RealScalar log_scale;
 	WideRealNumber() :log_scale(RealScalar(0.0)) {}
-	WideRealNumber(const double number) {//‚±‚±‚Ì“à•”ˆ—‚ðInterval‚ÆFloating‚Å•ª‚¯‚é‚Ì‚Í–Ê“|‚¾‚Á‚½B
+	WideRealNumber(const double number) {
 		assert(number >= 0.0);
 		this->log_scale = log(RealScalar(number));
 	}
 
 	WideRealNumber& operator += (const WideRealNumber& obj) {
-		this->log_scale = add_(this->log_scale, obj.log_scale);
+
+		if (this->log_scale == -std::numeric_limits<RealScalar>::infinity()) {
+			this->log_scale = obj.log_scale;
+			return *this;
+		}
+		if (obj.log_scale == -std::numeric_limits<RealScalar>::infinity()) {
+			return *this;
+		}
+
+		RealScalar big, small;
+		if (this->log_scale > obj.log_scale) {
+			big = this->log_scale;
+			small = obj.log_scale;
+		}
+		else {
+			big = obj.log_scale;
+			small = this->log_scale;
+		}
+		this->log_scale = big + log(RealScalar(1.0) + exp(small - big));
 		return *this;
 	}
 	WideRealNumber& operator -= (const WideRealNumber& obj) {
@@ -65,6 +75,7 @@ public:
 		return *this;
 	}
 	WideRealNumber& operator /= (const WideRealNumber& obj) {
+		assert(obj.log_scale != -std::numeric_limits<RealScalar>::infinity());
 		this->log_scale -= obj.log_scale;
 		return *this;
 	}
@@ -108,6 +119,8 @@ public:
 	}
 };
 
+std::vector<std::vector<Floating>> ConvertBppmToUsualReal(const std::vector<std::vector<WideRealNumber<Floating>>>& bppm);
+
 }
 
-#endif//RINTP_REAL_LOGSUMEXP_H_
+#endif//RINTDWR_REAL_LOGSUMEXP_H_

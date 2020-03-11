@@ -1,10 +1,10 @@
 /*
 GNU GPL v2
-Copyright (c) 2019 Hiroki Takizawa
+Copyright (c) 2020 Hiroki Takizawa
 */
 
-#ifndef RINTP_SAMPLE_MCCASKILL_H_
-#define RINTP_SAMPLE_MCCASKILL_H_
+#ifndef RINTDWR_SAMPLE_MCCASKILL_H_
+#define RINTDWR_SAMPLE_MCCASKILL_H_
 
 #include <iostream>
 #include <fstream>
@@ -22,13 +22,14 @@ Copyright (c) 2019 Hiroki Takizawa
 #include <chrono>
 #include <sstream>
 
-#include <boost/multiprecision/cpp_int.hpp>
+//#include <boost/multiprecision/cpp_int.hpp>
 
 #include"real_logsumexp.h"
 
 namespace rintp {
 
-typedef boost::multiprecision::cpp_int Bigint;
+//typedef boost::multiprecision::cpp_int Bigint;
+typedef int64_t Bigint;
 typedef WideRealNumber<double> WideFloating;
 
 std::pair<std::vector<std::string>, Bigint>SampleMcCaskillUniform(
@@ -51,4 +52,4 @@ std::pair<std::vector<std::string>, WideFloating>SampleMcCaskillEnergyAware(
 }
 
 
-#endif//RINTP_SAMPLE_MCCASKILL_H_
+#endif//RINTDWR_SAMPLE_MCCASKILL_H_

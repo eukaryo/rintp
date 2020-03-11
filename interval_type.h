@@ -1,10 +1,10 @@
 /*
 GNU GPL v2
-Copyright (c) 2019 Hiroki Takizawa
+Copyright (c) 2020 Hiroki Takizawa
 */
 
-#ifndef RINTP_INTERVAL_TYPE_H_
-#define RINTP_INTERVAL_TYPE_H_
+#ifndef RINTDWR_INTERVAL_TYPE_H_
+#define RINTDWR_INTERVAL_TYPE_H_
 
 #include <iostream>
 #include <fstream>
@@ -37,4 +37,4 @@ typedef kv::interval<Floating> IntervalVar;
 
 }
 
-#endif//RINTP_INTERVAL_TYPE_H_
+#endif//RINTDWR_INTERVAL_TYPE_H_

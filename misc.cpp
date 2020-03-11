@@ -1,6 +1,6 @@
 /*
 GNU GPL v2
-Copyright (c) 2019 Hiroki Takizawa
+Copyright (c) 2020 Hiroki Takizawa
 */
 
 #include"misc.h"
@@ -266,6 +266,7 @@ int ComputeMaxHammingDistance(const std::string& sequence, const std::vector<std
 		return (Dm[i][j] = std::make_pair(true, m + C[i][j])).second;
 	};
 
+	const int ans = GetD(1, n);
 	return GetD(1, n);
 }
 

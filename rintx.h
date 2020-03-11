@@ -1,10 +1,10 @@
 /*
 GNU GPL v2
-Copyright (c) 2019 Hiroki Takizawa
+Copyright (c) 2020 Hiroki Takizawa
 */
 
-#ifndef RINTP_RINTX_H_
-#define RINTP_RINTX_H_
+#ifndef RINTDWR_RINTX_H_
+#define RINTDWR_RINTX_H_
 
 #include <iostream>
 #include <fstream>
@@ -26,6 +26,14 @@ Copyright (c) 2019 Hiroki Takizawa
 #include"interval_type.h"
 
 namespace rintp {
+
+//Google C++ Style Guide:
+//> For functions that have several configuration options,
+//> consider defining a single class or struct to hold all the options,
+//> and pass an instance of that.
+
+//コードを大体書いた後でこの記述に気付いた。後付け的に↓のstructを作った。
+//(次に取り組むプロジェクトでは最初から気を付けて設計しようと思うが、今はさておく)
 
 struct RintX1DOptions {
 	std::string sequence;
@@ -110,4 +118,4 @@ std::vector<std::string> ComputeRintW1Dim_2(
 
 }
 
-#endif//RINTP_RINTX_H_
+#endif//RINTDWR_RINTX_H_
