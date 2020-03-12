@@ -3,6 +3,12 @@ rintp
 
 # usage
 
+$ make
+
+to compile the source and obtain the executable "rintc". I succeed to compile them in the following environment:
+
+gcc 8.2.0 on CentOS 7.
+
 make
 
 ./rintp "CCCCAAAAGGGG" "((((....))))" 12 RintPwithDFT
