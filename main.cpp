@@ -145,6 +145,48 @@ int verification(const std::string& structure, const std::string& sequence, cons
 	return 0;
 }
 
+void output(const std::pair<std::vector<IntervalVar>, std::vector<std::vector<std::vector<IntervalVar>>>>&answer){
+
+	std::cout << answer.first.size() << std::endl;
+	for (int i = 0; i < answer.first.size(); ++i) {
+		std::cout << i << " " << answer.first[i].lower() << " " << answer.first[i].upper() << std::endl;
+	}
+
+	std::vector<std::string>features{"bulge","exterior","hairpin","internal","multi","stem"};
+
+	for (int i = 0; i < answer.first.size(); ++i) {
+		for (int j = 0; j < answer.second[i].size() - 1; ++j)for (int k = 0; k < 6; ++k) {
+			if (answer.first[i] > 0.0) {
+				std::cout << i << " " << j << " " << features[k] << " " << answer.second[i][j + 1][k].lower() << " " << answer.second[i][j + 1][k].upper() << std::endl;
+			}
+			else {
+				std::cout << i << " " << j << " " << features[k] << " " << 0 << " " << 0 << std::endl;
+			}
+		}
+		
+	}
+}
+void output(const std::pair<std::vector<Floating>, std::vector<std::vector<std::vector<Floating>>>>&answer){
+
+	std::cout << answer.first.size() << std::endl;
+	for (int i = 0; i < answer.first.size(); ++i) {
+		std::cout << i << " " << answer.first[i] << std::endl;
+	}
+
+	std::vector<std::string>features{"bulge","exterior","hairpin","internal","multi","stem"};
+
+	for (int i = 0; i < answer.first.size(); ++i) {
+		for (int j = 0; j < answer.second[i].size() - 1; ++j)for (int k = 0; k < 6; ++k) {
+			if (answer.first[i] > 0.0) {
+				std::cout << i << " " << j << " " << features[k] << " " << answer.second[i][j + 1][k] << std::endl;
+			}
+			else {
+				std::cout << i << " " << j << " " << features[k] << " " << 0 << std::endl;
+			}
+		}
+	}
+}
+
 int main_(int argc, char *argv[]) {
 
 //#ifdef _WIN64 
@@ -184,32 +226,28 @@ int main_(int argc, char *argv[]) {
 			typedef WideComplexNumber<Floating> Comp;
 			const auto ans1 = ComputeRintP1Dim<Comp>(sequence, options.S1, options.max_dim1, 37.0, options.max_span, options.max_loop, false);
 			const auto ans2 = RegularizeRintP1Dim(ans1.first, ans1.second);
-			for (int i = 0; i < ans2.first.size(); ++i) {
-				std::cout << i << " " << ans2.first[i] << std::endl;
-			}
-			for (int i = 0; i < ans2.first.size(); ++i) {
-				if (ans2.first[i] > 0.0) {
-					for (int j = 1; j <= n; ++j)for (int k = 0; k < 6; ++k) {
-						std::cout << i << " " << j - 1 << " " << k << " " << ans2.second[i][j][k] << std::endl;
-					}
-				}
-			}
+			output(ans2);
 			return 0;
 		}
 		if (algo == std::string("RintPwithFFT")) {
 			typedef WideComplexNumber<Floating> Comp;
 			const auto ans1 = ComputeRintP1Dim<Comp>(sequence, options.S1, options.max_dim1, 37.0, options.max_span, options.max_loop, true);
 			const auto ans2 = RegularizeRintP1Dim(ans1.first, ans1.second);
-			for (int i = 0; i < ans2.first.size(); ++i) {
-				std::cout << i << " " << ans2.first[i] << std::endl;
-			}
-			for (int i = 0; i < ans2.first.size(); ++i) {
-				if (ans2.first[i] > 0.0) {
-					for (int j = 1; j <= n; ++j)for (int k = 0; k < 6; ++k) {
-						std::cout << i << " " << j - 1 << " " << k << " " << ans2.second[i][j][k] << std::endl;
-					}
-				}
-			}
+			output(ans2);
+			return 0;
+		}
+		if (algo == std::string("RintPwithDFTInterval")) {
+			typedef WideComplexNumber<IntervalVar> Comp;
+			const auto ans1 = ComputeRintP1Dim<Comp>(sequence, options.S1, options.max_dim1, 37.0, options.max_span, options.max_loop, false);
+			const auto ans2 = RegularizeRintP1Dim(ans1.first, ans1.second);
+			output(ans2);
+			return 0;
+		}
+		if (algo == std::string("RintPwithFFTInterval")) {
+			typedef WideComplexNumber<IntervalVar> Comp;
+			const auto ans1 = ComputeRintP1Dim<Comp>(sequence, options.S1, options.max_dim1, 37.0, options.max_span, options.max_loop, true);
+			const auto ans2 = RegularizeRintP1Dim(ans1.first, ans1.second);
+			output(ans2);
 			return 0;
 		}
 		std::cout << "Error: invalid algo." << std::endl;

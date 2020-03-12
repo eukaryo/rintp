@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 GNU GPL v2
 Copyright (c) 2020 Hiroki Takizawa
 */
@@ -105,7 +105,7 @@ template<typename Comp>std::pair<std::vector<Comp>, std::vector<std::vector<std:
 #pragma omp parallel for schedule(dynamic, 1)
 	for (int x = 0; x < fourier_dim; ++x) {
 
-		//1‚Ì(fourier_dim)æª‚ğ‘S‚Ä‹‚ß‚éB
+		//1ã®(fourier_dim)ä¹—æ ¹ã‚’å…¨ã¦æ±‚ã‚ã‚‹ã€‚
 		std::vector<Comp> root_of_unity(fourier_dim);
 		for (int n1 = 0; n1 < fourier_dim; ++n1) {
 			const int d = (x * n1) % fourier_dim;
@@ -119,10 +119,10 @@ template<typename Comp>std::pair<std::vector<Comp>, std::vector<std::vector<std:
 			return root_of_unity[i];
 		};
 
-		//ƒƒ‚‰»Ä‹A‚Ì‚½‚ß‚Ìƒf[ƒ^\‘¢‚Å‚ ‚éBfirst‚Í‰Šú‰»‚Ífalse‚ÅA’l‚ğŒvZ‚µ‚½‚çtrue‚É‚µ‚ÄAsecond‚É’l‚ğ“ü‚ê‚éB
+		//ãƒ¡ãƒ¢åŒ–å†å¸°ã®ãŸã‚ã®ãƒ‡ãƒ¼ã‚¿æ§‹é€ ã§ã‚ã‚‹ã€‚firstã¯åˆæœŸåŒ–æ™‚ã¯falseã§ã€å€¤ã‚’è¨ˆç®—ã—ãŸã‚‰trueã«ã—ã¦ã€secondã«å€¤ã‚’å…¥ã‚Œã‚‹ã€‚
 		typedef std::pair<bool, Comp>MemComp;
 
-		//[CapR˜_•¶]‚Ì11`12ƒy[ƒW‚Ì®‚Ì¶•Ó‚½‚¿‚Å‚ ‚éB“Yš‚ğ1-origin‚Æ‚·‚éB
+		//[CapRè«–æ–‡]ã®11ï½12ãƒšãƒ¼ã‚¸ã®å¼ã®å·¦è¾ºãŸã¡ã§ã‚ã‚‹ã€‚æ·»å­—ã‚’1-originã¨ã™ã‚‹ã€‚
 		std::vector<MemComp>AlphaMultiRclosing((n + 1) * (max_span + 1), std::make_pair(false, Comp(0.0, 0.0)));
 		std::vector<MemComp>AlphaMulti12nLbranchRanother((n + 1) * (max_span + 1), std::make_pair(false, Comp(0.0, 0.0)));
 		std::vector<MemComp>AlphaMulti2nLbranchRpaired((n + 1) * (max_span + 1), std::make_pair(false, Comp(0.0, 0.0)));
@@ -138,24 +138,24 @@ template<typename Comp>std::pair<std::vector<Comp>, std::vector<std::vector<std:
 		std::vector<MemComp>BetaMulti12nLbranchRanother((n + 1) * (max_span + 1), std::make_pair(false, Comp(0.0, 0.0)));
 		std::vector<MemComp>BetaMultiRclosing((n + 1) * (max_span + 1), std::make_pair(false, Comp(0.0, 0.0)));
 
-		//ŠÖ”ŒÄ‚Ño‚µ‚ÌˆË‘¶ŠÖŒW‚ªzŠÂ‚µ‚Ä‚¢‚é‚Ì‚ÅAæ‚É‘S‚ÄéŒ¾‚µ‚Ä‚©‚çŒã‚Å’è‹`‚·‚éB‚ ‚Æ‚±‚Ì‚Ù‚¤‚ª˜_•¶‚Ì‹Lq‚É‰ˆ‚Á‚Ä‚¢‚é
+		//é–¢æ•°å‘¼ã³å‡ºã—ã®ä¾å­˜é–¢ä¿‚ãŒå¾ªç’°ã—ã¦ã„ã‚‹ã®ã§ã€å…ˆã«å…¨ã¦å®£è¨€ã—ã¦ã‹ã‚‰å¾Œã§å®šç¾©ã™ã‚‹ã€‚ã‚ã¨ã“ã®ã»ã†ãŒè«–æ–‡ã®è¨˜è¿°ã«æ²¿ã£ã¦ã„ã‚‹
 
-		//k<i‚È‚é(k,j+1)‚Å•Â‚¶‚ç‚ê‚éƒ}ƒ‹ƒ`ƒ‹[ƒv‚ÅA[k+1,i-1]‚ªunpaired
+		//k<iãªã‚‹(k,j+1)ã§é–‰ã˜ã‚‰ã‚Œã‚‹ãƒãƒ«ãƒãƒ«ãƒ¼ãƒ—ã§ã€[k+1,i-1]ãŒunpaired
 		std::function<Comp(int, int)> GetAlphaMultiRclosing;
 
-		//(i,j)‚æ‚èŠO‘¤‚Å•Â‚¶‚ç‚ê‚éƒ}ƒ‹ƒ`ƒ‹[ƒv‚ÅA(i,j)“à‚É2‚ÂˆÈã‚Ì•ªŠò‚ğŠÜ‚İAi‚ªpaired‚Åj+1‚ªpaired
+		//(i,j)ã‚ˆã‚Šå¤–å´ã§é–‰ã˜ã‚‰ã‚Œã‚‹ãƒãƒ«ãƒãƒ«ãƒ¼ãƒ—ã§ã€(i,j)å†…ã«2ã¤ä»¥ä¸Šã®åˆ†å²ã‚’å«ã¿ã€iãŒpairedã§j+1ãŒpaired
 		std::function<Comp(int, int)> GetAlphaMulti2nLbranchRpaired;
 
-		//(i,j)‚æ‚èŠO‘¤‚Å•Â‚¶‚ç‚ê‚éƒ}ƒ‹ƒ`ƒ‹[ƒv‚ÅA
-		//(i,j)“à‚É1‚ÂˆÈã‚Ì•ªŠò‚ğŠÜ‚İAi‚ªpaired‚Åj+1‚ªpaired‚ÅAj+1‚Íclosing‚Å‚È‚¢B‚©‚ÂAi-1–¢–‚ÅÅ‘å‚Ìpaired base‚ªclosing‚Å‚ ‚é
+		//(i,j)ã‚ˆã‚Šå¤–å´ã§é–‰ã˜ã‚‰ã‚Œã‚‹ãƒãƒ«ãƒãƒ«ãƒ¼ãƒ—ã§ã€
+		//(i,j)å†…ã«1ã¤ä»¥ä¸Šã®åˆ†å²ã‚’å«ã¿ã€iãŒpairedã§j+1ãŒpairedã§ã€j+1ã¯closingã§ãªã„ã€‚ã‹ã¤ã€i-1æœªæº€ã§æœ€å¤§ã®paired baseãŒclosingã§ã‚ã‚‹
 		std::function<Comp(int, int)> GetAlphaMulti12nLbranchRanother;
 
-		//(i,j)‚æ‚èŠO‘¤‚Å•Â‚¶‚ç‚ê‚éƒ}ƒ‹ƒ`ƒ‹[ƒv‚ÅA(i,j)“à‚É‚¿‚å‚¤‚Ç1‚Â‚Ì•ªŠò‚ğŠÜ‚İAi‚ªpaired
+		//(i,j)ã‚ˆã‚Šå¤–å´ã§é–‰ã˜ã‚‰ã‚Œã‚‹ãƒãƒ«ãƒãƒ«ãƒ¼ãƒ—ã§ã€(i,j)å†…ã«ã¡ã‚‡ã†ã©1ã¤ã®åˆ†å²ã‚’å«ã¿ã€iãŒpaired
 		std::function<Comp(int, int)> GetAlphaMulti1Lbranch;
 
-		std::function<Comp(int, int)> GetAlphaStem;//(i,j)‚ª‘g‚ñ‚Å‚¢‚éê‡B
-		std::function<Comp(int, int)> GetAlphaAll;//(i,j)“à‚Ì•ª”zŠÖ”AMcCaskill‚ÌZ
-		std::function<Comp(int, int)> GetAlphaAll1;//(i,j)“à‚Ì•ª”zŠÖ”‚Ì‚¤‚¿‚¿‚å‚¤‚Ç1‚Â‚Ì•ªŠò(i,k)‚ğŠÜ‚Ş(‚½‚¾‚µi<k<=j)BMcCaskill‚ÌZ1
+		std::function<Comp(int, int)> GetAlphaStem;//(i,j)ãŒçµ„ã‚“ã§ã„ã‚‹å ´åˆã€‚
+		std::function<Comp(int, int)> GetAlphaAll;//(i,j)å†…ã®åˆ†é…é–¢æ•°ã€McCaskillã®Z
+		std::function<Comp(int, int)> GetAlphaAll1;//(i,j)å†…ã®åˆ†é…é–¢æ•°ã®ã†ã¡ã¡ã‚‡ã†ã©1ã¤ã®åˆ†å²(i,k)ã‚’å«ã‚€(ãŸã ã—i<k<=j)ã€‚McCaskillã®Z1
 
 		std::function<Comp(int, int)> GetBetaStem;
 		std::function<Comp(int, int)> GetBetaMulti1Lbranch;
@@ -173,7 +173,7 @@ template<typename Comp>std::pair<std::vector<Comp>, std::vector<std::vector<std:
 			assert(1 <= i && i <= j && j <= n);
 			if (i == j)return Comp(0.0, 0.0);
 
-			if (i + TURN >= j || (j - i) > max_span || i == 1 || j == n/*’è‹`‚æ‚èi,j‚ÌŠO‚É‰–Šî‚ª•K—v*/) {
+			if (i + TURN >= j || (j - i) > max_span || i == 1 || j == n/*å®šç¾©ã‚ˆã‚Ši,jã®å¤–ã«å¡©åŸºãŒå¿…è¦*/) {
 				return Comp(0.0, 0.0);
 			}
 
@@ -189,7 +189,7 @@ template<typename Comp>std::pair<std::vector<Comp>, std::vector<std::vector<std:
 			assert(1 <= i && i <= j && j <= n);
 			if (i == j)return Comp(0.0, 0.0);
 
-			if (i + TURN >= j || (j - i) > max_span || i == 1 || j == n/*’è‹`‚æ‚èi,j‚ÌŠO‚É‰–Šî‚ª•K—v*/) {
+			if (i + TURN >= j || (j - i) > max_span || i == 1 || j == n/*å®šç¾©ã‚ˆã‚Ši,jã®å¤–ã«å¡©åŸºãŒå¿…è¦*/) {
 				return Comp(0.0, 0.0);
 			}
 
@@ -207,7 +207,7 @@ template<typename Comp>std::pair<std::vector<Comp>, std::vector<std::vector<std:
 			assert(1 <= i && i <= j && j <= n);
 			if (i == j)return Comp(0.0, 0.0);
 
-			if (i + TURN >= j || (j - i) > max_span || i == 1 || j == n/*’è‹`‚æ‚èi,j‚ÌŠO‚É‰–Šî‚ª•K—v*/) {
+			if (i + TURN >= j || (j - i) > max_span || i == 1 || j == n/*å®šç¾©ã‚ˆã‚Ši,jã®å¤–ã«å¡©åŸºãŒå¿…è¦*/) {
 				return Comp(0.0, 0.0);
 			}
 
@@ -224,7 +224,7 @@ template<typename Comp>std::pair<std::vector<Comp>, std::vector<std::vector<std:
 			assert(1 <= i && i <= j && j <= n);
 			if (i == j)return Comp(0.0, 0.0);
 
-			if (i + TURN >= j || (j - i) > max_span || i == 1 || j == n/*’è‹`‚æ‚èi,j‚ÌŠO‚É‰–Šî‚ª•K—v*/) {
+			if (i + TURN >= j || (j - i) > max_span || i == 1 || j == n/*å®šç¾©ã‚ˆã‚Ši,jã®å¤–ã«å¡©åŸºãŒå¿…è¦*/) {
 				return Comp(0.0, 0.0);
 			}
 
@@ -245,7 +245,7 @@ template<typename Comp>std::pair<std::vector<Comp>, std::vector<std::vector<std:
 			assert(1 <= i && i <= j && j <= n);
 			if (i == j)return Comp(0.0, 0.0);
 
-			//i‚Æj‚ª‰–Šî‘Î‚ğ‘g‚İ“¾‚È‚¢‚È‚çƒ[ƒ‚ğ•Ô‚·B
+			//iã¨jãŒå¡©åŸºå¯¾ã‚’çµ„ã¿å¾—ãªã„ãªã‚‰ã‚¼ãƒ­ã‚’è¿”ã™ã€‚
 			const int type = parasor_param::GetPairType(sequence[i - 1], sequence[j - 1]);
 			if (type == 0 || i + TURN >= j || (j - i) > max_span) {
 				return Comp(0.0, 0.0);
@@ -301,28 +301,28 @@ template<typename Comp>std::pair<std::vector<Comp>, std::vector<std::vector<std:
 
 			Comp ans(0.0, 0.0);
 
-			//¶‰E’[‚ğŠÜ‚ŞƒP[ƒX‚¾‚¯‚ğl—¶‚·‚ê‚Î‚æ‚¢‚±‚Æ‚ğ—˜—p‚µ‚Ä‹óŠÔŒvZ—Ê‚ğ—}‚¦‚½B
-			//‚»‚Ì‚½‚ßA‚±‚ÌŠÖ”‚ÌÀ‘•‚Í[McCaskill, 1990]‚Ì‹Lq‚Æ‚Í‚©‚¯—£‚ê‚Ä‚¢‚éB
+			//å·¦å³ç«¯ã‚’å«ã‚€ã‚±ãƒ¼ã‚¹ã ã‘ã‚’è€ƒæ…®ã™ã‚Œã°ã‚ˆã„ã“ã¨ã‚’åˆ©ç”¨ã—ã¦ç©ºé–“è¨ˆç®—é‡ã‚’æŠ‘ãˆãŸã€‚
+			//ãã®ãŸã‚ã€ã“ã®é–¢æ•°ã®å®Ÿè£…ã¯[McCaskill, 1990]ã®è¨˜è¿°ã¨ã¯ã‹ã‘é›¢ã‚Œã¦ã„ã‚‹ã€‚
 
 			if (i == 1) {
 
-				//ˆêØ‰–Šî‘Î‚ğ‘g‚Ü‚È‚¢ƒP[ƒX
+				//ä¸€åˆ‡å¡©åŸºå¯¾ã‚’çµ„ã¾ãªã„ã‚±ãƒ¼ã‚¹
 				ans += GetRoot(g_alpha_all_1(i, j));
 
-				//ÅŠO‘¤‰–Šî‘Î‚ª1‚Â‚¾‚¯‚ÅA‚©‚Â‚»‚ê‚ª(i,*)‚Å‚ ‚éƒP[ƒX
+				//æœ€å¤–å´å¡©åŸºå¯¾ãŒ1ã¤ã ã‘ã§ã€ã‹ã¤ãã‚ŒãŒ(i,*)ã§ã‚ã‚‹ã‚±ãƒ¼ã‚¹
 				ans += GetAlphaAll1(i, j);
 
-				//ÅŠO‘¤‰–Šî‘Î‚ª1‚ÂˆÈã‚ÅA‚»‚Ì‚¤‚¿Å‚à‰E‘¤‚Ì‰–Šî‘Î‚ª(k+1,*)‚Å‚ ‚éƒP[ƒX
+				//æœ€å¤–å´å¡©åŸºå¯¾ãŒ1ã¤ä»¥ä¸Šã§ã€ãã®ã†ã¡æœ€ã‚‚å³å´ã®å¡©åŸºå¯¾ãŒ(k+1,*)ã§ã‚ã‚‹ã‚±ãƒ¼ã‚¹
 				for (int k = i; k <= j - 1; ++k) {
 					ans += GetAlphaAll(i, k) * GetAlphaAll1(k + 1, j) * GetRoot(g_alpha_all_2(1, j, k));
 				}
 			}
 			else {
 
-				//i‚ªÅŠO‘¤‰–Šî‘Î‚ğ‘g‚Ü‚È‚¢ƒP[ƒX
+				//iãŒæœ€å¤–å´å¡©åŸºå¯¾ã‚’çµ„ã¾ãªã„ã‚±ãƒ¼ã‚¹
 				ans += GetAlphaAll(i + 1, j) * GetRoot(g_alpha_all_3(i, j));
 
-				//(i,k)‚ªÅŠO‘¤‰–Šî‘Î‚ğ‘g‚ŞƒP[ƒX
+				//(i,k)ãŒæœ€å¤–å´å¡©åŸºå¯¾ã‚’çµ„ã‚€ã‚±ãƒ¼ã‚¹
 				for (int k = i + TURN + 1; k <= j && k - i <= max_span; ++k) {
 					const int type = parasor_param::GetPairType(sequence[i - 1], sequence[k - 1]);
 					if (type == 0)continue;
@@ -363,7 +363,7 @@ template<typename Comp>std::pair<std::vector<Comp>, std::vector<std::vector<std:
 			assert(1 <= i && i <= j && j <= n);
 			if (i == j)return Comp(0.0, 0.0);
 
-			//i‚Æj‚ª‰–Šî‘Î‚ğ‘g‚İ“¾‚È‚¢‚È‚çƒ[ƒ‚ğ•Ô‚·B
+			//iã¨jãŒå¡©åŸºå¯¾ã‚’çµ„ã¿å¾—ãªã„ãªã‚‰ã‚¼ãƒ­ã‚’è¿”ã™ã€‚
 			const int type = parasor_param::GetPairType(sequence[i - 1], sequence[j - 1]);
 			if (type == 0 || i + TURN >= j || (j - i) > max_span) {
 				return Comp(0.0, 0.0);
@@ -373,19 +373,19 @@ template<typename Comp>std::pair<std::vector<Comp>, std::vector<std::vector<std:
 
 			Comp ans(0.0, 0.0);
 
-			//(i,j)‚ªÅ‚àŠO‘¤‚Ìê‡
+			//(i,j)ãŒæœ€ã‚‚å¤–å´ã®å ´åˆ
 			ans += GetAlphaAll(1, i - 1)
 				* GetAlphaAll(j + 1, n)
 				* Comp::LogRealToComp(RealScalar(parasor_param::ParDangling(type, (i - 1) - 1, (j - 1) + 1, true, sequence)))
 				* GetRoot(g_beta_stem2(i, j));
 
-			//(i,j)‚ªmultiloop‚Ì•ªŠò‚Ìˆê‚Â‚Å‚ ‚éê‡
+			//(i,j)ãŒmultiloopã®åˆ†å²ã®ä¸€ã¤ã§ã‚ã‚‹å ´åˆ
 			ans += GetBetaMulti1Lbranch(i, j)
 				* Comp::LogRealToComp(RealScalar(parasor_param::ParDangling(type, (i - 1) - 1, (j - 1) + 1, false, sequence)))
 				* Comp::LogRealToComp(RealScalar(parasor_param::ParMultiloopInternal()))
 				* GetRoot(g_beta_stem3(i, j));
 
-			//(i,j)‚ÌŠO‚É‰–Šî‘Î(h,l)‚ª‚ ‚Á‚Äinternal loop‚©bulge loop‚ğ\¬‚·‚éê‡(stem loop‚Íƒ_ƒ)
+			//(i,j)ã®å¤–ã«å¡©åŸºå¯¾(h,l)ãŒã‚ã£ã¦internal loopã‹bulge loopã‚’æ§‹æˆã™ã‚‹å ´åˆ(stem loopã¯ãƒ€ãƒ¡)
 			for (int h = std::max(1, std::max(i - max_span + 1, i - max_loop - 1)); h < i; ++h) {
 				for (int l = j + 1; l <= n && (l - h) <= max_span && (i - h - 1) + (l - j - 1) <= max_loop; ++l) {
 					if (h == i - 1 && l == j + 1)continue;
@@ -408,7 +408,7 @@ template<typename Comp>std::pair<std::vector<Comp>, std::vector<std::vector<std:
 			assert(1 <= i && i <= j && j <= n);
 			if (i == j)return Comp(0.0, 0.0);
 
-			if (i + TURN >= j || (j - i) > max_span || j == n/*’è‹`‚æ‚èj‚Ì‰E‚É‰–Šî‚ª•K—v*/) {
+			if (i + TURN >= j || (j - i) > max_span || j == n/*å®šç¾©ã‚ˆã‚Šjã®å³ã«å¡©åŸºãŒå¿…è¦*/) {
 				return Comp(0.0, 0.0);
 			}
 
@@ -429,7 +429,7 @@ template<typename Comp>std::pair<std::vector<Comp>, std::vector<std::vector<std:
 			assert(1 <= i && i <= j && j <= n);
 			if (i == j)return Comp(0.0, 0.0);
 
-			if (i + TURN >= j || (j - i) > max_span || i == 1 || j == n/*’è‹`‚æ‚èi,j‚ÌŠO‚É‰–Šî‚ª•K—v*/) {
+			if (i + TURN >= j || (j - i) > max_span || i == 1 || j == n/*å®šç¾©ã‚ˆã‚Ši,jã®å¤–ã«å¡©åŸºãŒå¿…è¦*/) {
 				return Comp(0.0, 0.0);
 			}
 
@@ -447,7 +447,7 @@ template<typename Comp>std::pair<std::vector<Comp>, std::vector<std::vector<std:
 			assert(1 <= i && i <= j && j <= n);
 			if (i == j)return Comp(0.0, 0.0);
 
-			if (i + TURN >= j || (j - i) > max_span || i == 1 || j == n/*’è‹`‚æ‚èi,j‚ÌŠO‚É‰–Šî‚ª•K—v*/) {
+			if (i + TURN >= j || (j - i) > max_span || i == 1 || j == n/*å®šç¾©ã‚ˆã‚Ši,jã®å¤–ã«å¡©åŸºãŒå¿…è¦*/) {
 				return Comp(0.0, 0.0);
 			}
 
@@ -462,7 +462,7 @@ template<typename Comp>std::pair<std::vector<Comp>, std::vector<std::vector<std:
 			assert(1 <= i && i <= j && j <= n);
 			if (i == j)return Comp(0.0, 0.0);
 
-			if (i + TURN >= j || (j - i) > max_span || i == 1 || j == n/*’è‹`‚æ‚èi,j‚ÌŠO‚É‰–Šî‚ª•K—v*/) {
+			if (i + TURN >= j || (j - i) > max_span || i == 1 || j == n/*å®šç¾©ã‚ˆã‚Ši,jã®å¤–ã«å¡©åŸºãŒå¿…è¦*/) {
 				return Comp(0.0, 0.0);
 			}
 
@@ -493,7 +493,7 @@ template<typename Comp>std::pair<std::vector<Comp>, std::vector<std::vector<std:
 				const int type = parasor_param::GetPairType(sequence[j - 1], sequence[k - 1]);
 				if (type == 0)continue;
 				for (int p = i + 1; p <= std::min(j + max_loop + 1, k - 1); ++p) {
-					//j<i<p<k‚ÅA‰–Šî‘Î(j,k)‚Æ(p,k-1)‚ªƒoƒ‹ƒW‚ğ\¬‚·‚éê‡
+					//j<i<p<kã§ã€å¡©åŸºå¯¾(j,k)ã¨(p,k-1)ãŒãƒãƒ«ã‚¸ã‚’æ§‹æˆã™ã‚‹å ´åˆ
 					if (!(1 <= j&&j < i&&i < p&&p + TURN < k - 1 && k <= n))continue;
 					ans += GetBetaStem(j, k)
 						* GetAlphaStem(p, k - 1)
@@ -501,7 +501,7 @@ template<typename Comp>std::pair<std::vector<Comp>, std::vector<std::vector<std:
 						* GetRoot(g_pb1(p, j, k));
 				}
 				for (int q = std::max(j + 1, k - max_loop - 1); q < i; ++q) {
-					//j<q<i<k‚ÅA‰–Šî‘Î(j,k)‚Æ(j+1,q)‚ªƒoƒ‹ƒW‚ğ\¬‚·‚éê‡
+					//j<q<i<kã§ã€å¡©åŸºå¯¾(j,k)ã¨(j+1,q)ãŒãƒãƒ«ã‚¸ã‚’æ§‹æˆã™ã‚‹å ´åˆ
 					if (!(1 <= j&&j + 1 + TURN < q&&q < i&&i < k&&k <= n))continue;
 					ans += GetBetaStem(j, k)
 						* GetAlphaStem(j + 1, q)
@@ -529,7 +529,7 @@ template<typename Comp>std::pair<std::vector<Comp>, std::vector<std::vector<std:
 			for (int j = std::max(1, i - max_span); j <= i - 1; ++j)for (int k = i + 1; k <= std::min(n, j + max_span); ++k) {
 				const int type = parasor_param::GetPairType(sequence[j - 1], sequence[k - 1]);
 				if (type == 0)continue;
-				//j<i<k‚ÅA‰–Šî‘Î(j,k)‚ªƒwƒAƒsƒ“‚ğ\¬‚·‚éê‡
+				//j<i<kã§ã€å¡©åŸºå¯¾(j,k)ãŒãƒ˜ã‚¢ãƒ”ãƒ³ã‚’æ§‹æˆã™ã‚‹å ´åˆ
 				if (j + TURN >= k)continue;
 				ans += GetBetaStem(j, k)
 					* Comp::LogRealToComp(RealScalar(parasor_param::ParHairpinEnergy(j - 1, k - 1, sequence)))
@@ -546,7 +546,7 @@ template<typename Comp>std::pair<std::vector<Comp>, std::vector<std::vector<std:
 				if (type == 0)continue;
 				for (int p = i + 1; p <= k - 3 && (p - j - 1) <= max_loop; ++p) {
 					for (int q = std::max(p + TURN + 1, (p - j - 1) + (k - max_loop - 1)); q <= k - 2; ++q) {
-						//j<i<p<q<k‚ÅA‰–Šî‘Î(j,k)‚Æ(p,q)‚ªinternal loop‚ğ\¬‚·‚éê‡
+						//j<i<p<q<kã§ã€å¡©åŸºå¯¾(j,k)ã¨(p,q)ãŒinternal loopã‚’æ§‹æˆã™ã‚‹å ´åˆ
 						ans += GetBetaStem(j, k)
 							* GetAlphaStem(p, q)
 							* Comp::LogRealToComp(RealScalar(parasor_param::ParLoopEnergy(j - 1, k - 1, p - 1, q - 1, sequence)))
@@ -555,7 +555,7 @@ template<typename Comp>std::pair<std::vector<Comp>, std::vector<std::vector<std:
 				}
 				for (int p = j + 2; p <= i - 2 && (p - j - 1) <= max_loop; ++p) {
 					for (int q = std::max(p + TURN + 1, (p - j - 1) + (k - max_loop - 1)); q <= i - 1; ++q) {
-						//j<p<q<i<k‚ÅA‰–Šî‘Î(j,k)‚Æ(p,q)‚ªinternal loop‚ğ\¬‚·‚éê‡
+						//j<p<q<i<kã§ã€å¡©åŸºå¯¾(j,k)ã¨(p,q)ãŒinternal loopã‚’æ§‹æˆã™ã‚‹å ´åˆ
 						ans += GetBetaStem(j, k)
 							* GetAlphaStem(p, q)
 							* Comp::LogRealToComp(RealScalar(parasor_param::ParLoopEnergy(j - 1, k - 1, p - 1, q - 1, sequence)))
@@ -570,14 +570,14 @@ template<typename Comp>std::pair<std::vector<Comp>, std::vector<std::vector<std:
 
 			Comp ans(0.0, 0.0);
 
-			//i‚Ì‚·‚®‰º‚Ì‰–Šî‘Î‚ªmultiloop‚ğ•Â‚¶‚éê‡
+			//iã®ã™ãä¸‹ã®å¡©åŸºå¯¾ãŒmultiloopã‚’é–‰ã˜ã‚‹å ´åˆ
 			for (int j = i + 1; j <= std::min(n, i + max_span); ++j) {
 				ans += GetBetaMultiRclosing(i, j)
 					* GetAlphaMultiRclosing(i + 1, j)
 					* GetRoot(g_pm1(i, j));
 			}
 
-			//i‚Ì‚·‚®‰º‚Ì‰–Šî‘Î‚ªmultiloop‚ğ•Â‚¶‚é‚à‚ÌˆÈŠO‚Ì•ªŠò‚Å‚ ‚éê‡
+			//iã®ã™ãä¸‹ã®å¡©åŸºå¯¾ãŒmultiloopã‚’é–‰ã˜ã‚‹ã‚‚ã®ä»¥å¤–ã®åˆ†å²ã§ã‚ã‚‹å ´åˆ
 			for (int y = std::max(1, i - max_span); y <= i - 1; ++y) {
 				ans += GetBetaMulti1Lbranch(y, i)
 					* GetAlphaMulti1Lbranch(y, i - 1)
@@ -624,30 +624,30 @@ std::pair<std::vector<Floating>, std::vector<std::vector<std::vector<Floating>>>
 	const std::vector<WideComplexNumber<Floating>>& z,
 	const std::vector<std::vector<std::vector<WideComplexNumber<Floating>>>>& profile) {
 
-	//ComputeRintP1Dim‚ÌŒ‹‰Ê‚ğÀ”‚É‚µ‚ÄA³‹K‰»‚µ‚ÄAlogsumexp‚Å‚Í‚È‚¢•’Ê‚Ì”’lŒ^‚É‚µ‚Ä•Ô‚·B
+	//ComputeRintP1Dimã®çµæœã‚’å®Ÿæ•°ã«ã—ã¦ã€æ­£è¦åŒ–ã—ã¦ã€logsumexpã§ã¯ãªã„æ™®é€šã®æ•°å€¤å‹ã«ã—ã¦è¿”ã™ã€‚
 
 	typedef WideComplexNumber<Floating> Comp;
 	const int max_dim = int(z.size());
 	assert(profile.size() == max_dim);
 	const int n = profile[0].size() - 1;
 
-	//z‚É‚Â‚¢‚Ä
+	//zã«ã¤ã„ã¦
 	std::vector<Floating> ans_z(max_dim, Floating(0.0));
 
-	//“à‘¤•ª”zŠÖ”‚Ì‘˜a‚ğŒvZ‚·‚éB
+	//å†…å´åˆ†é…é–¢æ•°ã®ç·å’Œã‚’è¨ˆç®—ã™ã‚‹ã€‚
 	Comp sum_comp(0.0, 0.0);
 	for (int i = 0; i < max_dim; ++i) {
 		sum_comp += z[i];
 	}
 
-	//“à‘¤•ª”zŠÖ”‚ÌŠe’l‚ğ‘˜a‚ÅŠ„‚Á‚Äans_z‚É“ü‚ê‚éB
+	//å†…å´åˆ†é…é–¢æ•°ã®å„å€¤ã‚’ç·å’Œã§å‰²ã£ã¦ans_zã«å…¥ã‚Œã‚‹ã€‚
 	for (int i = 0; i < max_dim; ++i) {
 		ans_z[i] = z[i].IsZero() ? Floating(0.0) : exp(z[i].log_scale - sum_comp.log_scale);
 		ans_z[i] = std::min<Floating>(Floating(1.0), ans_z[i]);
 		ans_z[i] = std::max<Floating>(Floating(0.0), ans_z[i]);
 	}
 
-	//profile‚É‚Â‚¢‚Ä
+	//profileã«ã¤ã„ã¦
 	std::vector<std::vector<std::vector<Floating>>>ans_profile(
 		max_dim, std::vector<std::vector<Floating>>(
 			n + 1, std::vector<Floating>(6, Floating(0.0))));
@@ -655,18 +655,18 @@ std::pair<std::vector<Floating>, std::vector<std::vector<std::vector<Floating>>>
 		assert(profile[i].size() == n + 1);
 		for (int j = 1; j <= n; ++j) {
 
-			//‚±‚Ì“_‚ÅAˆø”profile[i][j][k]‚Í“à‘¤•ª”zŠÖ”‚Ì’l‚É‚È‚Á‚Ä‚¢‚éB(k¸[0,5))
-			//Ú‚µ‚­Œ¾‚¤‚ÆAƒnƒ~ƒ“ƒO‹——£i‚Ì\‘¢‚½‚¿‚Ì‚¤‚¿‰–Šîj‚Ìƒvƒƒtƒ@ƒCƒ‹‚ªk‚Å‚ ‚é‚æ‚¤‚È\‘¢‚½‚¿‚Ì“à‘¤•ª”zŠÖ”‚Å‚ ‚éB
-			//•ª•ê‚Íˆø”z[i]‚Å‚ ‚éB
+			//ã“ã®æ™‚ç‚¹ã§ã€å¼•æ•°profile[i][j][k]ã¯å†…å´åˆ†é…é–¢æ•°ã®å€¤ã«ãªã£ã¦ã„ã‚‹ã€‚(kâˆˆ[0,5))
+			//è©³ã—ãè¨€ã†ã¨ã€ãƒãƒŸãƒ³ã‚°è·é›¢iã®æ§‹é€ ãŸã¡ã®ã†ã¡å¡©åŸºjã®ãƒ—ãƒ­ãƒ•ã‚¡ã‚¤ãƒ«ãŒkã§ã‚ã‚‹ã‚ˆã†ãªæ§‹é€ ãŸã¡ã®å†…å´åˆ†é…é–¢æ•°ã§ã‚ã‚‹ã€‚
+			//åˆ†æ¯ã¯å¼•æ•°z[i]ã§ã‚ã‚‹ã€‚
 
-			//profile[i][j][k](k¸[0,5))‚ÌŠe’l‚ğ‘˜a‚ÅŠ„‚Á‚Äans_profile‚É“ü‚ê‚éB
+			//profile[i][j][k](kâˆˆ[0,5))ã®å„å€¤ã‚’ç·å’Œã§å‰²ã£ã¦ans_profileã«å…¥ã‚Œã‚‹ã€‚
 			for (int k = 0; k < 5; ++k) {
 				ans_profile[i][j][k] = (profile[i][j][k].IsZero() || z[i].IsZero()) ? Floating(0.0) : exp(profile[i][j][k].log_scale - z[i].log_scale);
 				ans_profile[i][j][k] = std::min<Floating>(Floating(1.0), ans_profile[i][j][k]);
 				ans_profile[i][j][k] = std::max<Floating>(Floating(0.0), ans_profile[i][j][k]);
 			}
 
-			//profile[i][j][5]‚Í‚»‚êˆÈŠO‚©‚ç‚Ìˆø‚«Z‚Æ‚µ‚Äˆ—‚·‚éB
+			//profile[i][j][5]ã¯ãã‚Œä»¥å¤–ã‹ã‚‰ã®å¼•ãç®—ã¨ã—ã¦å‡¦ç†ã™ã‚‹ã€‚
 			ans_profile[i][j][5] = Floating(1.0);
 			for (int k = 0; k < 5; ++k)ans_profile[i][j][5] -= ans_profile[i][j][k];
 			ans_profile[i][j][5] = std::max(Floating(0.0), ans_profile[i][j][5]);
@@ -680,7 +680,7 @@ std::pair<std::vector<IntervalVar>, std::vector<std::vector<std::vector<Interval
 	const std::vector<WideComplexNumber<IntervalVar>>& z,
 	const std::vector<std::vector<std::vector<WideComplexNumber<IntervalVar>>>>& profile) {
 
-	//ComputeRintP1Dim‚ÌŒ‹‰Ê‚ğÀ”‚É‚µ‚ÄA³‹K‰»‚µ‚ÄAlogsumexp‚Å‚Í‚È‚¢•’Ê‚Ì”’lŒ^‚É‚µ‚Ä•Ô‚·B
+	//ComputeRintP1Dimã®çµæœã‚’å®Ÿæ•°ã«ã—ã¦ã€æ­£è¦åŒ–ã—ã¦ã€logsumexpã§ã¯ãªã„æ™®é€šã®æ•°å€¤å‹ã«ã—ã¦è¿”ã™ã€‚
 
 	typedef WideComplexNumber<IntervalVar> Comp;
 	const int max_dim = int(z.size());
@@ -688,10 +688,10 @@ std::pair<std::vector<IntervalVar>, std::vector<std::vector<std::vector<Interval
 	assert(profile.size() == max_dim);
 	const int n = profile[0].size() - 1;
 
-	//z‚É‚Â‚¢‚Ä
+	//zã«ã¤ã„ã¦
 	std::vector<IntervalVar>ans_z(max_dim, IntervalVar(0.0, 0.0));
 
-	//“à‘¤•ª”zŠÖ”‚Ì‘˜a‚ğŒvZ‚·‚éB
+	//å†…å´åˆ†é…é–¢æ•°ã®ç·å’Œã‚’è¨ˆç®—ã™ã‚‹ã€‚
 	Comp sum_comp = z[0];
 	for (int i = 1; i < max_dim; ++i)sum_comp += z[i];
 	assert(sum_comp.real.lower() > Floating(0.0));
@@ -701,7 +701,7 @@ std::pair<std::vector<IntervalVar>, std::vector<std::vector<std::vector<Interval
 	assert(sum_comp_inverse.imag.lower() <= Floating(0.0) && Floating(0.0) <= sum_comp_inverse.imag.upper());
 	sum_comp_inverse.log_scale *= IntervalVar(-1.0, -1.0);
 
-	//“à‘¤•ª”zŠÖ”‚ÌŠe’l‚ğ‘˜a‚ÅŠ„‚Á‚Äans_z‚É“ü‚ê‚éB
+	//å†…å´åˆ†é…é–¢æ•°ã®å„å€¤ã‚’ç·å’Œã§å‰²ã£ã¦ans_zã«å…¥ã‚Œã‚‹ã€‚
 	for (int i = 0; i < max_dim; ++i) {
 		ans_z[i] = (z[i] * sum_comp_inverse).ToUsualComp().real;
 		ans_z[i] = /*kv::*/intersect(IntervalVar(0.0, 1.0), ans_z[i]);
@@ -709,7 +709,7 @@ std::pair<std::vector<IntervalVar>, std::vector<std::vector<std::vector<Interval
 		//ans_z[i] = std::max<IntervalVar>(IntervalVar(0.0, 0.0), ans_z[i]);
 	}
 
-	//profile‚É‚Â‚¢‚Ä
+	//profileã«ã¤ã„ã¦
 	std::vector<std::vector<std::vector<IntervalVar>>>ans_profile(
 		max_dim, std::vector<std::vector<IntervalVar>>(
 			n + 1, std::vector<IntervalVar>(6, IntervalVar(0.0, 0.0))));
@@ -718,7 +718,7 @@ std::pair<std::vector<IntervalVar>, std::vector<std::vector<std::vector<Interval
 			assert(profile[i].size() == n + 1);
 			for (int j = 1; j <= n; ++j) {
 
-				//profile[i][j][k](k¸[0,5))‚ÌŠe’l‚ğ‘˜a‚ÅŠ„‚Á‚Äans_profile‚É“ü‚ê‚éB
+				//profile[i][j][k](kâˆˆ[0,5))ã®å„å€¤ã‚’ç·å’Œã§å‰²ã£ã¦ans_profileã«å…¥ã‚Œã‚‹ã€‚
 				for (int k = 0; k < 5; ++k) {
 					Comp zi_comp_inverse = z[i];
 					if (!z[i].IsZero()) {
@@ -740,18 +740,18 @@ std::pair<std::vector<IntervalVar>, std::vector<std::vector<std::vector<Interval
 					//ans_profile[i][j][k] = /*kv::*/min(ans_profile[i][j][k], IntervalVar(1.0, 1.0));
 				}
 
-				//profile[i][j][5]‚Í‚»‚êˆÈŠO‚©‚ç‚Ìˆø‚«Z‚Æ‚µ‚Äˆ—‚·‚éB
+				//profile[i][j][5]ã¯ãã‚Œä»¥å¤–ã‹ã‚‰ã®å¼•ãç®—ã¨ã—ã¦å‡¦ç†ã™ã‚‹ã€‚
 				ans_profile[i][j][5] = IntervalVar(1.0, 1.0);
 				for (int k = 0; k < 5; ++k)ans_profile[i][j][5] -= ans_profile[i][j][k];
 				ans_profile[i][j][5] = /*kv::*/intersect(IntervalVar(0.0, 1.0), ans_profile[i][j][5]);
 				//ans_profile[i][j][5] = /*kv::*/max(ans_profile[i][j][5], IntervalVar(0.0, 0.0));
 				//ans_profile[i][j][5] = /*kv::*/min(ans_profile[i][j][5], IntervalVar(1.0, 1.0));
 
-				//‚±‚Ì“_‚ÅAˆø”profile[i][j][k]‚Í“à‘¤•ª”zŠÖ”‚Ì’l‚É‚È‚Á‚Ä‚¢‚éB(k¸[0,5))
-				//Ú‚µ‚­Œ¾‚¤‚ÆAƒnƒ~ƒ“ƒO‹——£i‚Ì\‘¢‚½‚¿‚Ì‚¤‚¿‰–Šîj‚Ìƒvƒƒtƒ@ƒCƒ‹‚ªk‚Å‚ ‚é‚æ‚¤‚È\‘¢‚½‚¿‚Ì“à‘¤•ª”zŠÖ”‚Å‚ ‚éB
-				//•ª•ê‚Íˆø”z[i]‚Å‚ ‚éB
+				//ã“ã®æ™‚ç‚¹ã§ã€å¼•æ•°profile[i][j][k]ã¯å†…å´åˆ†é…é–¢æ•°ã®å€¤ã«ãªã£ã¦ã„ã‚‹ã€‚(kâˆˆ[0,5))
+				//è©³ã—ãè¨€ã†ã¨ã€ãƒãƒŸãƒ³ã‚°è·é›¢iã®æ§‹é€ ãŸã¡ã®ã†ã¡å¡©åŸºjã®ãƒ—ãƒ­ãƒ•ã‚¡ã‚¤ãƒ«ãŒkã§ã‚ã‚‹ã‚ˆã†ãªæ§‹é€ ãŸã¡ã®å†…å´åˆ†é…é–¢æ•°ã§ã‚ã‚‹ã€‚
+				//åˆ†æ¯ã¯å¼•æ•°z[i]ã§ã‚ã‚‹ã€‚
 
-				////‚Ü‚¸“à‘¤•ª”zŠÖ”‚Í0ˆÈã‚ÌÀ”‚È‚Ì‚ÅA‚»‚Ì‚æ‚¤‚É•ÏŠ·‚·‚éB
+				////ã¾ãšå†…å´åˆ†é…é–¢æ•°ã¯0ä»¥ä¸Šã®å®Ÿæ•°ãªã®ã§ã€ãã®ã‚ˆã†ã«å¤‰æ›ã™ã‚‹ã€‚
 				//std::vector<WideRealNumber<IntervalVar>>tmp_profile(5, 0.0);
 				//for (int k = 0; k < 5; ++k) {
 				//	tmp_profile[k] = WideRealNumber<IntervalVar>::LogRealToWide(profile[i][j][k].log_scale);
@@ -760,14 +760,14 @@ std::pair<std::vector<IntervalVar>, std::vector<std::vector<std::vector<Interval
 				//	tmp_profile[k] *= tmp;
 				//}
 
-				////profile[i][j][k](k¸[0,5))‚ÌŠe’l‚ğ‘˜a‚ÅŠ„‚Á‚Äans_profile‚É“ü‚ê‚éB
+				////profile[i][j][k](kâˆˆ[0,5))ã®å„å€¤ã‚’ç·å’Œã§å‰²ã£ã¦ans_profileã«å…¥ã‚Œã‚‹ã€‚
 				//for (int k = 0; k < 5; ++k) {
 				//	ans_profile[i][j][k] = (tmp_profile[k] / tmp_z[i]).ToUsualReal();
 				//	ans_profile[i][j][k] = /*kv::*/max(ans_profile[i][j][k], IntervalVar(0.0, 0.0));
 				//	ans_profile[i][j][k] = /*kv::*/min(ans_profile[i][j][k], IntervalVar(1.0, 1.0));
 				//}
 
-				////profile[i][j][5]‚Í‚»‚êˆÈŠO‚©‚ç‚Ìˆø‚«Z‚Æ‚µ‚Äˆ—‚·‚éB
+				////profile[i][j][5]ã¯ãã‚Œä»¥å¤–ã‹ã‚‰ã®å¼•ãç®—ã¨ã—ã¦å‡¦ç†ã™ã‚‹ã€‚
 				//ans_profile[i][j][5] = IntervalVar(1.0, 1.0);
 				//for (int k = 0; k < 5; ++k)ans_profile[i][j][5] -= ans_profile[i][j][k];
 				//ans_profile[i][j][5] = /*kv::*/max(ans_profile[i][j][5], IntervalVar(0.0, 0.0));
@@ -788,11 +788,11 @@ std::pair<std::vector<double>, std::vector<std::vector<std::vector<double>>>> Br
 	const int max_span,
 	const int max_loop) {
 
-	//ˆø”sequence‚ÍAUCG‚©‚ç¬‚éRNA”z—ñ‚Æ‚·‚éB
-	//ˆø”reference_structure‚ÍƒŠƒtƒ@ƒŒƒ“ƒX\‘¢‚Æ‚·‚éB
-	//”CˆÓ‚Ì“ñŸ\‘¢‚É‚Â‚¢‚ÄAƒŠƒtƒ@ƒŒƒ“ƒX\‘¢‚©‚ç‚Ìƒnƒ~ƒ“ƒO‹——£‚Ímax_dimˆÈ‰º‚Æ‰¼’è‚·‚éB
+	//å¼•æ•°sequenceã¯AUCGã‹ã‚‰æˆã‚‹RNAé…åˆ—ã¨ã™ã‚‹ã€‚
+	//å¼•æ•°reference_structureã¯ãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹æ§‹é€ ã¨ã™ã‚‹ã€‚
+	//ä»»æ„ã®äºŒæ¬¡æ§‹é€ ã«ã¤ã„ã¦ã€ãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹æ§‹é€ ã‹ã‚‰ã®ãƒãƒŸãƒ³ã‚°è·é›¢ã¯max_dimä»¥ä¸‹ã¨ä»®å®šã™ã‚‹ã€‚
 
-	//reference_structure‚©‚ç‚Ìƒnƒ~ƒ“ƒO‹——£‚²‚Æ‚Éstructural profile‚ğ‹‚ß‚Ä•Ô‚·B
+	//reference_structureã‹ã‚‰ã®ãƒãƒŸãƒ³ã‚°è·é›¢ã”ã¨ã«structural profileã‚’æ±‚ã‚ã¦è¿”ã™ã€‚
 
 	parasor_param::InitializeParameter("Turner2004", temperature);
 	const int n = int(sequence.size());

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 GNU GPL v2
 Copyright (c) 2020 Hiroki Takizawa
 */
@@ -61,7 +61,7 @@ public:
 		return ans;
 	}
 	static UsualComplexNumber LogRealToComp(const RealScalar& x) {
-		//À”x‚ğó‚¯æ‚Á‚Äexp(x)+0i‚ğ•Ô‚·B
+		//å®Ÿæ•°xã‚’å—ã‘å–ã£ã¦exp(x)+0iã‚’è¿”ã™ã€‚
 		UsualComplexNumber ans;
 		ans.real = exp(x);
 		ans.imag = RealScalar(0.0);

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 GNU GPL v2
 Copyright (c) 2020 Hiroki Takizawa
 */
@@ -21,11 +21,11 @@ Copyright (c) 2020 Hiroki Takizawa
 #include <thread>
 
 //#ifdef _MSC_VER
-//// ÀŒ±“I‚ÈÀ‘•‚ğg‚¤
+//// å®Ÿé¨“çš„ãªå®Ÿè£…ã‚’ä½¿ã†
 //#include <experimental/filesystem>
 //namespace fs = std::experimental::filesystem;
 //#else
-//// ƒtƒ@ƒCƒ‹ƒVƒXƒeƒ€‚ğƒTƒ|[ƒg‚µ‚Ä‚¢‚é
+//// ãƒ•ã‚¡ã‚¤ãƒ«ã‚·ã‚¹ãƒ†ãƒ ã‚’ã‚µãƒãƒ¼ãƒˆã—ã¦ã„ã‚‹
 //#include <filesystem>
 //namespace fs = std::filesystem;
 //#endif
@@ -700,7 +700,7 @@ void AccuracyExperiment2() {
 
 
 void HeatResistanceExperiment(const std::string filename, double threshold) {
-	//CentroidFold‚ÅƒŠƒtƒ@ƒŒƒ“ƒXæ‚Á‚ÄHagio¨æ‚è’¼‚µ‚ÄMori
+	//CentroidFoldã§ãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹å–ã£ã¦Hagioâ†’å–ã‚Šç›´ã—ã¦Mori
 
 	//temp <- [37, 55]
 
@@ -774,9 +774,9 @@ void HeatResistanceExperiment(const std::string filename, double threshold) {
 	std::cout << "ToBppm..." << std::endl;
 	const auto hagio_result = RintW1DimToBppm(hagio.first, hagio.second);
 	std::cout << "end: Hagiotool for making better reference" << std::endl;
-	//R‚ÌBPPM‚ğ‹‚ß‚é
+	//å±±ã®BPPMã‚’æ±‚ã‚ã‚‹
 
-	//vector<float>‚ğ“ü—Í‚µ‚ÄA˜A‘±‚·‚é•”•ª—ñ‚Å‘˜a‚ª0.1ˆÈã‚É‚È‚é‚æ‚¤‚ÈÅ’Z‚Ì‚à‚Ì‚Ì¶’[‚ÌƒCƒ“ƒfƒbƒNƒX‚ğo—Í‚·‚éŠÖ”‚ğì‚éB
+	//vector<float>ã‚’å…¥åŠ›ã—ã¦ã€é€£ç¶šã™ã‚‹éƒ¨åˆ†åˆ—ã§ç·å’ŒãŒ0.1ä»¥ä¸Šã«ãªã‚‹ã‚ˆã†ãªæœ€çŸ­ã®ã‚‚ã®ã®å·¦ç«¯ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’å‡ºåŠ›ã™ã‚‹é–¢æ•°ã‚’ä½œã‚‹ã€‚
 	auto func1 = [&](const double sum) {
 		int ansL = -1, ansLen = hagio_result.first.size();
 		for (int i = 0; i < hagio_result.first.size(); ++i) {
@@ -796,7 +796,7 @@ void HeatResistanceExperiment(const std::string filename, double threshold) {
 		return ansL;
 	};
 
-	//¶’[‚ÌƒCƒ“ƒfƒbƒNƒX‚ğo—Í‚·‚éB
+	//å·¦ç«¯ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’å‡ºåŠ›ã™ã‚‹ã€‚
 	auto func2 = [&](const double sum, const int ansL) {
 		double actual_sum = 0.0;
 		int ansR = -1;
@@ -810,7 +810,7 @@ void HeatResistanceExperiment(const std::string filename, double threshold) {
 		return ansR;
 	};
 
-	//V‚µ‚¢ƒŠƒtƒ@ƒŒƒ“ƒX‚ğì‚é‚½‚ß‚ÌBPPM‚ğ‹‚ß‚éB
+	//æ–°ã—ã„ãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹ã‚’ä½œã‚‹ãŸã‚ã®BPPMã‚’æ±‚ã‚ã‚‹ã€‚
 	auto func3 = [&](const int ansL, const int ansR) {
 
 		double actual_sum = 0.0;
@@ -956,7 +956,7 @@ void HeatResistanceExperimentPK(const std::string sequencefilename, const std::s
 }
 
 void RrnaAccuracyExperiment(const std::string filename) {
-	//CentroidFold‚ÅƒŠƒtƒ@ƒŒƒ“ƒXæ‚Á‚ÄHagio
+	//CentroidFoldã§ãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹å–ã£ã¦Hagio
 
 	//temp 37
 

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 GNU GPL v2
 Copyright (c) 2020 Hiroki Takizawa
 */
@@ -26,7 +26,7 @@ void TestMaxHamming(const int num) {
 	for (int iteration = 0; iteration < num; ++iteration) {
 		std::cout << iteration << std::endl;
 
-		//ComputeMaxHammingDistance‚ª³‚µ‚¢‰ð‚ð•Ô‚·‚±‚Æ‚ðŠm”F‚·‚éB
+		//ComputeMaxHammingDistanceãŒæ­£ã—ã„è§£ã‚’è¿”ã™ã“ã¨ã‚’ç¢ºèªã™ã‚‹ã€‚
 		const int n = length(rnd);
 		const int max_span = (iteration % 2) ? n - span(rnd) : n;
 		const int max_loop = ((iteration / 2) % 2) ? 13 - span(rnd) : n;
@@ -56,8 +56,8 @@ void TestSampling(const int num) {
 		std::cout << iteration << std::endl;
 
 		{
-			//‚·‚²‚­’Z‚¢RNA‚Ì”z—ñ‚É‘Î‚µ‚ÄA
-			//Brute Force‚Å‘S—ñ‹“‚µ‚½\‘¢‚Ì”‚Æ“à‘¤•ª”zŠÖ”‚Ì’l‚ª“™‚µ‚¢‚±‚Æ‚ðŠm‚©‚ß‚éB
+			//ã™ã”ãçŸ­ã„RNAã®é…åˆ—ã«å¯¾ã—ã¦ã€
+			//Brute Forceã§å…¨åˆ—æŒ™ã—ãŸæ§‹é€ ã®æ•°ã¨å†…å´åˆ†é…é–¢æ•°ã®å€¤ãŒç­‰ã—ã„ã“ã¨ã‚’ç¢ºã‹ã‚ã‚‹ã€‚
 			const int n = length(rnd);
 			const int max_span = (iteration % 2) ? n - span(rnd) : n;
 			const int max_loop = ((iteration / 2) % 2) ? 13 - span(rnd) : n;
@@ -73,7 +73,7 @@ void TestSampling(const int num) {
 		}
 
 		{
-			//’·‚ß‚ÌRNA”z—ñ‚É‘Î‚µ‚ÄA’P‚È‚éMcCaskillŒ^DP‚ÆSampling‚Å‰–Šî‘ÎŠm—¦s—ñ‚ª‚Ù‚Úˆê’v‚·‚é‚±‚Æ‚ðŠm‚©‚ß‚éB
+			//é•·ã‚ã®RNAé…åˆ—ã«å¯¾ã—ã¦ã€å˜ãªã‚‹McCaskillåž‹DPã¨Samplingã§å¡©åŸºå¯¾ç¢ºçŽ‡è¡Œåˆ—ãŒã»ã¼ä¸€è‡´ã™ã‚‹ã“ã¨ã‚’ç¢ºã‹ã‚ã‚‹ã€‚
 			const int n = longlength(rnd);
 			const int max_span = (iteration % 2) ? std::min(n, longspan(rnd)) : n;
 			const int max_loop = ((iteration / 2) % 2) ? (longspan(rnd) % 30) : 30;
@@ -99,7 +99,7 @@ void TestSimpleMcCaskillWide(const int num) {
 		std::cout << iteration << std::endl;
 
 		{
-			//’·‚ß‚ÌRNA”z—ñ‚É‘Î‚µ‚ÄAWide‚ÆUsual‚Å“à‘¤•ª”zŠÖ”‚ªˆê’v‚·‚é‚±‚Æ‚ðŠm‚©‚ß‚éB
+			//é•·ã‚ã®RNAé…åˆ—ã«å¯¾ã—ã¦ã€Wideã¨Usualã§å†…å´åˆ†é…é–¢æ•°ãŒä¸€è‡´ã™ã‚‹ã“ã¨ã‚’ç¢ºã‹ã‚ã‚‹ã€‚
 			const int n = longlength(rnd);
 			options.max_span = (iteration % 2) ? std::min(n, longspan(rnd)) : n;
 			options.max_loop = ((iteration / 2) % 2) ? (longspan(rnd) % 30) : 30;
@@ -139,7 +139,7 @@ void TestRintD1Dim(const int num) {
 		std::cout << iteration << std::endl;
 
 		{
-			//‚·‚²‚­’Z‚¢RNA”z—ñ‚É‘Î‚µ‚ÄABrute Force‚ÆDP+DFT‚Å‰ð‚ªˆê’v‚·‚é‚±‚Æ‚ðŠm‚©‚ß‚éB
+			//ã™ã”ãçŸ­ã„RNAé…åˆ—ã«å¯¾ã—ã¦ã€Brute Forceã¨DP+DFTã§è§£ãŒä¸€è‡´ã™ã‚‹ã“ã¨ã‚’ç¢ºã‹ã‚ã‚‹ã€‚
 			const int n = length(rnd);
 			options.max_span = (iteration % 2) ? n - span(rnd) : n;
 			options.max_loop = ((iteration / 2) % 2) ? 13 - span(rnd) : n;
@@ -166,7 +166,7 @@ void TestRintD1Dim(const int num) {
 		}
 
 		{
-			//’·‚ß‚ÌRNA”z—ñ‚É‘Î‚µ‚ÄA’P‚È‚éMcCaskillŒ^DP‚ÆMoriDP+DFT‚Å“à‘¤•ª”zŠÖ”‚ªˆê’v‚·‚é‚±‚Æ‚ðŠm‚©‚ß‚éB
+			//é•·ã‚ã®RNAé…åˆ—ã«å¯¾ã—ã¦ã€å˜ãªã‚‹McCaskillåž‹DPã¨MoriDP+DFTã§å†…å´åˆ†é…é–¢æ•°ãŒä¸€è‡´ã™ã‚‹ã“ã¨ã‚’ç¢ºã‹ã‚ã‚‹ã€‚
 			const int n = longlength(rnd);
 			options.max_span = (iteration % 2) ? std::min(n, longspan(rnd)) : n;
 			options.max_loop = ((iteration / 2) % 2) ? (longspan(rnd) % 30) : 30;
@@ -212,7 +212,7 @@ void TestRintD2Dim(const int num) {
 		std::cout << iteration << std::endl;
 
 		{
-			//‚·‚²‚­’Z‚¢RNA”z—ñ‚É‘Î‚µ‚ÄABrute Force‚ÆDP+DFT‚Å‰ð‚ªˆê’v‚·‚é‚±‚Æ‚ðŠm‚©‚ß‚éB
+			//ã™ã”ãçŸ­ã„RNAé…åˆ—ã«å¯¾ã—ã¦ã€Brute Forceã¨DP+DFTã§è§£ãŒä¸€è‡´ã™ã‚‹ã“ã¨ã‚’ç¢ºã‹ã‚ã‚‹ã€‚
 			const int n = length(rnd);
 			options.max_span = (iteration % 2) ? n - span(rnd) : n;
 			options.max_loop = ((iteration / 2) % 2) ? 13 - span(rnd) : n;
@@ -242,7 +242,7 @@ void TestRintD2Dim(const int num) {
 		}
 
 		{
-			//’·‚ß‚ÌRNA”z—ñ‚É‘Î‚µ‚ÄA’P‚È‚éMcCaskillŒ^DP‚ÆMoriDP+DFT‚Å“à‘¤•ª”zŠÖ”‚ªˆê’v‚·‚é‚±‚Æ‚ðŠm‚©‚ß‚éB
+			//é•·ã‚ã®RNAé…åˆ—ã«å¯¾ã—ã¦ã€å˜ãªã‚‹McCaskillåž‹DPã¨MoriDP+DFTã§å†…å´åˆ†é…é–¢æ•°ãŒä¸€è‡´ã™ã‚‹ã“ã¨ã‚’ç¢ºã‹ã‚ã‚‹ã€‚
 			const int n = longlength(rnd);
 			options.max_span = (iteration % 2) ? std::min(n, longspan(rnd)) : n;
 			options.max_loop = ((iteration / 2) % 2) ? (longspan(rnd) % 30) : 30;
@@ -294,7 +294,7 @@ void TestRintW1Dim(const int num) {
 		std::cout << iteration << std::endl;
 
 		{
-			//‚·‚²‚­’Z‚¢RNA”z—ñ‚É‘Î‚µ‚ÄABrute Force‚ÆDP+DFT‚Å‰ð‚ªˆê’v‚·‚é‚±‚Æ‚ðŠm‚©‚ß‚éB
+			//ã™ã”ãçŸ­ã„RNAé…åˆ—ã«å¯¾ã—ã¦ã€Brute Forceã¨DP+DFTã§è§£ãŒä¸€è‡´ã™ã‚‹ã“ã¨ã‚’ç¢ºã‹ã‚ã‚‹ã€‚
 
 			const int n = length(rnd);
 			options.max_span = (iteration % 2) ? n - span(rnd) : n;
@@ -328,7 +328,7 @@ void TestRintW1Dim(const int num) {
 		}
 
 		{
-			//’·‚ß‚ÌRNA”z—ñ‚É‘Î‚µ‚ÄA’P‚È‚éMcCaskillŒ^DP‚ÆHagioDP+DFT‚Å“à‘¤•ª”zŠÖ”‚Æ‰–Šî‘ÎŠm—¦s—ñ‚ªˆê’v‚·‚é‚±‚Æ‚ðŠm‚©‚ß‚éB
+			//é•·ã‚ã®RNAé…åˆ—ã«å¯¾ã—ã¦ã€å˜ãªã‚‹McCaskillåž‹DPã¨HagioDP+DFTã§å†…å´åˆ†é…é–¢æ•°ã¨å¡©åŸºå¯¾ç¢ºçŽ‡è¡Œåˆ—ãŒä¸€è‡´ã™ã‚‹ã“ã¨ã‚’ç¢ºã‹ã‚ã‚‹ã€‚
 			const int n = longlength(rnd);
 			options.max_span = (iteration % 2) ? std::min(n, longspan(rnd)) : n;
 			options.max_loop = ((iteration / 2) % 2) ? (longspan(rnd) % 30) : 30;
@@ -381,7 +381,7 @@ void TestRintW2Dim(const int num) {
 		std::cout << iteration << std::endl;
 
 		{
-			//‚·‚²‚­’Z‚¢RNA”z—ñ‚É‘Î‚µ‚ÄABrute Force‚ÆDP+DFT‚Å‰ð‚ªˆê’v‚·‚é‚±‚Æ‚ðŠm‚©‚ß‚éB
+			//ã™ã”ãçŸ­ã„RNAé…åˆ—ã«å¯¾ã—ã¦ã€Brute Forceã¨DP+DFTã§è§£ãŒä¸€è‡´ã™ã‚‹ã“ã¨ã‚’ç¢ºã‹ã‚ã‚‹ã€‚
 
 			const int n = length(rnd);
 			options.max_span = (iteration % 2) ? n - span(rnd) : n;
@@ -418,7 +418,7 @@ void TestRintW2Dim(const int num) {
 		}
 
 		{
-			//’·‚ß‚ÌRNA”z—ñ‚É‘Î‚µ‚ÄA’P‚È‚éMcCaskillŒ^DP‚ÆHagioDP+DFT‚Å“à‘¤•ª”zŠÖ”‚Æ‰–Šî‘ÎŠm—¦s—ñ‚ªˆê’v‚·‚é‚±‚Æ‚ðŠm‚©‚ß‚éB
+			//é•·ã‚ã®RNAé…åˆ—ã«å¯¾ã—ã¦ã€å˜ãªã‚‹McCaskillåž‹DPã¨HagioDP+DFTã§å†…å´åˆ†é…é–¢æ•°ã¨å¡©åŸºå¯¾ç¢ºçŽ‡è¡Œåˆ—ãŒä¸€è‡´ã™ã‚‹ã“ã¨ã‚’ç¢ºã‹ã‚ã‚‹ã€‚
 			const int n = longlength(rnd);
 			options.max_span = (iteration % 2) ? std::min(n, longspan(rnd)) : n;
 			options.max_loop = ((iteration / 2) % 2) ? (longspan(rnd) % 30) : 30;
@@ -482,7 +482,7 @@ void TestCentroidFold(const int num) {
 		const Floating gamma = Floating(gamma_rnd(rnd));
 
 		{
-			//’Z‚¢RNA”z—ñ‚É‘Î‚µ‚ÄABrute Force‚Å‹‚ß‚½MEG\‘¢‚Æ‡‚Á‚Ä‚¢‚é‚±‚Æ‚ðŠm”F‚·‚éB
+			//çŸ­ã„RNAé…åˆ—ã«å¯¾ã—ã¦ã€Brute Forceã§æ±‚ã‚ãŸMEGæ§‹é€ ã¨åˆã£ã¦ã„ã‚‹ã“ã¨ã‚’ç¢ºèªã™ã‚‹ã€‚
 
 			const int n = length(rnd);
 			options.max_span = (iteration % 2) ? n - span(rnd) : n;
@@ -521,7 +521,7 @@ void TestCentroidFold(const int num) {
 		}
 
 		{
-			//’·‚ß‚ÌRNA”z—ñ‚É‘Î‚µ‚ÄA“š‚¦‚ÌŒ`Ž®‚ª³‚µ‚¢‚±‚Æ‚ÆAƒnƒ~ƒ“ƒO‹——£‚²‚Æ‚Ì‰ð‚É^‚ÌMEG\‘¢‚ªŠÜ‚Ü‚ê‚é‚±‚Æ‚ðŠm”F‚·‚éB
+			//é•·ã‚ã®RNAé…åˆ—ã«å¯¾ã—ã¦ã€ç­”ãˆã®å½¢å¼ãŒæ­£ã—ã„ã“ã¨ã¨ã€ãƒãƒŸãƒ³ã‚°è·é›¢ã”ã¨ã®è§£ã«çœŸã®MEGæ§‹é€ ãŒå«ã¾ã‚Œã‚‹ã“ã¨ã‚’ç¢ºèªã™ã‚‹ã€‚
 
 			const int n = longlength(rnd);
 			options.max_span = (iteration % 2) ? std::min(n, longspan(rnd)) : n;
@@ -575,7 +575,7 @@ void TestHagioNonFourier(const int num) {
 		std::cout << iteration << std::endl;
 
 		{
-			//’·‚ß‚ÌRNA”z—ñ‚É‘Î‚µ‚ÄADFT”Å‚ÆNonFourier”Å‚Å¸“x•ÛØ‹æŠÔ‚ªoverlap‚·‚é‚±‚Æ‚ðŠm‚©‚ß‚éB
+			//é•·ã‚ã®RNAé…åˆ—ã«å¯¾ã—ã¦ã€DFTç‰ˆã¨NonFourierç‰ˆã§ç²¾åº¦ä¿è¨¼åŒºé–“ãŒoverlapã™ã‚‹ã“ã¨ã‚’ç¢ºã‹ã‚ã‚‹ã€‚
 			const int n = longlength(rnd);
 			options.max_span = (iteration % 2) ? std::min(n, longspan(rnd)) : n;
 			options.max_loop = ((iteration / 2) % 2) ? (longspan(rnd) % 30) : 30;
@@ -618,7 +618,7 @@ void TestMaxHammingPK(const int num) {
 		std::cout << iteration << std::endl;
 
 
-		//ComputeMaxHammingDistance‚ª³‚µ‚¢‰ð‚ð•Ô‚·‚±‚Æ‚ðŠm”F‚·‚éB
+		//ComputeMaxHammingDistanceãŒæ­£ã—ã„è§£ã‚’è¿”ã™ã“ã¨ã‚’ç¢ºèªã™ã‚‹ã€‚
 
 
 
@@ -656,7 +656,7 @@ void TestRintD1DimPK(const int num) {
 		std::cout << iteration << std::endl;
 
 		{
-			//‚·‚²‚­’Z‚¢RNA”z—ñ‚É‘Î‚µ‚ÄABrute Force‚ÆDP+DFT‚Å‰ð‚ªˆê’v‚·‚é‚±‚Æ‚ðŠm‚©‚ß‚éB
+			//ã™ã”ãçŸ­ã„RNAé…åˆ—ã«å¯¾ã—ã¦ã€Brute Forceã¨DP+DFTã§è§£ãŒä¸€è‡´ã™ã‚‹ã“ã¨ã‚’ç¢ºã‹ã‚ã‚‹ã€‚
 			const int n = length(rnd);
 			options.max_span = (iteration % 2) ? n - span(rnd) : n;
 			options.max_loop = ((iteration / 2) % 2) ? 13 - span(rnd) : n;
@@ -683,7 +683,7 @@ void TestRintD1DimPK(const int num) {
 		}
 
 		{
-			//’·‚ß‚ÌRNA”z—ñ‚É‘Î‚µ‚ÄA’P‚È‚éMcCaskillŒ^DP‚ÆMoriDP+DFT‚Å“à‘¤•ª”zŠÖ”‚ªˆê’v‚·‚é‚±‚Æ‚ðŠm‚©‚ß‚éB
+			//é•·ã‚ã®RNAé…åˆ—ã«å¯¾ã—ã¦ã€å˜ãªã‚‹McCaskillåž‹DPã¨MoriDP+DFTã§å†…å´åˆ†é…é–¢æ•°ãŒä¸€è‡´ã™ã‚‹ã“ã¨ã‚’ç¢ºã‹ã‚ã‚‹ã€‚
 			const int n = longlength(rnd);
 			options.max_span = (iteration % 2) ? std::min(n, longspan(rnd)) : n;
 			options.max_loop = ((iteration / 2) % 2) ? (longspan(rnd) % 30) : 30;

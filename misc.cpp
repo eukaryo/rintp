@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 GNU GPL v2
 Copyright (c) 2020 Hiroki Takizawa
 */
@@ -13,7 +13,7 @@ int Ceiling2Power(int h) {
 	//Returns the minimum integer as represented by the power of 2,
 	//greater than or equal to h.
 
-	//hˆÈã‚Ì®”‚Ì‚¤‚¿A2‚Ì‚×‚«æ‚Å•\‚³‚ê‚é‚æ‚¤‚ÈÅ¬‚Ì”‚ğ‹‚ß‚Ä•Ô‚·B
+	//hä»¥ä¸Šã®æ•´æ•°ã®ã†ã¡ã€2ã®ã¹ãä¹—ã§è¡¨ã•ã‚Œã‚‹ã‚ˆã†ãªæœ€å°ã®æ•°ã‚’æ±‚ã‚ã¦è¿”ã™ã€‚
 
 	assert(0 <= h && h <= 1000000);
 
@@ -39,7 +39,7 @@ int ComputeMaxLoop(const std::string& structure) {
 	//Compute the maximum value of unpaired base number
 	//of "internal loop" and "bulge" in "structure".
 
-	//RNA“ñŸ\‘¢structure‚Ì‚È‚©‚ÅAinternal loop‚Æbulge‚Ìunpaired base”‚ÌÅ‘å’l‚ğ‹‚ß‚Ä•Ô‚·B
+	//RNAäºŒæ¬¡æ§‹é€ structureã®ãªã‹ã§ã€internal loopã¨bulgeã®unpaired baseæ•°ã®æœ€å¤§å€¤ã‚’æ±‚ã‚ã¦è¿”ã™ã€‚
 
 	const int n = int(structure.size());
 
@@ -86,11 +86,11 @@ int ComputeMaxLoop(const std::string& structure) {
 }
 
 std::vector<std::vector<int>> VerifyAndParseStructure(const std::string& structure, const std::string& sequence, const int max_span, const int max_loop) {
-	//ˆø”structure‚Íƒuƒ‰ƒPƒbƒg•\‹L‚ÌRNA“ñŸ\‘¢‚Æ‚·‚éB
-	//‚±‚ê‚ÌƒxƒŠƒtƒ@ƒC‚ğ‚µ‚Â‚ÂA‰½”Ô‚Æ‰½”Ô‚Ì‰–Šî‚ª‰–Šî‘Î‚ğ‘g‚ñ‚Å‚¢‚é‚©’²‚×‚Ä•Ô‚·B
+	//å¼•æ•°structureã¯ãƒ–ãƒ©ã‚±ãƒƒãƒˆè¡¨è¨˜ã®RNAäºŒæ¬¡æ§‹é€ ã¨ã™ã‚‹ã€‚
+	//ã“ã‚Œã®ãƒ™ãƒªãƒ•ã‚¡ã‚¤ã‚’ã—ã¤ã¤ã€ä½•ç•ªã¨ä½•ç•ªã®å¡©åŸºãŒå¡©åŸºå¯¾ã‚’çµ„ã‚“ã§ã„ã‚‹ã‹èª¿ã¹ã¦è¿”ã™ã€‚
 
-	//•Ô‚è’l‚Ís—ñ‚ÅAi<j‚È‚é(i,j)‚ª‰–Šî‘Î‚ğ‘g‚ñ‚Å‚¢‚é‚È‚ç[i][j]=1‚ÅA‚»‚êˆÈŠO‚Í0‚Æ‚·‚éB
-	//‚±‚Ì‚Æ‚«‚Ìi,j‚Í1-origin‚Æ‚·‚éB
+	//è¿”ã‚Šå€¤ã¯è¡Œåˆ—ã§ã€i<jãªã‚‹(i,j)ãŒå¡©åŸºå¯¾ã‚’çµ„ã‚“ã§ã„ã‚‹ãªã‚‰[i][j]=1ã§ã€ãã‚Œä»¥å¤–ã¯0ã¨ã™ã‚‹ã€‚
+	//ã“ã®ã¨ãã®i,jã¯1-originã¨ã™ã‚‹ã€‚
 
 	for (const char c : sequence) {
 		assert(c == 'A' || c == 'U' || c == 'G' || c == 'C');
@@ -132,20 +132,20 @@ std::vector<std::vector<int>> VerifyAndParseStructure(const std::string& structu
 }
 
 std::vector<std::vector<int>> ComputePredistanceMatrix(const std::vector<std::vector<int>>& S) {
-	//ˆø”S‚ÍVerifyAndParseStructure‚Å“¾‚ç‚ê‚½‰–Šî‘Îs—ñS(1-origin)‚ÅA
-	//sequence‚Ì“ñŸ\‘¢‚Æ‚µ‚Ävalid‚¾‚Æ‚·‚éB
+	//å¼•æ•°Sã¯VerifyAndParseStructureã§å¾—ã‚‰ã‚ŒãŸå¡©åŸºå¯¾è¡Œåˆ—S(1-origin)ã§ã€
+	//sequenceã®äºŒæ¬¡æ§‹é€ ã¨ã—ã¦validã ã¨ã™ã‚‹ã€‚
 
-	//PredistanceMatrix(1-origin)‚ğì‚Á‚Ä•Ô‚·B
-	//PredistanceMatrix‚Æ‚Í[Mori et al., 2014]‚Ìsupp‚Ì®(S10)‚ÌC‚Ì‚±‚Æ‚Å‚ ‚éB
+	//PredistanceMatrix(1-origin)ã‚’ä½œã£ã¦è¿”ã™ã€‚
+	//PredistanceMatrixã¨ã¯[Mori et al., 2014]ã®suppã®å¼(S10)ã®Cã®ã“ã¨ã§ã‚ã‚‹ã€‚
 
 	const int n = int(S.size()) - 1;
 	std::vector<std::vector<int>>C(n + 1, std::vector<int>(n + 1, 0));
 
-	//[Mori et al., 2014]‚Ìsupp‚Ìsection S2‚Å‚ÍDP‚Å‹Lq‚³‚ê‚Ä‚¢‚é‚ªA
-	//‚±‚±‚Å‚Íƒƒ‚‰»Ä‹A‚Å‘‚­B
+	//[Mori et al., 2014]ã®suppã®section S2ã§ã¯DPã§è¨˜è¿°ã•ã‚Œã¦ã„ã‚‹ãŒã€
+	//ã“ã“ã§ã¯ãƒ¡ãƒ¢åŒ–å†å¸°ã§æ›¸ãã€‚
 	std::vector<std::vector<int>>memo(n + 1, std::vector<int>(n + 1, 0));
 
-	//[Mori et al., 2014]‚Ìsupp‚Ì®(S11)A(S12)‚Ì‰Šú‰»ˆ—‚Å‚ ‚éB
+	//[Mori et al., 2014]ã®suppã®å¼(S11)ã€(S12)ã®åˆæœŸåŒ–å‡¦ç†ã§ã‚ã‚‹ã€‚
 	for (int i = 1; i <= n; ++i) {
 		memo[i][i] = 1;
 		C[i][i] = 0;
@@ -155,7 +155,7 @@ std::vector<std::vector<int>> ComputePredistanceMatrix(const std::vector<std::ve
 		C[i][i + 1] = S[i][i + 1];
 	}
 
-	//[Mori et al., 2014]‚Ìsupp‚Ì®(S13)‚ÌÄ‹Aˆ—‚Å‚ ‚éB
+	//[Mori et al., 2014]ã®suppã®å¼(S13)ã®å†å¸°å‡¦ç†ã§ã‚ã‚‹ã€‚
 	std::function<int(int, int)> GetC = [&](const int i, const int j) {
 		assert(1 <= i && i <= j && j <= n);
 		if (memo[i][j])return C[i][j];
@@ -163,7 +163,7 @@ std::vector<std::vector<int>> ComputePredistanceMatrix(const std::vector<std::ve
 		return C[i][j] = S[i][j] + GetC(i + 1, j) + GetC(i, j - 1) - GetC(i + 1, j - 1);
 	};
 
-	//ƒƒ‚‰»Ä‹A‚É‚æ‚éŒvZ‚ğÀs‚·‚éB
+	//ãƒ¡ãƒ¢åŒ–å†å¸°ã«ã‚ˆã‚‹è¨ˆç®—ã‚’å®Ÿè¡Œã™ã‚‹ã€‚
 	for (int i = 1; i <= n; ++i) {
 		for (int j = i; j <= n; ++j) {
 			GetC(i, j);
@@ -174,31 +174,31 @@ std::vector<std::vector<int>> ComputePredistanceMatrix(const std::vector<std::ve
 }
 
 int ComputeMaxHammingDistance(const std::string& sequence, const std::vector<std::vector<int>>& S, const int max_span, const int max_loop) {
-	//ˆø”sequence‚ÍAUCG‚©‚ç¬‚éRNA”z—ñ‚Æ‚·‚éB
-	//ˆø”S‚ÍVerifyAndParseStructure‚Å“¾‚ç‚ê‚½‰–Šî‘Îs—ñS(1-origin)‚Æ‚·‚éB
+	//å¼•æ•°sequenceã¯AUCGã‹ã‚‰æˆã‚‹RNAé…åˆ—ã¨ã™ã‚‹ã€‚
+	//å¼•æ•°Sã¯VerifyAndParseStructureã§å¾—ã‚‰ã‚ŒãŸå¡©åŸºå¯¾è¡Œåˆ—S(1-origin)ã¨ã™ã‚‹ã€‚
 
-	//sequence‚É‚Â‚¢‚Ä‰Â”\‚È‘S‚Ä‚Ì“ñŸ\‘¢‚É‚Â‚¢‚Ä‚Ì
-	//reference_structure‚©‚ç‚Ìƒnƒ~ƒ“ƒO‹——£‚ÌÅ‘å’l‚ğ‹‚ß‚Ä•Ô‚·B
-	//‚±‚ê‚Í[Mori et al., 2014]‚Ìsupp‚Ìsection S3‚Ìˆ—‚Å‚ ‚éB
+	//sequenceã«ã¤ã„ã¦å¯èƒ½ãªå…¨ã¦ã®äºŒæ¬¡æ§‹é€ ã«ã¤ã„ã¦ã®
+	//reference_structureã‹ã‚‰ã®ãƒãƒŸãƒ³ã‚°è·é›¢ã®æœ€å¤§å€¤ã‚’æ±‚ã‚ã¦è¿”ã™ã€‚
+	//ã“ã‚Œã¯[Mori et al., 2014]ã®suppã®section S3ã®å‡¦ç†ã§ã‚ã‚‹ã€‚
 
-	//ƒnƒ~ƒ“ƒO‹——£‚ÌÅ‘å’l‚ğ‹‚ß‚é‚¾‚¯‚È‚çNassinovŒ^DP‚Å‚à‚Å‚«‚é‚ªA‚±‚±‚Å‚Í‚ ‚¦‚ÄMcCaskillŒ^DP‚ğg‚Á‚Ä‚¢‚éB——R‚ÍA
-	//–{”Ô‚ÌMcCaskillŒ^DPŒvZ‚Å‘ÎÛ‚Æ‚³‚ê‚é“ñŸ\‘¢W‡‚ÆAŠ®‘S‚É“¯‚¶W‡(maxloop§–ñ‚ğŠÜ‚Ş)‚ğˆµ‚¢‚½‚¢‚©‚ç‚Å‚ ‚éB
+	//ãƒãƒŸãƒ³ã‚°è·é›¢ã®æœ€å¤§å€¤ã‚’æ±‚ã‚ã‚‹ã ã‘ãªã‚‰Nassinovå‹DPã§ã‚‚ã§ãã‚‹ãŒã€ã“ã“ã§ã¯ã‚ãˆã¦McCaskillå‹DPã‚’ä½¿ã£ã¦ã„ã‚‹ã€‚ç†ç”±ã¯ã€
+	//æœ¬ç•ªã®McCaskillå‹DPè¨ˆç®—ã§å¯¾è±¡ã¨ã•ã‚Œã‚‹äºŒæ¬¡æ§‹é€ é›†åˆã¨ã€å®Œå…¨ã«åŒã˜é›†åˆ(maxloopåˆ¶ç´„ã‚’å«ã‚€)ã‚’æ‰±ã„ãŸã„ã‹ã‚‰ã§ã‚ã‚‹ã€‚
 
 	const int n = int(sequence.size());
 	const std::vector<std::vector<int>>C = ComputePredistanceMatrix(S);
 
-	//ƒƒ‚‰»Ä‹A‚Ì‚½‚ß‚Ìƒf[ƒ^\‘¢‚Å‚ ‚éBfirst‚Í‰Šú‰»‚Ífalse‚ÅA’l‚ğŒvZ‚µ‚½‚çtrue‚É‚µ‚ÄAsecond‚É’l‚ğ“ü‚ê‚éB
+	//ãƒ¡ãƒ¢åŒ–å†å¸°ã®ãŸã‚ã®ãƒ‡ãƒ¼ã‚¿æ§‹é€ ã§ã‚ã‚‹ã€‚firstã¯åˆæœŸåŒ–æ™‚ã¯falseã§ã€å€¤ã‚’è¨ˆç®—ã—ãŸã‚‰trueã«ã—ã¦ã€secondã«å€¤ã‚’å…¥ã‚Œã‚‹ã€‚
 	typedef std::pair<bool, int>MemInt;
 
-	//[Mori et al., 2014]‚Ìsupp‚Ì®(S23)`(S27)‚Å’è‹`‚³‚ê‚Ä‚¢‚éD‚Å‚ ‚éB
-	//std::vector‚Ì‰Šú‰»‚ª0–„‚ß‚Å‚È‚³‚ê‚é‚Ì‚Å®(S23)‚ª‚È‚³‚ê‚½‚Æ‚İ‚È‚·B
+	//[Mori et al., 2014]ã®suppã®å¼(S23)ï½(S27)ã§å®šç¾©ã•ã‚Œã¦ã„ã‚‹Dã§ã‚ã‚‹ã€‚
+	//std::vectorã®åˆæœŸåŒ–ãŒ0åŸ‹ã‚ã§ãªã•ã‚Œã‚‹ã®ã§å¼(S23)ãŒãªã•ã‚ŒãŸã¨ã¿ãªã™ã€‚
 	std::vector<std::vector<MemInt>> D(n + 1, std::vector<MemInt>(n + 1, std::make_pair(false, 0)));
 	std::vector<std::vector<MemInt>> D1(n + 1, std::vector<MemInt>(n + 1, std::make_pair(false, 0)));
 	std::vector<std::vector<MemInt>> Db(n + 1, std::vector<MemInt>(n + 1, std::make_pair(false, 0)));
 	std::vector<std::vector<MemInt>> Dm(n + 1, std::vector<MemInt>(n + 1, std::make_pair(false, 0)));
 
-	//[Mori et al., 2014]‚Ì®(19)`(23)‚Ì¶•Ó‚ÌZ‚½‚¿‚Å‚ ‚éB
-	//[Mori et al., 2014]‚Ìnotation‚É‡‚í‚¹‚Ä“Yš‚ğ1-origin‚Æ‚·‚éB
+	//[Mori et al., 2014]ã®å¼(19)ï½(23)ã®å·¦è¾ºã®ZãŸã¡ã§ã‚ã‚‹ã€‚
+	//[Mori et al., 2014]ã®notationã«åˆã‚ã›ã¦æ·»å­—ã‚’1-originã¨ã™ã‚‹ã€‚
 	std::function<int(int, int)> GetD;
 	std::function<int(int, int)> GetD1;
 	std::function<int(int, int)> GetDb;
@@ -220,7 +220,7 @@ int ComputeMaxHammingDistance(const std::string& sequence, const std::vector<std
 
 	GetD1 = [&](const int i, const int j) {
 		assert(1 <= i && i <= j && j <= n);
-		if (i == j)return -10000000;//[Mori et al., 2014]‚ÌSupp‚Ì®(S23)‚Å‚ÍExact‚È’l‚ª‹‚Ü‚ç‚È‚¢(—]Œv‚É‘å‚«‚¢’l‚ª‹‚Ü‚é‚±‚Æ‚ª‚ ‚é)
+		if (i == j)return -10000000;//[Mori et al., 2014]ã®Suppã®å¼(S23)ã§ã¯Exactãªå€¤ãŒæ±‚ã¾ã‚‰ãªã„(ä½™è¨ˆã«å¤§ãã„å€¤ãŒæ±‚ã¾ã‚‹ã“ã¨ãŒã‚ã‚‹)
 		if (D1[i][j].first)return D1[i][j].second;
 
 		int m = -10000000;
@@ -232,10 +232,10 @@ int ComputeMaxHammingDistance(const std::string& sequence, const std::vector<std
 
 	GetDb = [&](const int i, const int j) {
 		assert(1 <= i && i <= j && j <= n);
-		if (i == j)return -10000000;//[Mori et al., 2014]‚ÌSupp‚Ì®(S23)‚Å‚ÍExact‚È’l‚ª‹‚Ü‚ç‚È‚¢(—]Œv‚É‘å‚«‚¢’l‚ª‹‚Ü‚é‚±‚Æ‚ª‚ ‚é)
+		if (i == j)return -10000000;//[Mori et al., 2014]ã®Suppã®å¼(S23)ã§ã¯Exactãªå€¤ãŒæ±‚ã¾ã‚‰ãªã„(ä½™è¨ˆã«å¤§ãã„å€¤ãŒæ±‚ã¾ã‚‹ã“ã¨ãŒã‚ã‚‹)
 		if (Db[i][j].first)return Db[i][j].second;
 
-		//i‚Æj‚ª‰–Šî‘Î‚ğ‘g‚İ“¾‚È‚¢‚È‚çƒ[ƒ‚ğ•Ô‚·B
+		//iã¨jãŒå¡©åŸºå¯¾ã‚’çµ„ã¿å¾—ãªã„ãªã‚‰ã‚¼ãƒ­ã‚’è¿”ã™ã€‚
 		const int type = parasor_param::GetPairType(sequence[i - 1], sequence[j - 1]);
 		if (type == 0 || !(i + TURN < j) || (j - i) > max_span)return (Db[i][j] = std::make_pair(true, -10000000)).second;
 
@@ -254,8 +254,8 @@ int ComputeMaxHammingDistance(const std::string& sequence, const std::vector<std
 
 	GetDm = [&](const int i, const int j) {
 		assert(1 <= i && (i <= j || j == i - 1) && j <= n);
-		if (i == j)return -10000000;//[Mori et al., 2014]‚ÌSupp‚Ì®(S23)‚Å‚ÍExact‚È’l‚ª‹‚Ü‚ç‚È‚¢(—]Œv‚É‘å‚«‚¢’l‚ª‹‚Ü‚é‚±‚Æ‚ª‚ ‚é)
-		if (j == i - 1)return -10000000;//[Mori et al., 2014]‚ÌSupp‚Ì®(S23)‚Å‚ÍExact‚È’l‚ª‹‚Ü‚ç‚È‚¢(—]Œv‚É‘å‚«‚¢’l‚ª‹‚Ü‚é‚±‚Æ‚ª‚ ‚é)
+		if (i == j)return -10000000;//[Mori et al., 2014]ã®Suppã®å¼(S23)ã§ã¯Exactãªå€¤ãŒæ±‚ã¾ã‚‰ãªã„(ä½™è¨ˆã«å¤§ãã„å€¤ãŒæ±‚ã¾ã‚‹ã“ã¨ãŒã‚ã‚‹)
+		if (j == i - 1)return -10000000;//[Mori et al., 2014]ã®Suppã®å¼(S23)ã§ã¯Exactãªå€¤ãŒæ±‚ã¾ã‚‰ãªã„(ä½™è¨ˆã«å¤§ãã„å€¤ãŒæ±‚ã¾ã‚‹ã“ã¨ãŒã‚ã‚‹)
 		if (Dm[i][j].first)return Dm[i][j].second;
 
 		int m = -10000000;
@@ -271,7 +271,7 @@ int ComputeMaxHammingDistance(const std::string& sequence, const std::vector<std
 }
 
 std::vector<std::string>EnumerateStructures(const std::string& sequence, const int max_span, const int max_loop) {
-	//‰Â”\‚ÈRNA“ñŸ\‘¢‚ğ‘“–‚è‚Å‘S—ñ‹“‚·‚éB
+	//å¯èƒ½ãªRNAäºŒæ¬¡æ§‹é€ ã‚’ç·å½“ã‚Šã§å…¨åˆ—æŒ™ã™ã‚‹ã€‚
 
 	for (const char c : sequence)assert(c == 'A' || c == 'U' || c == 'G' || c == 'C');
 
@@ -292,7 +292,7 @@ std::vector<std::string>EnumerateStructures(const std::string& sequence, const i
 			return ans;
 		}
 
-		//subseq[0]‚ª‚Ç‚ê‚Æ‰–Šî‘Î‚ğ‘g‚Ş‚©‚Åê‡•ª‚¯‚·‚éB
+		//subseq[0]ãŒã©ã‚Œã¨å¡©åŸºå¯¾ã‚’çµ„ã‚€ã‹ã§å ´åˆåˆ†ã‘ã™ã‚‹ã€‚
 		for (int j = TURN + 1; j < nn && j <= max_span; ++j) {
 			const int type = parasor_param::GetPairType(subseq[0], subseq[j]);
 			if (type == 0)continue;
@@ -303,7 +303,7 @@ std::vector<std::string>EnumerateStructures(const std::string& sequence, const i
 			}
 		}
 
-		//subseq[0]‚ª‰–Šî‘Î‚ğ‘g‚Ü‚È‚¢ê‡
+		//subseq[0]ãŒå¡©åŸºå¯¾ã‚’çµ„ã¾ãªã„å ´åˆ
 		const auto z = EnumSubStr(subseq.substr(1, nn - 1));
 		for (const std::string s : z) {
 			ans.push_back("." + s);
@@ -328,10 +328,10 @@ std::vector<std::string>EnumerateStructures(const std::string& sequence, const i
 }
 
 std::vector<std::vector<int>>RandomStructurePK(const std::string& sequence, const int seed) {
-	//‰Â”\‚ÈRNA“ñŸ\‘¢‚Ì‚¤‚¿‚Ç‚ê‚©ˆê‚Â‚ğ•Ô‚·B
-	//•Ô‚è’l‚Í2ŸŒ³”z—ñ‚ÅA(i,j)‚ª‰–Šî‘Î‚ğ‘g‚ñ‚Å‚¢‚é‚È‚ç[i][j]=1‚ÅA‚³‚à‚È‚­‚Î[i][j]=0Bi>=j‚È‚çí‚É[i][j]=0B
-	//Pseudo-Knot‚ ‚è‚Æ‚·‚éBmax_span§–ñ, max_loop§–ñ‚Íl‚¦‚È‚¢B
-	//‰Â”\‚È”CˆÓ‚Ì“ñŸ\‘¢‚É‚Â‚¢‚ÄA‚»‚ê‚ª•Ô‚³‚ê‚éŠm—¦‚Í0‚æ‚è‘å‚«‚¢‚ªA•K‚¸‚µ‚àˆê—l‚Å‚Í‚È‚¢B
+	//å¯èƒ½ãªRNAäºŒæ¬¡æ§‹é€ ã®ã†ã¡ã©ã‚Œã‹ä¸€ã¤ã‚’è¿”ã™ã€‚
+	//è¿”ã‚Šå€¤ã¯2æ¬¡å…ƒé…åˆ—ã§ã€(i,j)ãŒå¡©åŸºå¯¾ã‚’çµ„ã‚“ã§ã„ã‚‹ãªã‚‰[i][j]=1ã§ã€ã•ã‚‚ãªãã°[i][j]=0ã€‚i>=jãªã‚‰å¸¸ã«[i][j]=0ã€‚
+	//Pseudo-Knotã‚ã‚Šã¨ã™ã‚‹ã€‚max_spanåˆ¶ç´„, max_loopåˆ¶ç´„ã¯è€ƒãˆãªã„ã€‚
+	//å¯èƒ½ãªä»»æ„ã®äºŒæ¬¡æ§‹é€ ã«ã¤ã„ã¦ã€ãã‚ŒãŒè¿”ã•ã‚Œã‚‹ç¢ºç‡ã¯0ã‚ˆã‚Šå¤§ãã„ãŒã€å¿…ãšã—ã‚‚ä¸€æ§˜ã§ã¯ãªã„ã€‚
 
 	for (const char c : sequence)assert(c == 'A' || c == 'U' || c == 'G' || c == 'C');
 	const std::string bp("AU CG GC GU UA UG");
@@ -362,7 +362,7 @@ std::vector<std::vector<int>>RandomStructurePK(const std::string& sequence, cons
 }
 
 int ComputeHammingDistance(const std::string& structure1, const std::string& structure2) {
-	//2‚Â‚ÌRNA“ñŸ\‘¢‚Ìƒnƒ~ƒ“ƒO‹——£‚ğ•Ô‚·B
+	//2ã¤ã®RNAäºŒæ¬¡æ§‹é€ ã®ãƒãƒŸãƒ³ã‚°è·é›¢ã‚’è¿”ã™ã€‚
 
 	const int n = int(structure1.size());
 	assert(n == int(structure2.size()));
@@ -397,7 +397,7 @@ int ComputeHammingDistance(const std::string& structure1, const std::string& str
 }
 
 int ComputeHammingDistance(const std::vector<std::vector<int>>& structure1, const std::vector<std::vector<int>>& structure2) {
-	//2‚Â‚ÌRNA“ñŸ\‘¢‚Ìƒnƒ~ƒ“ƒO‹——£‚ğ•Ô‚·B
+	//2ã¤ã®RNAäºŒæ¬¡æ§‹é€ ã®ãƒãƒŸãƒ³ã‚°è·é›¢ã‚’è¿”ã™ã€‚
 
 	const int n = int(structure1.size());
 	assert(n == int(structure2.size()));
@@ -417,7 +417,7 @@ int ComputeHammingDistance(const std::vector<std::vector<int>>& structure1, cons
 }
 
 std::string ComputeStructuralContext(const std::string& structure, const int pos) {
-	//RNA“ñŸ\‘¢structure‚É‚¨‚¢‚ÄApos”Ô–Ú‚Ì‰–Šî(0-origin)‚Ìstructural context‚ğ‹‚ß‚Ä•Ô‚·B
+	//RNAäºŒæ¬¡æ§‹é€ structureã«ãŠã„ã¦ã€posç•ªç›®ã®å¡©åŸº(0-origin)ã®structural contextã‚’æ±‚ã‚ã¦è¿”ã™ã€‚
 
 	const int n = int(structure.size());
 
@@ -464,7 +464,7 @@ std::string ComputeStructuralContext(const std::string& structure, const int pos
 }
 
 double EvalSpecificStructure(const std::string& sequence, const std::string& structure) {
-	//“Á’è‚Ì”z—ñsequence‚ª“Á’è‚Ì“ñŸ\‘¢structure‚ğæ‚é‚Æ‚«‚Ìƒ{ƒ‹ƒcƒ}ƒ“ˆöq‚ğ‹‚ß‚Ä•Ô‚·B
+	//ç‰¹å®šã®é…åˆ—sequenceãŒç‰¹å®šã®äºŒæ¬¡æ§‹é€ structureã‚’å–ã‚‹ã¨ãã®ãƒœãƒ«ãƒ„ãƒãƒ³å› å­ã‚’æ±‚ã‚ã¦è¿”ã™ã€‚
 
 	for (const char c : sequence) {
 		assert(c == 'A' || c == 'U' || c == 'G' || c == 'C');
@@ -478,7 +478,7 @@ double EvalSpecificStructure(const std::string& sequence, const std::string& str
 
 	const int n = int(structure.size());
 
-	//‰–Šî‘Î‚ğ‘g‚ñ‚Å‚¢‚éŠe‰–Šî‚É‚Â‚¢‚ÄA‘Šè‚ğ‹‚ß‚Äbp‚É‹L˜^‚·‚éB
+	//å¡©åŸºå¯¾ã‚’çµ„ã‚“ã§ã„ã‚‹å„å¡©åŸºã«ã¤ã„ã¦ã€ç›¸æ‰‹ã‚’æ±‚ã‚ã¦bpã«è¨˜éŒ²ã™ã‚‹ã€‚
 	std::vector<int> bp(n, -1);
 	std::stack<int> stk;
 	for (int i = 0; i < n; ++i) {
@@ -501,10 +501,10 @@ double EvalSpecificStructure(const std::string& sequence, const std::string& str
 
 	std::function<double(int, int, bool)>factor_in_ij;
 	factor_in_ij = [&sequence, &bp, &factor_in_ij](const int i, const int j, const bool ext) {
-		//‰–Šî‘Î(i,j)‚Å•Â‚¶‚ç‚ê‚é—Ìˆæ‚Ìƒ{ƒ‹ƒcƒ}ƒ“ˆöq
-		//ext‚Í(i,j)‚ªÅŠO‘¤‰–Šî‘Î‚È‚çtrue‚Å‚³‚à‚È‚­‚Îfalse
+		//å¡©åŸºå¯¾(i,j)ã§é–‰ã˜ã‚‰ã‚Œã‚‹é ˜åŸŸã®ãƒœãƒ«ãƒ„ãƒãƒ³å› å­
+		//extã¯(i,j)ãŒæœ€å¤–å´å¡©åŸºå¯¾ãªã‚‰trueã§ã•ã‚‚ãªãã°false
 
-		//(i,j)‚Å•Â‚¶‚ç‚ê‚éƒ‹[ƒv‚Ì•ªŠò”‚ğ’²‚×‚ÄAŠe•ªŠò‚ÌˆÊ’u‚ğ‹L˜^‚·‚éB
+		//(i,j)ã§é–‰ã˜ã‚‰ã‚Œã‚‹ãƒ«ãƒ¼ãƒ—ã®åˆ†å²æ•°ã‚’èª¿ã¹ã¦ã€å„åˆ†å²ã®ä½ç½®ã‚’è¨˜éŒ²ã™ã‚‹ã€‚
 		std::vector<std::pair<int, int>>branch;
 		for (int p = i + 1; p < j; ++p) {
 			if (bp[p] != -1) {
@@ -556,8 +556,8 @@ double EvalSpecificStructure(const std::string& sequence, const std::string& str
 }
 
 double EvalSpecificStructure(const std::string& sequence, const std::vector<std::vector<int>>& structure) {
-	//“Á’è‚Ì”z—ñsequence‚ª“Á’è‚Ì“ñŸ\‘¢structure‚ğæ‚é‚Æ‚«‚Ìƒ{ƒ‹ƒcƒ}ƒ“ˆöq‚ğ‹‚ß‚Ä•Ô‚·B
-	//ˆø”structure‚ğƒhƒbƒg•\‹L‚É•ÏŠ·‚µ‚Äã‚ÌŠÖ”‚É“ü‚ê‚é‚æ‚è‚¿‚å‚Á‚Æ‘¬‚¢i‚Í‚¸jB‚ ‚ÆMaxLoop§–ñ‚Éˆá”½‚·‚éê‡‚Ìˆ—‚ªˆá‚¤B
+	//ç‰¹å®šã®é…åˆ—sequenceãŒç‰¹å®šã®äºŒæ¬¡æ§‹é€ structureã‚’å–ã‚‹ã¨ãã®ãƒœãƒ«ãƒ„ãƒãƒ³å› å­ã‚’æ±‚ã‚ã¦è¿”ã™ã€‚
+	//å¼•æ•°structureã‚’ãƒ‰ãƒƒãƒˆè¡¨è¨˜ã«å¤‰æ›ã—ã¦ä¸Šã®é–¢æ•°ã«å…¥ã‚Œã‚‹ã‚ˆã‚Šã¡ã‚‡ã£ã¨é€Ÿã„ï¼ˆã¯ãšï¼‰ã€‚ã‚ã¨MaxLoopåˆ¶ç´„ã«é•åã™ã‚‹å ´åˆã®å‡¦ç†ãŒé•ã†ã€‚
 
 	for (const char c : sequence) {
 		assert(c == 'A' || c == 'U' || c == 'G' || c == 'C');
@@ -568,7 +568,7 @@ double EvalSpecificStructure(const std::string& sequence, const std::vector<std:
 	assert(structure.size() == n + 1);
 	for (int i = 0; i <= n; ++i)assert(structure[i].size() == n + 1);
 
-	//‰–Šî‘Î‚ğ‘g‚ñ‚Å‚¢‚éŠe‰–Šî‚É‚Â‚¢‚ÄA‘Šè‚ğ‹‚ß‚Äbp‚É‹L˜^‚·‚éB
+	//å¡©åŸºå¯¾ã‚’çµ„ã‚“ã§ã„ã‚‹å„å¡©åŸºã«ã¤ã„ã¦ã€ç›¸æ‰‹ã‚’æ±‚ã‚ã¦bpã«è¨˜éŒ²ã™ã‚‹ã€‚
 	std::vector<int> bp(n, -1);
 	//std::stack<int> stk;
 	//for (int i = 0; i < n; ++i) {
@@ -602,10 +602,10 @@ double EvalSpecificStructure(const std::string& sequence, const std::vector<std:
 
 	std::function<double(int, int, bool)>factor_in_ij;
 	factor_in_ij = [&sequence, &bp, &factor_in_ij](const int i, const int j, const bool ext) {
-		//‰–Šî‘Î(i,j)‚Å•Â‚¶‚ç‚ê‚é—Ìˆæ‚Ìƒ{ƒ‹ƒcƒ}ƒ“ˆöq
-		//ext‚Í(i,j)‚ªÅŠO‘¤‰–Šî‘Î‚È‚çtrue‚Å‚³‚à‚È‚­‚Îfalse
+		//å¡©åŸºå¯¾(i,j)ã§é–‰ã˜ã‚‰ã‚Œã‚‹é ˜åŸŸã®ãƒœãƒ«ãƒ„ãƒãƒ³å› å­
+		//extã¯(i,j)ãŒæœ€å¤–å´å¡©åŸºå¯¾ãªã‚‰trueã§ã•ã‚‚ãªãã°false
 
-		//(i,j)‚Å•Â‚¶‚ç‚ê‚éƒ‹[ƒv‚Ì•ªŠò”‚ğ’²‚×‚ÄAŠe•ªŠò‚ÌˆÊ’u‚ğ‹L˜^‚·‚éB
+		//(i,j)ã§é–‰ã˜ã‚‰ã‚Œã‚‹ãƒ«ãƒ¼ãƒ—ã®åˆ†å²æ•°ã‚’èª¿ã¹ã¦ã€å„åˆ†å²ã®ä½ç½®ã‚’è¨˜éŒ²ã™ã‚‹ã€‚
 		std::vector<std::pair<int, int>>branch;
 		for (int p = i + 1; p < j; ++p) {
 			if (bp[p] != -1) {
@@ -622,7 +622,7 @@ double EvalSpecificStructure(const std::string& sequence, const std::vector<std:
 		else if (int(branch.size()) == 1) {
 			const int k = branch[0].first;
 			const int l = branch[0].second;
-			if (k - i + j - l >= 32)return 0.0;//MaxLoop§–ñ‚Éˆá”½‚·‚é\‘¢“ü—Í‚É‘Î‚µ‚Ä‚Íassert‚Å—‚Æ‚·‚Ì‚Å‚Í‚È‚­ƒ{ƒ‹ƒcƒ}ƒ“ˆöqƒ[ƒ‚ğ•Ô‚·B
+			if (k - i + j - l >= 32)return 0.0;//MaxLoopåˆ¶ç´„ã«é•åã™ã‚‹æ§‹é€ å…¥åŠ›ã«å¯¾ã—ã¦ã¯assertã§è½ã¨ã™ã®ã§ã¯ãªããƒœãƒ«ãƒ„ãƒãƒ³å› å­ï¼ã‚¼ãƒ­ã‚’è¿”ã™ã€‚
 			ans *= exp(parasor_param::ParLoopEnergy(i, j, k, l, sequence));
 			ans *= factor_in_ij(k, l, false);
 		}
@@ -658,8 +658,8 @@ double EvalSpecificStructure(const std::string& sequence, const std::vector<std:
 }
 
 std::string MatrixToDotNotation(const std::vector<std::vector<int>>& structure) {
-	//VerifyAndParseStructure‚Ì•Ô‚è’l‚ÌŒ`®‚Å‚ ‚éAƒoƒCƒiƒŠãOŠps—ñ•\Œ»‚ÌRNA“ñŸ\‘¢‚ğˆø”‚Éæ‚èA
-	//ƒhƒbƒg•\‹L‚ÌRNA“ñŸ\‘¢‚É•ÏŠ·‚µ‚Ä•Ô‚·B
+	//VerifyAndParseStructureã®è¿”ã‚Šå€¤ã®å½¢å¼ã§ã‚ã‚‹ã€ãƒã‚¤ãƒŠãƒªä¸Šä¸‰è§’è¡Œåˆ—è¡¨ç¾ã®RNAäºŒæ¬¡æ§‹é€ ã‚’å¼•æ•°ã«å–ã‚Šã€
+	//ãƒ‰ãƒƒãƒˆè¡¨è¨˜ã®RNAäºŒæ¬¡æ§‹é€ ã«å¤‰æ›ã—ã¦è¿”ã™ã€‚
 
 	const int N = structure.size() - 1;
 	for (int i = 0; i <= N; ++i)assert(structure[i].size() == N + 1);

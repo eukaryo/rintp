@@ -1,4 +1,4 @@
-/*
+﻿/*
 GNU GPL v2
 Copyright (c) 2020 Hiroki Takizawa
 */
@@ -32,8 +32,8 @@ namespace rintp {
 //> consider defining a single class or struct to hold all the options,
 //> and pass an instance of that.
 
-//�R�[�h���̏�������ł��̋L�q�ɋC�t�����B��t���I�Ɂ���struct��������B
-//(���Ɏ��g�ރv���W�F�N�g�ł͍ŏ�����C��t���Đ݌v���悤�Ǝv�����A���͂��Ă���)
+//コードを大体書いた後でこの記述に気付いた。後付け的に↓のstructを作った。
+//(次に取り組むプロジェクトでは最初から気を付けて設計しようと思うが、今はさておく)
 
 struct RintX1DOptions {
 	std::string sequence;

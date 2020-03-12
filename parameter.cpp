@@ -1,4 +1,4 @@
-/*
+Ôªø/*
 GNU GPL v2
 Copyright (c) 2020 Hiroki Takizawa
 
@@ -17,7 +17,7 @@ namespace parasor_param {
 
 static constexpr double K0 = 273.15;
 static constexpr double GASCONST = 1.98717;//Cal/(K*mol)
-static constexpr double Tmeasure = K0 + 37.0;//Turner2004ÇÕ37ìxÇ≈ÅATurner2004ÇµÇ©çlÇ¶ÇƒÇ»Ç¢ÇÃÇ≈åàÇﬂë≈Çø
+static constexpr double Tmeasure = K0 + 37.0;//Turner2004„ÅØ37Â∫¶„Åß„ÄÅTurner2004„Åó„ÅãËÄÉ„Åà„Å¶„Å™„ÅÑ„ÅÆ„ÅßÊ±∫„ÇÅÊâì„Å°
 static constexpr double SCALE = 10.0;
 static constexpr int INTINF = 1000000;
 static constexpr double INF = std::numeric_limits<double>::max() / 100.0;
@@ -587,7 +587,7 @@ private:
 		std::fill(&(logdangle3[0][0]), &(logdangle3[0][0]) + 8 * 5, -INF);
 		std::fill(&(logint11[0][0][0][0]), &(logint11[0][0][0][0]) + 8 * 8 * 5 * 5, -INF);
 		std::fill(&(logint21[0][0][0][0][0]), &(logint21[0][0][0][0][0]) + 8 * 8 * 5 * 5 * 5, -INF);
-		std::fill(&(logint22[0][0][0][0][0][0]), &(logint22[0][0][0][0][0][0]) + 8 * 8 * 5 * 5 * 5 * 5, -INF);//ParasoRÇÃÉoÉO
+		std::fill(&(logint22[0][0][0][0][0][0]), &(logint22[0][0][0][0][0][0]) + 8 * 8 * 5 * 5 * 5 * 5, -INF);//ParasoR„ÅÆ„Éê„Ç∞
 		std::fill(&(loghairpin[0]), &(loghairpin[0]) + PARAM_MAXLOOP + 1, -INF);
 		std::fill(&(logbulge[0]), &(logbulge[0]) + PARAM_MAXLOOP + 1, -INF);
 		std::fill(&(loginternal[0]), &(loginternal[0]) + PARAM_MAXLOOP + 1, -INF);

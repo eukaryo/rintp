@@ -1,4 +1,4 @@
-/*
+﻿/*
 GNU GPL v2
 Copyright (c) 2020 Hiroki Takizawa
 */

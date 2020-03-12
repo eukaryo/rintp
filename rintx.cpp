@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 GNU GPL v2
 Copyright (c) 2020 Hiroki Takizawa
 */
@@ -755,7 +755,7 @@ template<typename Comp>std::pair<std::vector<Comp>, std::vector<std::vector<std:
 
 	//Fourier transform is not used. Time complexity is O(NW^3Hmax^3)
 
-	//ƒt[ƒŠƒG•ÏŠ·‚ğg‚í‚È‚¢BŒvZ—Ê‚ÍNW^3Hmax^3
+	//ãƒ•ãƒ¼ãƒªã‚¨å¤‰æ›ã‚’ä½¿ã‚ãªã„ã€‚è¨ˆç®—é‡ã¯NW^3Hmax^3
 
 	typedef decltype(Comp::real) RealScalar;
 
@@ -1549,11 +1549,11 @@ std::pair<std::vector<Floating>, std::vector<std::vector<std::vector<Floating>>>
 	const std::vector<WideComplexNumber<Floating>> z,
 	const std::vector<std::vector<std::vector<WideComplexNumber<Floating>>>> p) {
 
-	//ComputeHagio‚Ì•Ô‚è’l‚Ílog scale‚ÅA‚©‚Â"“à‘¤•ª”zŠÖ”"‚Æ"‰–Šî‘ÎŠm—¦s—ñ‚Ì¬•ª‚Ì•ªq"‚É•ª‚©‚ê‚½ó‘Ô‚È‚Ì‚ÅA
-	//‚±‚ê‚ğ‰–Šî‘ÎŠm—¦s—ñ‚ÌŒ`‚É®‚¦‚éB
+	//ComputeHagioã®è¿”ã‚Šå€¤ã¯log scaleã§ã€ã‹ã¤"å†…å´åˆ†é…é–¢æ•°"ã¨"å¡©åŸºå¯¾ç¢ºç‡è¡Œåˆ—ã®æˆåˆ†ã®åˆ†å­"ã«åˆ†ã‹ã‚ŒãŸçŠ¶æ…‹ãªã®ã§ã€
+	//ã“ã‚Œã‚’å¡©åŸºå¯¾ç¢ºç‡è¡Œåˆ—ã®å½¢ã«æ•´ãˆã‚‹ã€‚
 
-	//“ü—Í: ComputeHagio1dim‚Ì•Ô‚è’l‚ÌAfirst‚ªz‚Åsecond‚ªp‚Æ‚·‚éB
-	//•Ô‚è’l: first‚Íƒnƒ~ƒ“ƒO‹——£‚²‚Æ‚Ì‘¶İŠm—¦‚ÅAsecond‚Íƒnƒ~ƒ“ƒO‹——£‚²‚Æ‚Ì‰–Šî‘ÎŠm—¦s—ñB
+	//å…¥åŠ›: ComputeHagio1dimã®è¿”ã‚Šå€¤ã®ã€firstãŒzã§secondãŒpã¨ã™ã‚‹ã€‚
+	//è¿”ã‚Šå€¤: firstã¯ãƒãƒŸãƒ³ã‚°è·é›¢ã”ã¨ã®å­˜åœ¨ç¢ºç‡ã§ã€secondã¯ãƒãƒŸãƒ³ã‚°è·é›¢ã”ã¨ã®å¡©åŸºå¯¾ç¢ºç‡è¡Œåˆ—ã€‚
 
 	const int dim = int(z.size()) - 1;
 	const int n = int(p[0].size()) - 1;
@@ -1593,8 +1593,8 @@ std::pair<std::vector<IntervalVar>, std::vector<std::vector<std::vector<Interval
 	const std::vector<WideComplexNumber<IntervalVar>> z,
 	const std::vector<std::vector<std::vector<WideComplexNumber<IntervalVar>>>> p) {
 
-	//ComputeHagio‚Ì•Ô‚è’l‚Ílog scale‚ÅA‚©‚Â“à‘¤•ª”zŠÖ”‚Æ‰–Šî‘ÎŠm—¦s—ñ‚Ì•ªq‚É•ª‚©‚ê‚½ó‘Ô‚È‚Ì‚ÅA
-	//‚±‚ê‚ğ‰–Šî‘ÎŠm—¦s—ñ‚ÌŒ`‚É®‚¦‚éB
+	//ComputeHagioã®è¿”ã‚Šå€¤ã¯log scaleã§ã€ã‹ã¤å†…å´åˆ†é…é–¢æ•°ã¨å¡©åŸºå¯¾ç¢ºç‡è¡Œåˆ—ã®åˆ†å­ã«åˆ†ã‹ã‚ŒãŸçŠ¶æ…‹ãªã®ã§ã€
+	//ã“ã‚Œã‚’å¡©åŸºå¯¾ç¢ºç‡è¡Œåˆ—ã®å½¢ã«æ•´ãˆã‚‹ã€‚
 
 	const int dim = int(z.size()) - 1;
 	const int n = int(p[0].size()) - 1;
@@ -1649,7 +1649,7 @@ std::pair<std::vector<IntervalVar>, std::vector<std::vector<std::vector<Interval
 
 std::vector<Floating>RegularizeRintD1Dim(const std::vector<WideComplexNumber<Floating>>& result) {
 
-	//ComputeRintD1Dim‚ÌŒ‹‰Ê‚ğÀ”‚É‚µ‚ÄA‘˜a1‚É³‹K‰»‚µ‚ÄAlogsumexp‚Å‚Í‚È‚¢•’Ê‚Ì”’lŒ^‚É‚µ‚Ä•Ô‚·B
+	//ComputeRintD1Dimã®çµæœã‚’å®Ÿæ•°ã«ã—ã¦ã€ç·å’Œ1ã«æ­£è¦åŒ–ã—ã¦ã€logsumexpã§ã¯ãªã„æ™®é€šã®æ•°å€¤å‹ã«ã—ã¦è¿”ã™ã€‚
 
 	typedef WideComplexNumber<Floating> Comp;
 	const int dim1 = int(result.size());
@@ -1659,7 +1659,7 @@ std::vector<Floating>RegularizeRintD1Dim(const std::vector<WideComplexNumber<Flo
 		sum += result[i];
 	}
 
-	//‚±‚Ì“_‚ÅAŒ‹‰Ê‚Ì‘˜a‚Íexp(sum.log_scale)‚É‚Ù‚Ú“™‚µ‚¢B
+	//ã“ã®æ™‚ç‚¹ã§ã€çµæœã®ç·å’Œã¯exp(sum.log_scale)ã«ã»ã¼ç­‰ã—ã„ã€‚
 
 	std::vector<Floating> ans(dim1, Floating(0.0));
 	for (int i = 0; i < dim1; ++i)if (result[i].real > Floating(0.0)) {
@@ -1684,7 +1684,7 @@ std::vector<Floating>RegularizeRintD1Dim(const std::vector<WideComplexNumber<Flo
 }
 std::vector<std::vector<Floating>>RegularizeRintD2Dim(const std::vector<std::vector<WideComplexNumber<Floating>>>& result) {
 
-	//ComputeRintD2Dim‚ÌŒ‹‰Ê‚ğÀ”‚É‚µ‚ÄA‘˜a1‚É³‹K‰»‚µ‚ÄAlogsumexp‚Å‚Í‚È‚¢•’Ê‚Ì”’lŒ^‚É‚µ‚Ä•Ô‚·B
+	//ComputeRintD2Dimã®çµæœã‚’å®Ÿæ•°ã«ã—ã¦ã€ç·å’Œ1ã«æ­£è¦åŒ–ã—ã¦ã€logsumexpã§ã¯ãªã„æ™®é€šã®æ•°å€¤å‹ã«ã—ã¦è¿”ã™ã€‚
 
 	typedef WideComplexNumber<Floating> Comp;
 	const int dim1 = int(result.size());
@@ -1695,7 +1695,7 @@ std::vector<std::vector<Floating>>RegularizeRintD2Dim(const std::vector<std::vec
 		sum += result[i][j];
 	}
 
-	//‚±‚Ì“_‚ÅAŒ‹‰Ê‚Ì‘˜a‚Íexp(sum.log_scale)‚É‚Ù‚Ú“™‚µ‚¢B
+	//ã“ã®æ™‚ç‚¹ã§ã€çµæœã®ç·å’Œã¯exp(sum.log_scale)ã«ã»ã¼ç­‰ã—ã„ã€‚
 
 	std::vector<std::vector<Floating>> ans(dim1, std::vector<Floating>(dim2, Floating(0.0)));
 	for (int i = 0; i < dim1; ++i)for (int j = 0; j < dim2; ++j)if (result[i][j].real > Floating(0.0)) {
@@ -1723,11 +1723,11 @@ std::pair<std::vector<std::vector<Floating>>, std::vector<std::vector<std::vecto
 	const std::vector<std::vector<WideComplexNumber<Floating>>> z,
 	const std::vector<std::vector<std::vector<std::vector<WideComplexNumber<Floating>>>>> p) {
 
-	//ComputeHagio‚Ì•Ô‚è’l‚Ílog scale‚ÅA‚©‚Â"“à‘¤•ª”zŠÖ”"‚Æ"‰–Šî‘ÎŠm—¦s—ñ‚Ì¬•ª‚Ì•ªq"‚É•ª‚©‚ê‚½ó‘Ô‚È‚Ì‚ÅA
-	//‚±‚ê‚ğ‰–Šî‘ÎŠm—¦s—ñ‚ÌŒ`‚É®‚¦‚éB
+	//ComputeHagioã®è¿”ã‚Šå€¤ã¯log scaleã§ã€ã‹ã¤"å†…å´åˆ†é…é–¢æ•°"ã¨"å¡©åŸºå¯¾ç¢ºç‡è¡Œåˆ—ã®æˆåˆ†ã®åˆ†å­"ã«åˆ†ã‹ã‚ŒãŸçŠ¶æ…‹ãªã®ã§ã€
+	//ã“ã‚Œã‚’å¡©åŸºå¯¾ç¢ºç‡è¡Œåˆ—ã®å½¢ã«æ•´ãˆã‚‹ã€‚
 
-	//“ü—Í: ComputeHagio2dim‚Ì•Ô‚è’l‚ÌAfirst‚ªz‚Åsecond‚ªp‚Æ‚·‚éB
-	//•Ô‚è’l: first‚Íƒnƒ~ƒ“ƒO‹——£‚²‚Æ‚Ì‘¶İŠm—¦‚ÅAsecond‚Íƒnƒ~ƒ“ƒO‹——£‚²‚Æ‚Ì‰–Šî‘ÎŠm—¦s—ñB
+	//å…¥åŠ›: ComputeHagio2dimã®è¿”ã‚Šå€¤ã®ã€firstãŒzã§secondãŒpã¨ã™ã‚‹ã€‚
+	//è¿”ã‚Šå€¤: firstã¯ãƒãƒŸãƒ³ã‚°è·é›¢ã”ã¨ã®å­˜åœ¨ç¢ºç‡ã§ã€secondã¯ãƒãƒŸãƒ³ã‚°è·é›¢ã”ã¨ã®å¡©åŸºå¯¾ç¢ºç‡è¡Œåˆ—ã€‚
 
 	const int dim1 = int(z.size()) - 1;
 	const int dim2 = int(z[0].size()) - 1;

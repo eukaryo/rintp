@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 GNU GPL v2
 Copyright (c) 2020 Hiroki Takizawa
 */
@@ -17,20 +17,20 @@ std::string GetCentroidFoldHamadaBook(
 	const Floating& gamma,
 	const int max_loop) {
 
-	//‰–Šî‘ÎŠm—¦s—ñ‚ÌŠe—v‘f‚ğ“ü—Í‚Æ‚µ‚ÄAƒÁcentroid\‘¢‚ğ‹‚ß‚Ä•Ô‚·B
-	//ˆø”bpp_matrix‚Í(n+1)*(max_span+1)s—ñ‚Æ‚·‚éB
+	//å¡©åŸºå¯¾ç¢ºç‡è¡Œåˆ—ã®å„è¦ç´ ã‚’å…¥åŠ›ã¨ã—ã¦ã€Î³centroidæ§‹é€ ã‚’æ±‚ã‚ã¦è¿”ã™ã€‚
+	//å¼•æ•°bpp_matrixã¯(n+1)*(max_span+1)è¡Œåˆ—ã¨ã™ã‚‹ã€‚
 
-	//•l“c–{‚Ìp140‚É‚æ‚é‚ÆAgamma < 1.0‚Ì‚Æ‚«‚Í2.(b)‚Ìˆ—‚Å‚à‚æ‚¢‚ªA(À‘•‚ª–Ê“|‚¾‚Á‚½‚Ì‚Å)‚±‚±‚Å‚Íí‚É2.(a)‚ğs‚¤B
+	//æµœç”°æœ¬ã®p140ã«ã‚ˆã‚‹ã¨ã€gamma < 1.0ã®ã¨ãã¯2.(b)ã®å‡¦ç†ã§ã‚‚ã‚ˆã„ãŒã€(å®Ÿè£…ãŒé¢å€’ã ã£ãŸã®ã§)ã“ã“ã§ã¯å¸¸ã«2.(a)ã‚’è¡Œã†ã€‚
 
-	//TODO:¡‰ñ‚Ì„‚Ì—p“r‚É‘Î‚µ‚Ä•l“c–{‚Ì•û–@‚Í‘S‘R‚¾‚ß‚¾‚Æ‹C•t‚¢‚½B
-	//(1)max_loop§–ñ‚àmax_span§–ñ‚àl—¶‚³‚ê‚È‚¢
-	//(2)“¾‚ç‚ê‚é‘ã•\\‘¢‚ÌAƒŠƒtƒ@ƒŒƒ“ƒX\‘¢‚©‚ç‚Ìƒnƒ~ƒ“ƒO‹——£‚ğw’è‚Å‚«‚È‚¢
-	//‚Ì‚ÅAƒŠƒtƒ@ƒŒƒ“ƒX\‘¢‚Æ‚µ‚Ä‚àHagiotool‚Ì‰Â‹‰»‚Æ‚µ‚Ä‚àg‚¦‚È‚¢B
+	//TODO:ä»Šå›ã®ç§ã®ç”¨é€”ã«å¯¾ã—ã¦æµœç”°æœ¬ã®æ–¹æ³•ã¯å…¨ç„¶ã ã‚ã ã¨æ°—ä»˜ã„ãŸã€‚
+	//(1)max_loopåˆ¶ç´„ã‚‚max_spanåˆ¶ç´„ã‚‚è€ƒæ…®ã•ã‚Œãªã„
+	//(2)å¾—ã‚‰ã‚Œã‚‹ä»£è¡¨æ§‹é€ ã®ã€ãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹æ§‹é€ ã‹ã‚‰ã®ãƒãƒŸãƒ³ã‚°è·é›¢ã‚’æŒ‡å®šã§ããªã„
+	//ã®ã§ã€ãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹æ§‹é€ ã¨ã—ã¦ã‚‚Hagiotoolã®å¯è¦–åŒ–ã¨ã—ã¦ã‚‚ä½¿ãˆãªã„ã€‚
 
-	//g‚¦‚È‚¢‚Æ‚¢‚¤——R‚ÍAHagiotool‚Í¬‚³‚¢’l‚Ì”’lŒë·‚ªŒƒ‚µ‚¢‚Ì‚ÅAƒŒƒA‚Èƒnƒ~ƒ“ƒO‹——£‚Ì‰–Šî‘ÎŠm—¦s—ñ‚ª‚ß‚¿‚á‚­‚¿‚á‚È’l‚É‚È‚é‚ª
-	//‚»‚Ì‰–Šî‘ÎŠm—¦s—ñ‚©‚ç‘ã•\\‘¢‚ğ‹‚ß‚æ‚¤‚Æ‚·‚é‚ÆAmax_loop§–ñ‚àmax_span§–ñ‚à–‚½‚³‚ê‚È‚¢\‘¢‚ªÀÛ‚æ‚­o‚é‚©‚çB
+	//ä½¿ãˆãªã„ã¨ã„ã†ç†ç”±ã¯ã€Hagiotoolã¯å°ã•ã„å€¤ã®æ•°å€¤èª¤å·®ãŒæ¿€ã—ã„ã®ã§ã€ãƒ¬ã‚¢ãªãƒãƒŸãƒ³ã‚°è·é›¢ã®å¡©åŸºå¯¾ç¢ºç‡è¡Œåˆ—ãŒã‚ã¡ã‚ƒãã¡ã‚ƒãªå€¤ã«ãªã‚‹ãŒ
+	//ãã®å¡©åŸºå¯¾ç¢ºç‡è¡Œåˆ—ã‹ã‚‰ä»£è¡¨æ§‹é€ ã‚’æ±‚ã‚ã‚ˆã†ã¨ã™ã‚‹ã¨ã€max_loopåˆ¶ç´„ã‚‚max_spanåˆ¶ç´„ã‚‚æº€ãŸã•ã‚Œãªã„æ§‹é€ ãŒå®Ÿéš›ã‚ˆãå‡ºã‚‹ã‹ã‚‰ã€‚
 
-	//(2)‚É‚Â‚¢‚Ä‚ÍRNAborMEA‚ÌƒAƒ‹ƒSƒŠƒYƒ€‚Åw’è‚Å‚«‚éB(1)‚É‚Â‚¢‚Ä‚Í‚¨‚»‚ç‚­McCaskillŒ^DP‚ÅƒgƒŒ[ƒXƒoƒbƒN‚·‚ê‚Î—Ç‚¢B
+	//(2)ã«ã¤ã„ã¦ã¯RNAborMEAã®ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ã§æŒ‡å®šã§ãã‚‹ã€‚(1)ã«ã¤ã„ã¦ã¯ãŠãã‚‰ãMcCaskillå‹DPã§ãƒˆãƒ¬ãƒ¼ã‚¹ãƒãƒƒã‚¯ã™ã‚Œã°è‰¯ã„ã€‚
 
 	const int n = int(sequence.size());
 	const int max_span = int(bpp_matrix[0].size()) - 1;
@@ -44,10 +44,10 @@ std::string GetCentroidFoldHamadaBook(
 
 	const Floating G = (1.0 / (gamma + 1.0));
 
-	//(ƒXƒRƒA, ƒgƒŒ[ƒXƒoƒbƒN—p‚Ì•Ï”)
+	//(ã‚¹ã‚³ã‚¢, ãƒˆãƒ¬ãƒ¼ã‚¹ãƒãƒƒã‚¯ç”¨ã®å¤‰æ•°)
 	typedef std::pair<Floating, int> Nus;
 
-	//ƒƒ‚‰»Ä‹A‚Ì‚½‚ß‚Ìƒf[ƒ^\‘¢‚Å‚ ‚éBfirst‚Í‰Šú‰»‚Ífalse‚ÅA’l‚ğŒvZ‚µ‚½‚çtrue‚É‚µ‚ÄAsecond‚É’l‚ğ“ü‚ê‚éB
+	//ãƒ¡ãƒ¢åŒ–å†å¸°ã®ãŸã‚ã®ãƒ‡ãƒ¼ã‚¿æ§‹é€ ã§ã‚ã‚‹ã€‚firstã¯åˆæœŸåŒ–æ™‚ã¯falseã§ã€å€¤ã‚’è¨ˆç®—ã—ãŸã‚‰trueã«ã—ã¦ã€secondã«å€¤ã‚’å…¥ã‚Œã‚‹ã€‚
 	typedef std::pair<bool, Nus> MemoNus;
 
 	std::vector<std::vector<MemoNus>>MemoM(n + 1, std::vector<MemoNus>(n + 1, MemoNus(false, Nus(0.0, 0))));
@@ -60,9 +60,9 @@ std::string GetCentroidFoldHamadaBook(
 
 		Floating max_score = -std::numeric_limits<Floating>::max();
 
-		//•l“c–{p115‚ÌƒAƒ‹ƒSƒŠƒYƒ€3.3‚Ì•Ï”t‚Æ“¯‚¶B
-		//‚½‚¾‚µA“ü‚ê‚é’l‚Í•l“c–{‚Å‚Í1`3‚Ì‚Æ‚±‚ë‚ğ-1`-3‚Æ‚©‚É•Ï‚¦‚Ä‚¢‚éB(‚»‚Ì‚Ù‚¤‚ª”ü‚µ‚¢‚©‚ç)
-		//Å‚à”ü‚µ‚¢•û–@‚Í‘ã”“Iƒf[ƒ^Œ^‚ğg‚¤‚à‚Ì‚¾‚ªAC++•W€‚É‚Í–³‚¢B
+		//æµœç”°æœ¬p115ã®ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ 3.3ã®å¤‰æ•°tã¨åŒã˜ã€‚
+		//ãŸã ã—ã€å…¥ã‚Œã‚‹å€¤ã¯æµœç”°æœ¬ã§ã¯1ï½3ã®ã¨ã“ã‚ã‚’-1ï½-3ã¨ã‹ã«å¤‰ãˆã¦ã„ã‚‹ã€‚(ãã®ã»ã†ãŒç¾ã—ã„ã‹ã‚‰)
+		//æœ€ã‚‚ç¾ã—ã„æ–¹æ³•ã¯ä»£æ•°çš„ãƒ‡ãƒ¼ã‚¿å‹ã‚’ä½¿ã†ã‚‚ã®ã ãŒã€C++æ¨™æº–ã«ã¯ç„¡ã„ã€‚
 		int trace = -9999;
 
 		const auto update = [&](const Floating score, const int new_trace) {
@@ -72,24 +72,24 @@ std::string GetCentroidFoldHamadaBook(
 			}
 		};
 
-		update(Nussinov(i + 1, j).first, -1);//•l“c–{p115‚ÌƒAƒ‹ƒSƒŠƒYƒ€3.3‚Ì7s–Ú
-		update(Nussinov(i, j - 1).first, -2);//•l“c–{p115‚ÌƒAƒ‹ƒSƒŠƒYƒ€3.3‚Ì9s–Ú
+		update(Nussinov(i + 1, j).first, -1);//æµœç”°æœ¬p115ã®ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ 3.3ã®7è¡Œç›®
+		update(Nussinov(i, j - 1).first, -2);//æµœç”°æœ¬p115ã®ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ 3.3ã®9è¡Œç›®
 
 		const int type = parasor_param::GetPairType(sequence[i - 1], sequence[j - 1]);
 		if (type != 0 && TURN + 1 <= (j - i)) {
 			const Floating x = j - i <= max_span ? bpp_matrix[i][j - i] : Floating(0.0);
-			update(Nussinov(i + 1, j - 1).first + x - G, -3);//•l“c–{p115‚ÌƒAƒ‹ƒSƒŠƒYƒ€3.3‚Ì12s–Ú
+			update(Nussinov(i + 1, j - 1).first + x - G, -3);//æµœç”°æœ¬p115ã®ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ 3.3ã®12è¡Œç›®
 		}
 
 		for (int k = i; k <= j - 1; ++k) {
-			update(Nussinov(i, k).first + Nussinov(k + 1, j).first - G, k);//•l“c–{p115‚ÌƒAƒ‹ƒSƒŠƒYƒ€3.3‚Ì16s–Ú
+			update(Nussinov(i, k).first + Nussinov(k + 1, j).first - G, k);//æµœç”°æœ¬p115ã®ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ 3.3ã®16è¡Œç›®
 		}
 
 		return (MemoM[i][j] = std::make_pair(true, std::make_pair(max_score, trace))).second;
 	};
 
-	//‚±‚±‚©‚ç‚Í•l“c–{p116‚ÌƒAƒ‹ƒSƒŠƒYƒ€3.4‚Æ“¯‚¶‚±‚Æ‚ğ‚·‚éB
-	//‚½‚¾‚µA•l“c–{‚Å‚ÍƒXƒ^ƒbƒN‚ğg‚Á‚Ä‚¢‚é‚ª‚±‚±‚Å‚ÍÄ‹A‚ğg‚¤B
+	//ã“ã“ã‹ã‚‰ã¯æµœç”°æœ¬p116ã®ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ 3.4ã¨åŒã˜ã“ã¨ã‚’ã™ã‚‹ã€‚
+	//ãŸã ã—ã€æµœç”°æœ¬ã§ã¯ã‚¹ã‚¿ãƒƒã‚¯ã‚’ä½¿ã£ã¦ã„ã‚‹ãŒã“ã“ã§ã¯å†å¸°ã‚’ä½¿ã†ã€‚
 
 	std::function<std::string(int, int)>Traceback = [&](const int i, const int j) {
 		assert(1 <= i && i <= j && j <= n);
@@ -118,11 +118,11 @@ std::string GetCentroidFoldMcCaskill(
 	const Floating& gamma,
 	const int max_loop) {
 
-	//max_span§–ñ‚Æmax_loop§–ñ‚ğl—¶‚µ‚½‚¤‚¦‚ÅA
-	//‘S‚Ä‚Ì“ñŸ\‘¢W‡‚É‚¨‚¯‚éMEG\‘¢‚ğ‹‚ß‚Ä•Ô‚·B
+	//max_spanåˆ¶ç´„ã¨max_loopåˆ¶ç´„ã‚’è€ƒæ…®ã—ãŸã†ãˆã§ã€
+	//å…¨ã¦ã®äºŒæ¬¡æ§‹é€ é›†åˆã«ãŠã‘ã‚‹MEGæ§‹é€ ã‚’æ±‚ã‚ã¦è¿”ã™ã€‚
 
-	//•l“c–{p135‚Ì’è—3.6‚ğg‚¤‚ªAp136‚ÌŒn3.7‚Íg‚í‚È‚¢B
-	//‚È‚º‚È‚çAŒn3.7‚ÌğŒ‚Ímax_loop§–ñ‚É–µ‚‚·‚é‚©‚ç‚Å‚ ‚éB
+	//æµœç”°æœ¬p135ã®å®šç†3.6ã‚’ä½¿ã†ãŒã€p136ã®ç³»3.7ã¯ä½¿ã‚ãªã„ã€‚
+	//ãªãœãªã‚‰ã€ç³»3.7ã®æ¡ä»¶ã¯max_loopåˆ¶ç´„ã«çŸ›ç›¾ã™ã‚‹ã‹ã‚‰ã§ã‚ã‚‹ã€‚
 
 	const int n = int(sequence.size());
 
@@ -136,11 +136,11 @@ std::string GetCentroidFoldMcCaskill(
 	const Floating G = (1.0 / (gamma + 1.0));
 	const Floating inf = std::numeric_limits<Floating>::max() / Floating(1000000.0);
 
-	//std::make_pair(ƒXƒRƒA, ƒgƒŒ[ƒXƒoƒbƒN—p‚Ì‰Â•Ï’·•Ï”)
-	//ƒgƒŒ[ƒXƒoƒbƒN—p‚Ì•Ï”‚Æ‚µ‚Ä‘ã”“Iƒf[ƒ^Œ^‚ğg‚¢‚½‚¢‚ªAC++‚É‚Í–³‚¢B
+	//std::make_pair(ã‚¹ã‚³ã‚¢, ãƒˆãƒ¬ãƒ¼ã‚¹ãƒãƒƒã‚¯ç”¨ã®å¯å¤‰é•·å¤‰æ•°)
+	//ãƒˆãƒ¬ãƒ¼ã‚¹ãƒãƒƒã‚¯ç”¨ã®å¤‰æ•°ã¨ã—ã¦ä»£æ•°çš„ãƒ‡ãƒ¼ã‚¿å‹ã‚’ä½¿ã„ãŸã„ãŒã€C++ã«ã¯ç„¡ã„ã€‚
 	typedef std::pair<Floating, std::vector<int>> ScoreAndTracebackInfo;
 
-	//ƒƒ‚‰»Ä‹A‚Ì‚½‚ß‚Ìƒf[ƒ^\‘¢‚Å‚ ‚éBfirst‚Í‰Šú‰»‚Ífalse‚ÅA’l‚ğŒvZ‚µ‚½‚çtrue‚É‚µ‚ÄAsecond‚É’l‚ğ“ü‚ê‚éB
+	//ãƒ¡ãƒ¢åŒ–å†å¸°ã®ãŸã‚ã®ãƒ‡ãƒ¼ã‚¿æ§‹é€ ã§ã‚ã‚‹ã€‚firstã¯åˆæœŸåŒ–æ™‚ã¯falseã§ã€å€¤ã‚’è¨ˆç®—ã—ãŸã‚‰trueã«ã—ã¦ã€secondã«å€¤ã‚’å…¥ã‚Œã‚‹ã€‚
 	typedef std::pair<bool, ScoreAndTracebackInfo> MemoM;
 
 	std::vector<MemoM>Z((n + 1), std::make_pair(false, std::make_pair(Floating(0.0), std::vector<int>{})));
@@ -168,7 +168,7 @@ std::string GetCentroidFoldMcCaskill(
 		if (j <= 1)return std::make_pair(Floating(0.0), std::vector<int>{});
 		if (Z[j].first)return Z[j].second;
 
-		ScoreAndTracebackInfo ans = std::make_pair(Floating(0.0), std::vector<int>{});//0.0‚Í‰–Šî‘Î‚ğˆêØ‘g‚Ü‚È‚¢ê‡‚ÌƒXƒRƒA
+		ScoreAndTracebackInfo ans = std::make_pair(Floating(0.0), std::vector<int>{});//0.0ã¯å¡©åŸºå¯¾ã‚’ä¸€åˆ‡çµ„ã¾ãªã„å ´åˆã®ã‚¹ã‚³ã‚¢
 
 		for (int k = 0; k <= j - 1; ++k) {
 			const Floating score = ForwardZ(k).first + ForwardZ1(k + 1, j).first;
@@ -201,7 +201,7 @@ std::string GetCentroidFoldMcCaskill(
 		assert(1 <= i && i <= j && j <= n);
 		if (i == j)return std::make_pair(-inf, std::vector<int>{});
 
-		//i‚Æj‚ª‰–Šî‘Î‚ğ‘g‚İ“¾‚È‚¢‚È‚çƒ[ƒ‚ğ•Ô‚·B
+		//iã¨jãŒå¡©åŸºå¯¾ã‚’çµ„ã¿å¾—ãªã„ãªã‚‰ã‚¼ãƒ­ã‚’è¿”ã™ã€‚
 		const int type = parasor_param::GetPairType(sequence[i - 1], sequence[j - 1]);
 		if (type == 0 || i + TURN >= j || (j - i) > max_span) {
 			return std::make_pair(-inf, std::vector<int>{});
@@ -287,7 +287,7 @@ std::string GetCentroidFoldMcCaskill(
 		assert(1 <= i && i <= j && j <= n);
 		if (i == j)return std::string(".");
 
-		//i‚Æj‚ª‰–Šî‘Î‚ğ‘g‚İ“¾‚È‚¢‚È‚çƒ[ƒ‚ğ•Ô‚·B
+		//iã¨jãŒå¡©åŸºå¯¾ã‚’çµ„ã¿å¾—ãªã„ãªã‚‰ã‚¼ãƒ­ã‚’è¿”ã™ã€‚
 		const int type = parasor_param::GetPairType(sequence[i - 1], sequence[j - 1]);
 		if (type == 0 || i + TURN >= j || (j - i) > max_span) {
 			return EmptyStructure(i, j);
@@ -340,12 +340,12 @@ std::vector<std::string> GetCentroidFoldForEachHammingDistance(
 	const int max_loop,
 	const int distance) {
 
-	//‰–Šî‘ÎŠm—¦s—ñ‚ÌŠe—v‘f‚ğ“ü—Í‚Æ‚µ‚ÄAƒÁcentroid\‘¢‚ğ‹‚ß‚Ä•Ô‚·B
-	//ˆø”bpp_matrix‚Í(n+1)*(max_span+1)s—ñ‚Æ‚·‚éB
+	//å¡©åŸºå¯¾ç¢ºç‡è¡Œåˆ—ã®å„è¦ç´ ã‚’å…¥åŠ›ã¨ã—ã¦ã€Î³centroidæ§‹é€ ã‚’æ±‚ã‚ã¦è¿”ã™ã€‚
+	//å¼•æ•°bpp_matrixã¯(n+1)*(max_span+1)è¡Œåˆ—ã¨ã™ã‚‹ã€‚
 
-	//Å‘åƒXƒpƒ“§–ñ‚ÆÅ‘åƒ‹[ƒv§–ñ‚ğl—¶‚µ‚ÄŒvZ‚·‚éB
-	//‚Ü‚½A‘S‚Ä‚Ìk‚É‚Â‚¢‚ÄAƒŠƒtƒ@ƒŒƒ“ƒX\‘¢‚©‚ç‚Ìƒnƒ~ƒ“ƒO‹——£‚ªk‚Å‚ ‚é‚æ‚¤‚È\‘¢‚Ì’†‚Å‚ÌMEG\‘¢‚ğ‹‚ß‚éB
-	//‚½‚¾‚µdistance!=-1‚Ì‚Æ‚«‚¾‚¯‚ÍƒŠƒtƒ@ƒŒƒ“ƒX\‘¢‚©‚ç‚Ìƒnƒ~ƒ“ƒO‹——£‚ªdistance‚Å‚ ‚é‚æ‚¤‚È\‘¢‚Ì’†‚Å‚ÌMEG\‘¢‚¾‚¯‚ğ‹‚ß‚éB
+	//æœ€å¤§ã‚¹ãƒ‘ãƒ³åˆ¶ç´„ã¨æœ€å¤§ãƒ«ãƒ¼ãƒ—åˆ¶ç´„ã‚’è€ƒæ…®ã—ã¦è¨ˆç®—ã™ã‚‹ã€‚
+	//ã¾ãŸã€å…¨ã¦ã®kã«ã¤ã„ã¦ã€ãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹æ§‹é€ ã‹ã‚‰ã®ãƒãƒŸãƒ³ã‚°è·é›¢ãŒkã§ã‚ã‚‹ã‚ˆã†ãªæ§‹é€ ã®ä¸­ã§ã®MEGæ§‹é€ ã‚’æ±‚ã‚ã‚‹ã€‚
+	//ãŸã ã—distance!=-1ã®ã¨ãã ã‘ã¯ãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹æ§‹é€ ã‹ã‚‰ã®ãƒãƒŸãƒ³ã‚°è·é›¢ãŒdistanceã§ã‚ã‚‹ã‚ˆã†ãªæ§‹é€ ã®ä¸­ã§ã®MEGæ§‹é€ ã ã‘ã‚’æ±‚ã‚ã‚‹ã€‚
 
 	const int n = int(sequence.size());
 
@@ -356,10 +356,10 @@ std::vector<std::string> GetCentroidFoldForEachHammingDistance(
 		assert(0.0 <= bpp_matrix[i][j - i] && bpp_matrix[i][j - i] <= 1.0);
 	}
 
-	//[Mori et al., 2014]‚Ìsupp‚Ì®(S10)‚Ì¶•Ó‚ÌC‚Å‚ ‚éB
+	//[Mori et al., 2014]ã®suppã®å¼(S10)ã®å·¦è¾ºã®Cã§ã‚ã‚‹ã€‚
 	const std::vector<std::vector<int>>C = ComputePredistanceMatrix(S);
 
-	//[Mori et al., 2014]‚Ìsupp‚Ì®(S9)A(S14)`S(21)‚Å’è‹`‚³‚ê‚Ä‚¢‚ég‚Å‚ ‚éB
+	//[Mori et al., 2014]ã®suppã®å¼(S9)ã€(S14)ï½S(21)ã§å®šç¾©ã•ã‚Œã¦ã„ã‚‹gã§ã‚ã‚‹ã€‚
 	const auto g1 = [&](const int i, const int j) {return C[i][j]; };
 	const auto g2 = [&](const int i, const int j, const int k) {return C[i][j] - C[i][k] - C[k + 1][j]; };
 	const auto g3 = [&](const int i, const int j, const int k) {return C[i][j] - C[i][k]; };
@@ -372,8 +372,8 @@ std::vector<std::string> GetCentroidFoldForEachHammingDistance(
 	const Floating G = (Floating(1.0) / (gamma + Floating(1.0)));
 	const Floating inf = std::numeric_limits<Floating>::max() / Floating(1000000.0);
 
-	//std::make_pair(ƒXƒRƒA, ƒgƒŒ[ƒXƒoƒbƒN—p‚Ì‰Â•Ï’·•Ï”)
-	//ƒgƒŒ[ƒXƒoƒbƒN—p‚Ì•Ï”‚Æ‚µ‚Ä‘ã”“Iƒf[ƒ^Œ^‚ğg‚¢‚½‚¢‚ªAC++‚É‚Í–³‚¢B
+	//std::make_pair(ã‚¹ã‚³ã‚¢, ãƒˆãƒ¬ãƒ¼ã‚¹ãƒãƒƒã‚¯ç”¨ã®å¯å¤‰é•·å¤‰æ•°)
+	//ãƒˆãƒ¬ãƒ¼ã‚¹ãƒãƒƒã‚¯ç”¨ã®å¤‰æ•°ã¨ã—ã¦ä»£æ•°çš„ãƒ‡ãƒ¼ã‚¿å‹ã‚’ä½¿ã„ãŸã„ãŒã€C++ã«ã¯ç„¡ã„ã€‚
 	typedef struct infos {
 		Floating score;
 		int tag[3];
@@ -428,7 +428,7 @@ std::vector<std::string> GetCentroidFoldForEachHammingDistance(
 		}
 	}ScoreAndTracebackInfo;
 
-	//ƒƒ‚‰»Ä‹A‚Ì‚½‚ß‚Ìƒf[ƒ^\‘¢‚Å‚ ‚éBfirst‚Í‰Šú‰»‚Ífalse‚ÅA’l‚ğŒvZ‚µ‚½‚çtrue‚É‚µ‚ÄAsecond‚É’l‚ğ“ü‚ê‚éB
+	//ãƒ¡ãƒ¢åŒ–å†å¸°ã®ãŸã‚ã®ãƒ‡ãƒ¼ã‚¿æ§‹é€ ã§ã‚ã‚‹ã€‚firstã¯åˆæœŸåŒ–æ™‚ã¯falseã§ã€å€¤ã‚’è¨ˆç®—ã—ãŸã‚‰trueã«ã—ã¦ã€secondã«å€¤ã‚’å…¥ã‚Œã‚‹ã€‚
 	typedef std::pair<bool, ScoreAndTracebackInfo> MemoM;
 
 	std::vector<std::vector<MemoM>>Z((distance == -1 ? max_dim : distance) + 1, std::vector<MemoM>((n + 1)));
@@ -500,7 +500,7 @@ std::vector<std::string> GetCentroidFoldForEachHammingDistance(
 		assert(0 <= x && x <= (distance == -1 ? max_dim : distance));
 		if (i == j)return ScoreAndTracebackInfo(-inf);
 
-		//i‚Æj‚ª‰–Šî‘Î‚ğ‘g‚İ“¾‚È‚¢‚È‚çƒ[ƒ‚ğ•Ô‚·B
+		//iã¨jãŒå¡©åŸºå¯¾ã‚’çµ„ã¿å¾—ãªã„ãªã‚‰ã‚¼ãƒ­ã‚’è¿”ã™ã€‚
 		const int type = parasor_param::GetPairType(sequence[i - 1], sequence[j - 1]);
 		if (type == 0 || i + TURN >= j || (j - i) > max_span) {
 			return ScoreAndTracebackInfo(-inf);
@@ -607,7 +607,7 @@ std::vector<std::string> GetCentroidFoldForEachHammingDistance(
 		assert(0 <= x && x <= (distance == -1 ? max_dim : distance));
 		if (i == j)return std::string(".");
 
-		//i‚Æj‚ª‰–Šî‘Î‚ğ‘g‚İ“¾‚È‚¢‚È‚çƒ[ƒ‚ğ•Ô‚·B
+		//iã¨jãŒå¡©åŸºå¯¾ã‚’çµ„ã¿å¾—ãªã„ãªã‚‰ã‚¼ãƒ­ã‚’è¿”ã™ã€‚
 		const int type = parasor_param::GetPairType(sequence[i - 1], sequence[j - 1]);
 		if (type == 0 || i + TURN >= j || (j - i) > max_span) {
 			return EmptyStructure(i, j);
@@ -685,8 +685,8 @@ Floating ComputeGain(
 	const Floating& gamma,
 	const int max_loop) {
 
-	//‰–Šî‘ÎŠm—¦s—ñbpp_matrix‚É‘Î‚µ‚ÄA“ñŸ\‘¢structure‚ğ‘ã•\\‘¢‚Æ‚µ‚½‚Æ‚«‚ÌGain‚ğ‹‚ß‚Ä•Ô‚·B
-	//•l“c–{p139‚Ì®(3.28)‚ğŒvZ‚·‚éB
+	//å¡©åŸºå¯¾ç¢ºç‡è¡Œåˆ—bpp_matrixã«å¯¾ã—ã¦ã€äºŒæ¬¡æ§‹é€ structureã‚’ä»£è¡¨æ§‹é€ ã¨ã—ãŸã¨ãã®Gainã‚’æ±‚ã‚ã¦è¿”ã™ã€‚
+	//æµœç”°æœ¬p139ã®å¼(3.28)ã‚’è¨ˆç®—ã™ã‚‹ã€‚
 
 	const int n = int(structure.size());
 	const int max_span = int(bpp_matrix[0].size()) - 1;
@@ -742,8 +742,8 @@ std::pair<std::string, Floating> BruteForceGetCentroidFoldMcCaskill(
 	const std::vector<std::vector<Floating>>& bpp_matrix,
 	const Floating& gamma,
 	const int max_loop) {
-	//max_span§–ñ‚Æmax_loop§–ñ‚ğl—¶‚µ‚½‚¤‚¦‚ÅA
-	//‘S‚Ä‚Ì“ñŸ\‘¢W‡‚É‚¨‚¯‚éMEG\‘¢‚ğ‹‚ß‚Ä•Ô‚·B
+	//max_spanåˆ¶ç´„ã¨max_loopåˆ¶ç´„ã‚’è€ƒæ…®ã—ãŸã†ãˆã§ã€
+	//å…¨ã¦ã®äºŒæ¬¡æ§‹é€ é›†åˆã«ãŠã‘ã‚‹MEGæ§‹é€ ã‚’æ±‚ã‚ã¦è¿”ã™ã€‚
 
 	const int n = int(sequence.size());
 
@@ -772,11 +772,11 @@ std::vector<std::pair<std::string, Floating>> BruteForceGetCentroidFoldForEachHa
 	const std::vector<std::vector<Floating>>& bpp_matrix,
 	const Floating& gamma,
 	const int max_loop) {
-	//‰–Šî‘ÎŠm—¦s—ñ‚ÌŠe—v‘f‚ğ“ü—Í‚Æ‚µ‚ÄAƒÁcentroid\‘¢‚ğ‹‚ß‚Ä•Ô‚·B
-	//ˆø”bpp_matrix‚Í(n+1)*(max_span+1)s—ñ‚Æ‚·‚éB
+	//å¡©åŸºå¯¾ç¢ºç‡è¡Œåˆ—ã®å„è¦ç´ ã‚’å…¥åŠ›ã¨ã—ã¦ã€Î³centroidæ§‹é€ ã‚’æ±‚ã‚ã¦è¿”ã™ã€‚
+	//å¼•æ•°bpp_matrixã¯(n+1)*(max_span+1)è¡Œåˆ—ã¨ã™ã‚‹ã€‚
 
-	//Å‘åƒXƒpƒ“§–ñ‚ÆÅ‘åƒ‹[ƒv§–ñ‚ğl—¶‚µ‚ÄŒvZ‚·‚éB
-	//‚Ü‚½A‘S‚Ä‚Ìk‚É‚Â‚¢‚ÄAƒŠƒtƒ@ƒŒƒ“ƒX\‘¢‚©‚ç‚Ìƒnƒ~ƒ“ƒO‹——£‚ªk‚Å‚ ‚é‚æ‚¤‚È\‘¢‚Ì’†‚Å‚ÌMEG\‘¢‚ğ‹‚ß‚éB
+	//æœ€å¤§ã‚¹ãƒ‘ãƒ³åˆ¶ç´„ã¨æœ€å¤§ãƒ«ãƒ¼ãƒ—åˆ¶ç´„ã‚’è€ƒæ…®ã—ã¦è¨ˆç®—ã™ã‚‹ã€‚
+	//ã¾ãŸã€å…¨ã¦ã®kã«ã¤ã„ã¦ã€ãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹æ§‹é€ ã‹ã‚‰ã®ãƒãƒŸãƒ³ã‚°è·é›¢ãŒkã§ã‚ã‚‹ã‚ˆã†ãªæ§‹é€ ã®ä¸­ã§ã®MEGæ§‹é€ ã‚’æ±‚ã‚ã‚‹ã€‚
 
 	const int n = int(sequence.size());
 

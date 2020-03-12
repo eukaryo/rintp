@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 GNU GPL v2
 Copyright (c) 2020 Hiroki Takizawa
 */
@@ -22,9 +22,9 @@ std::pair<std::vector<std::string>, Bigint>SampleMcCaskillUniform(
 	const bool do_debug,
 	const int seed) {
 
-	//’P‚È‚éMcCaskillŒ^DP‚ğ‚â‚Á‚ÄA“à‘¤•ª”zŠÖ”‚Ìstochastic backtrack‚ğ‚µ‚ÄƒTƒ“ƒvƒŠƒ“ƒO‚·‚éB
-	//ƒGƒlƒ‹ƒM[ƒ‚ƒfƒ‹‚Í“±“ü‚µ‚È‚¢B‘S‚Ä‚Ì“ñŸ\‘¢‚©‚çˆê—l‚ÉƒTƒ“ƒvƒŠƒ“ƒO‚·‚éB
-	//ƒTƒ“ƒvƒŠƒ“ƒO‚µ‚½RNA\‘¢‚½‚¿‚ÆA“à‘¤•ª”zŠÖ”‚Ì’l‚ğ•Ô‚·B
+	//å˜ãªã‚‹McCaskillå‹DPã‚’ã‚„ã£ã¦ã€å†…å´åˆ†é…é–¢æ•°ã®stochastic backtrackã‚’ã—ã¦ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°ã™ã‚‹ã€‚
+	//ã‚¨ãƒãƒ«ã‚®ãƒ¼ãƒ¢ãƒ‡ãƒ«ã¯å°å…¥ã—ãªã„ã€‚å…¨ã¦ã®äºŒæ¬¡æ§‹é€ ã‹ã‚‰ä¸€æ§˜ã«ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°ã™ã‚‹ã€‚
+	//ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°ã—ãŸRNAæ§‹é€ ãŸã¡ã¨ã€å†…å´åˆ†é…é–¢æ•°ã®å€¤ã‚’è¿”ã™ã€‚
 
 	const int n = int(sequence.size());
 
@@ -351,9 +351,9 @@ std::pair<std::vector<std::string>, WideFloating>SampleMcCaskillEnergyAware(
 	const bool do_debug,
 	const int seed) {
 
-	//’P‚È‚éMcCaskillŒ^DP‚ğ‚â‚Á‚ÄA“à‘¤•ª”zŠÖ”‚Ìstochastic backtrack‚ğ‚µ‚ÄƒTƒ“ƒvƒŠƒ“ƒO‚·‚éB
-	//ƒGƒlƒ‹ƒM[ƒ‚ƒfƒ‹‚ğl—¶‚µ‚ÄAƒ{ƒcƒ‹ƒ}ƒ“ˆöq‚É”ä—á‚·‚éŠm—¦‚ÅƒTƒ“ƒvƒŠƒ“ƒO‚·‚éB
-	//ƒTƒ“ƒvƒŠƒ“ƒO‚µ‚½RNA\‘¢‚½‚¿‚ÆA“à‘¤•ª”zŠÖ”‚Ì’l‚ğ•Ô‚·B
+	//å˜ãªã‚‹McCaskillå‹DPã‚’ã‚„ã£ã¦ã€å†…å´åˆ†é…é–¢æ•°ã®stochastic backtrackã‚’ã—ã¦ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°ã™ã‚‹ã€‚
+	//ã‚¨ãƒãƒ«ã‚®ãƒ¼ãƒ¢ãƒ‡ãƒ«ã‚’è€ƒæ…®ã—ã¦ã€ãƒœãƒ„ãƒ«ãƒãƒ³å› å­ã«æ¯”ä¾‹ã™ã‚‹ç¢ºç‡ã§ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°ã™ã‚‹ã€‚
+	//ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°ã—ãŸRNAæ§‹é€ ãŸã¡ã¨ã€å†…å´åˆ†é…é–¢æ•°ã®å€¤ã‚’è¿”ã™ã€‚
 
 	parasor_param::InitializeParameter(param_file_name, temperature);
 
@@ -615,7 +615,7 @@ std::pair<std::vector<std::string>, WideFloating>SampleMcCaskillEnergyAware(
 				else partition_function -= weight2;
 			}
 
-			//”’lŒë·‚ª–³‚¯‚ê‚ÎA‚±‚±‚É—ˆ‚é‰Â”\«‚Í0%‚Å‚ ‚éB
+			//æ•°å€¤èª¤å·®ãŒç„¡ã‘ã‚Œã°ã€ã“ã“ã«æ¥ã‚‹å¯èƒ½æ€§ã¯0%ã§ã‚ã‚‹ã€‚
 			assert(0);
 			return EmptyStructure(i, j);
 		};
