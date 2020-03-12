@@ -37,5 +37,5 @@ If the input is valid, output is given from Standard Output in the following for
 > :  
 > (R-1) (N-1) stem P[R-1][N-1]["stem"]  
 
-
+where z[] is the array of Boltmann probabilities and P[][][] is the array of decomposed structural profiles.
 
