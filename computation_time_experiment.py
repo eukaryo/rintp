@@ -10,6 +10,7 @@ TURN = 3
 for filename in filenames:
     with open(filename, "r") as f:
         sequence = "".join([x.strip().split(" ")[1] for x in f.readlines()])
+        if re.fullmatch(r"^[ACGU]+$", sequence) is None: continue
 
         cmd1 = f'./rintp {sequence} {min(MAX_SPAN, len(sequence))} CentroidFold'
         structure = subprocess.check_output(cmd1.split(" ")).decode().strip()
