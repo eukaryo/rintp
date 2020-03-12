@@ -7,7 +7,8 @@ $ make
 
 to compile the source and obtain the executable "rintp". I succeed to compile them in the following environment:
 
-gcc 8.2.0 on CentOS 7.
+* gcc 8.2.0 on CentOS 7
+* gcc 5.4.0 on Ubuntu 16.04
 
 then
 
