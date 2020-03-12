@@ -9,9 +9,9 @@ to compile the source and obtain the executable "rintc". I succeed to compile th
 
 gcc 8.2.0 on CentOS 7.
 
-make
+then
 
-./rintp "CCCCAAAAGGGG" "((((....))))" 12 RintPwithDFT
+$ ./rintp "CCCCAAAAGGGG" "((((....))))" 12 RintPwithDFT
 
 # output
 
