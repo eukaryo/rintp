@@ -107,7 +107,11 @@ int verification(const std::string& structure, const std::string& sequence, cons
 					std::cerr << "')' of position " + std::to_string(i) + " cannot form a base pair." << std::endl;
 					return 1;
 				}
-				if (!(TURN < (i - bp_pos.top()) && (i - bp_pos.top()) <= max_span)) {
+				if (!(TURN < (i - bp_pos.top()))) {
+					std::cerr << "Error: The RNA structure contains a too short base pair." << std::endl;
+					return 1;
+				}
+				if (!((i - bp_pos.top()) <= max_span)) {
 					std::cerr << "Error: The RNA structure contains the base pair whose length is longer than the max-span constraint." << std::endl;
 					return 1;
 				}
@@ -198,6 +202,23 @@ int main_(int argc, char *argv[]) {
 			TestAll();
 			return 0;
 		}
+	}
+	if (argc == 4) {
+		const std::string sequence = std::string(argv[1]);
+		const int W = std::stoi(std::string(argv[2]));
+		const std::string algo = std::string(argv[3]);
+		const int n = sequence.length();
+		const int max_loop = n < 30 ? n : 30;
+
+		if (algo == std::string("CentroidFold")) {
+			const auto bppm = SimpleMcCaskillWide(sequence, std::string("Turner2004"), 37.0, W, max_loop).first;
+			const std::string answer = GetCentroidFoldMcCaskill(sequence, W, bppm, 1.0, max_loop);
+			std::cout << answer << std::endl;
+			return 0;
+		}
+
+		std::cout << "Error: invalid algo." << std::endl;
+		return 1;
 	}
 	if (argc == 5) {
 

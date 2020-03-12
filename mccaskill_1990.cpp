@@ -214,7 +214,7 @@ template<typename RealScalar>std::pair<std::vector<std::vector<RealScalar>>, Rea
 					ans += GetWb(h, l) * exp(RealScalar(parasor_param::ParLoopEnergy(h - 1, l - 1, i - 1, j - 1, sequence)));
 				}
 
-				//(h,l)�ŕ�����multiloop
+				//(h,l)で閉じられるmultiloop
 				ans += exp(RealScalar(parasor_param::ParMultiloopClosing()))
 					* exp(RealScalar(parasor_param::ParMultiloopInternal()))
 					* GetWb(h, l)
@@ -426,7 +426,7 @@ std::pair<std::vector<std::vector<Floating>>, Floating>SimpleMcCaskillWide(
 					ans += GetWb(h, l) * RealScalar::LogRealToWide(Floating(parasor_param::ParLoopEnergy(h - 1, l - 1, i - 1, j - 1, sequence)));
 				}
 
-				//(h,l)�ŕ�����multiloop
+				//(h,l)で閉じられるmultiloop
 				ans += RealScalar::LogRealToWide(Floating(parasor_param::ParMultiloopClosing()))
 					* RealScalar::LogRealToWide(Floating(parasor_param::ParMultiloopInternal()))
 					* GetWb(h, l)
