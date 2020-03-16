@@ -35,6 +35,8 @@ Copyright (c) 2020 Hiroki Takizawa
 #include"interval_type.h"
 #include"rintcapr.h"
 
+#include"kinetics_toolkit.h"
+
 
 namespace rintp {
 
@@ -63,13 +65,13 @@ int verification(const std::string& structure, const std::string& sequence, cons
 
 	for (const char c : sequence) {
 		if (!(c == 'A' || c == 'U' || c == 'G' || c == 'C')) {
-			std::cerr << "Error: The RNA sequence must be uppercase." << std::endl;
+			std::cerr << "Error: The RNA sequence must consist of 'A', 'C', 'G', and 'U' only." << std::endl;
 			return 1;
 		}
 	}
 	for (const char c : structure) {
 		if (!(c == '(' || c == '.' || c == ')')) {
-			std::cerr << "Error: The RNA structure must consist of '(', '.' and ')' only." << std::endl;
+			std::cerr << "Error: The RNA structure must consist of '(', '.', and ')' only." << std::endl;
 			return 1;
 		}
 	}
@@ -149,7 +151,7 @@ int verification(const std::string& structure, const std::string& sequence, cons
 	return 0;
 }
 
-void output(const std::pair<std::vector<IntervalVar>, std::vector<std::vector<std::vector<IntervalVar>>>>&answer){
+void OutputStructuralProfile(const std::pair<std::vector<IntervalVar>, std::vector<std::vector<std::vector<IntervalVar>>>>&answer){
 
 	std::cout << answer.first.size() << std::endl;
 	for (int i = 0; i < answer.first.size(); ++i) {
@@ -170,7 +172,7 @@ void output(const std::pair<std::vector<IntervalVar>, std::vector<std::vector<st
 		
 	}
 }
-void output(const std::pair<std::vector<Floating>, std::vector<std::vector<std::vector<Floating>>>>&answer){
+void OutputStructuralProfile(const std::pair<std::vector<Floating>, std::vector<std::vector<std::vector<Floating>>>>&answer){
 
 	std::cout << answer.first.size() << std::endl;
 	for (int i = 0; i < answer.first.size(); ++i) {
@@ -191,11 +193,25 @@ void output(const std::pair<std::vector<Floating>, std::vector<std::vector<std::
 	}
 }
 
+
+
 int main_(int argc, char *argv[]) {
 
 //#ifdef _WIN64 
 //	SetPriorityClass(GetCurrentProcess(), BELOW_NORMAL_PRIORITY_CLASS);
 //#endif
+
+	//{
+	//	const std::string sequence = "CCCCAAAAGGGG";
+	//	const std::string structure = "((((....))))";
+	//	const int W = 12;
+	//	const int step = 10;
+	//	const uint64_t seed = 12345;
+	//	const int n = sequence.length();
+	//	const int max_loop = n < 30 ? n : 30;
+	//	std::vector<std::pair<std::string, double>> answer = SimulateGillespie(sequence, structure, 37.0, W, max_loop, step, seed);
+	//	return 0;
+	//}
 
 	if (argc == 2) {
 		if (std::string(argv[1]) == std::string("test")) {
@@ -214,6 +230,15 @@ int main_(int argc, char *argv[]) {
 			const auto bppm = SimpleMcCaskillWide(sequence, std::string("Turner2004"), 37.0, W, max_loop).first;
 			const std::string answer = GetCentroidFoldMcCaskill(sequence, W, bppm, 1.0, max_loop);
 			std::cout << answer << std::endl;
+			return 0;
+		}
+		if (algo == std::string("EnumerateAll")) {
+			std::vector<std::pair<std::string, double>>answer = EnumerateStructureAndBoltzmannFactor(sequence, 27.0, W, max_loop);
+
+			for (int i = 0; i < answer.size(); ++i) {
+				std::cout << answer[i].first << " " << answer[i].second << std::endl;
+			}
+
 			return 0;
 		}
 
@@ -247,32 +272,62 @@ int main_(int argc, char *argv[]) {
 			typedef WideComplexNumber<Floating> Comp;
 			const auto ans1 = ComputeRintP1Dim<Comp>(sequence, options.S1, options.max_dim1, 37.0, options.max_span, options.max_loop, false);
 			const auto ans2 = RegularizeRintP1Dim(ans1.first, ans1.second);
-			output(ans2);
+			OutputStructuralProfile(ans2);
 			return 0;
 		}
 		if (algo == std::string("RintPwithFFT")) {
 			typedef WideComplexNumber<Floating> Comp;
 			const auto ans1 = ComputeRintP1Dim<Comp>(sequence, options.S1, options.max_dim1, 37.0, options.max_span, options.max_loop, true);
 			const auto ans2 = RegularizeRintP1Dim(ans1.first, ans1.second);
-			output(ans2);
+			OutputStructuralProfile(ans2);
 			return 0;
 		}
 		if (algo == std::string("RintPwithDFTInterval")) {
 			typedef WideComplexNumber<IntervalVar> Comp;
 			const auto ans1 = ComputeRintP1Dim<Comp>(sequence, options.S1, options.max_dim1, 37.0, options.max_span, options.max_loop, false);
 			const auto ans2 = RegularizeRintP1Dim(ans1.first, ans1.second);
-			output(ans2);
+			OutputStructuralProfile(ans2);
 			return 0;
 		}
 		if (algo == std::string("RintPwithFFTInterval")) {
 			typedef WideComplexNumber<IntervalVar> Comp;
 			const auto ans1 = ComputeRintP1Dim<Comp>(sequence, options.S1, options.max_dim1, 37.0, options.max_span, options.max_loop, true);
 			const auto ans2 = RegularizeRintP1Dim(ans1.first, ans1.second);
-			output(ans2);
+			OutputStructuralProfile(ans2);
 			return 0;
 		}
 		std::cout << "Error: invalid algo." << std::endl;
 		return 1;
+	}
+
+	if (argc == 7) {
+		const std::string sequence = std::string(argv[1]);
+		const std::string structure = std::string(argv[2]);
+		const int W = std::stoi(std::string(argv[3]));
+		const int step = std::stoi(std::string(argv[4]));
+		const uint64_t seed = std::stoi(std::string(argv[5]));
+		const std::string algo = std::string(argv[6]);
+		const int n = sequence.length();
+		const int max_loop = n < 30 ? n : 30;
+
+		if (verification(structure, sequence, W, max_loop)) {
+			return 1;
+		}
+
+		if (algo == std::string("Gillespie")) {
+
+			std::vector<std::pair<std::string, double>> answer = SimulateGillespie(sequence, structure, 37.0, W, max_loop, step, seed);
+
+			for (int i = 0; i < answer.size(); ++i) {
+				std::cout << answer[i].first << " " << answer[i].second << std::endl;
+			}
+
+			return 0;
+		}
+
+		std::cout << "Error: invalid algo." << std::endl;
+		return 1;
+
 	}
 
 	std::cout << "error" << std::endl;

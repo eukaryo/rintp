@@ -3,8 +3,8 @@ GNU GPL v2
 Copyright (c) 2020 Hiroki Takizawa
 */
 
-#ifndef RINTDWR_MCCASKILL_1990_H_
-#define RINTDWR_MCCASKILL_1990_H_
+#ifndef RINTP_MCCASKILL_1990_H_
+#define RINTP_MCCASKILL_1990_H_
 
 #include <iostream>
 #include <fstream>
@@ -50,4 +50,4 @@ std::pair<std::vector<std::vector<Floating>>, Floating>SimpleMcCaskillWide(
 }
 
 
-#endif//RINTDWR_MCCASKILL_1990_H_
+#endif//RINTP_MCCASKILL_1990_H_

@@ -3,8 +3,8 @@ GNU GPL v2
 Copyright (c) 2020 Hiroki Takizawa
 */
 
-#ifndef RINTDWR_RINTX_H_
-#define RINTDWR_RINTX_H_
+#ifndef RINTP_RINTX_H_
+#define RINTP_RINTX_H_
 
 #include <iostream>
 #include <fstream>
@@ -118,4 +118,4 @@ std::vector<std::string> ComputeRintW1Dim_2(
 
 }
 
-#endif//RINTDWR_RINTX_H_
+#endif//RINTP_RINTX_H_

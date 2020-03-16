@@ -3,8 +3,8 @@ GNU GPL v2
 Copyright (c) 2020 Hiroki Takizawa
 */
 
-#ifndef RINTDWR_CENTROID_FOLD_H_
-#define RINTDWR_CENTROID_FOLD_H_
+#ifndef RINTP_CENTROID_FOLD_H_
+#define RINTP_CENTROID_FOLD_H_
 
 #include <iostream>
 #include <fstream>
@@ -73,5 +73,5 @@ std::vector<std::pair<std::string, Floating>> BruteForceGetCentroidFoldForEachHa
 
 }
 
-#endif//RINTDWR_CENTROID_FOLD_H_
+#endif//RINTP_CENTROID_FOLD_H_
 

@@ -3,8 +3,8 @@ GNU GPL v2
 Copyright (c) 2020 Hiroki Takizawa
 */
 
-#ifndef RINTDWR_MISC_H_
-#define RINTDWR_MISC_H_
+#ifndef RINTP_MISC_H_
+#define RINTP_MISC_H_
 
 #include <iostream>
 #include <fstream>
@@ -28,6 +28,7 @@ constexpr int TURN = 3;
 
 int Ceiling2Power(int h);
 std::string MakeRandomRnaSeq(const int length, const int seed);
+std::vector<int> DotNotationToPairVector(const std::string& structure);
 int ComputeMaxLoop(const std::string& structure);
 std::vector<std::vector<int>> VerifyAndParseStructure(const std::string& structure, const std::string& sequence, const int max_span, const int max_loop);
 std::vector<std::vector<int>> ComputePredistanceMatrix(const std::vector<std::vector<int>>& S);
@@ -40,8 +41,8 @@ std::string ComputeStructuralContext(const std::string& structure, const int pos
 double EvalSpecificStructure(const std::string& sequence, const std::string& structure);
 double EvalSpecificStructure(const std::string& sequence, const std::vector<std::vector<int>>& structure);
 std::string MatrixToDotNotation(const std::vector<std::vector<int>>& structure);
-
-
+std::set<std::pair<int, int>> DotNotationToBasePairSet(const std::string& structure);
+std::string BasePairSetToDotNotation(const std::set<std::pair<int, int>>& structure, const int len);
 }
 
-#endif//RINTDWR_MISC_H_
+#endif//RINTP_MISC_H_

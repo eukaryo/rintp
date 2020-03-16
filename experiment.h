@@ -3,8 +3,8 @@ GNU GPL v2
 Copyright (c) 2020 Hiroki Takizawa
 */
 
-#ifndef RINTDWR_EXPERIMENT_H_
-#define RINTDWR_EXPERIMENT_H_
+#ifndef RINTP_EXPERIMENT_H_
+#define RINTP_EXPERIMENT_H_
 
 namespace rintp {
 
@@ -38,4 +38,4 @@ void RrnaAccuracyExperiment(const std::string filename);
 
 
 
-#endif//RINTDWR_EXPERIMENT_H_
+#endif//RINTP_EXPERIMENT_H_

@@ -3,8 +3,8 @@ GNU GPL v2
 Copyright (c) 2020 Hiroki Takizawa
 */
 
-#ifndef RINTDWR_FOURIER_TRANSFORM_H_
-#define RINTDWR_FOURIER_TRANSFORM_H_
+#ifndef RINTP_FOURIER_TRANSFORM_H_
+#define RINTP_FOURIER_TRANSFORM_H_
 
 #include <iostream>
 #include <fstream>
@@ -34,4 +34,4 @@ std::vector<UsualComplexNumber<Floating>>FourierTransform(const std::vector<Usua
 
 }
 
-#endif//RINTDWR_FOURIER_TRANSFORM_H_
+#endif//RINTP_FOURIER_TRANSFORM_H_

@@ -35,11 +35,7 @@ std::string MakeRandomRnaSeq(const int length, const int seed) {
 	return sequence;
 }
 
-int ComputeMaxLoop(const std::string& structure) {
-	//Compute the maximum value of unpaired base number
-	//of "internal loop" and "bulge" in "structure".
-
-	//RNA二次構造structureのなかで、internal loopとbulgeのunpaired base数の最大値を求めて返す。
+std::vector<int> DotNotationToPairVector(const std::string& structure) {
 
 	const int n = int(structure.size());
 
@@ -62,6 +58,19 @@ int ComputeMaxLoop(const std::string& structure) {
 			break;
 		}
 	}
+
+	return bp;
+}
+
+int ComputeMaxLoop(const std::string& structure) {
+	//Compute the maximum value of unpaired base number
+	//of "internal loop" and "bulge" in "structure".
+
+	//RNA二次構造structureのなかで、internal loopとbulgeのunpaired base数の最大値を求めて返す。
+
+	const int n = int(structure.size());
+
+	std::vector<int> bp = DotNotationToPairVector(structure);
 
 	int ans = 0;
 	for (int pos = 1; pos < n - 1; pos++) {
@@ -424,25 +433,7 @@ std::string ComputeStructuralContext(const std::string& structure, const int pos
 	if (structure[pos] != '.')return std::string("Stem");
 	if (pos == 0 || pos == n - 1)return std::string("Exterior");
 
-	std::vector<int> bp(n, -1);
-	std::stack<int> stk;
-	for (int i = 0; i < n; ++i) {
-		switch (structure[i]) {
-		case '(':
-			stk.push(i);
-			break;
-		case ')':
-			bp[i] = stk.top();
-			bp[stk.top()] = i;
-			stk.pop();
-			break;
-		case '.':
-			break;
-		default:
-			assert(0);
-			break;
-		}
-	}
+	std::vector<int> bp = DotNotationToPairVector(structure);
 
 	int dangleflag = 1;
 	int danglenum = 0;
@@ -479,25 +470,7 @@ double EvalSpecificStructure(const std::string& sequence, const std::string& str
 	const int n = int(structure.size());
 
 	//塩基対を組んでいる各塩基について、相手を求めてbpに記録する。
-	std::vector<int> bp(n, -1);
-	std::stack<int> stk;
-	for (int i = 0; i < n; ++i) {
-		switch (structure[i]) {
-		case '(':
-			stk.push(i);
-			break;
-		case ')':
-			bp[i] = stk.top();
-			bp[stk.top()] = i;
-			stk.pop();
-			break;
-		case '.':
-			break;
-		default:
-			assert(0);
-			break;
-		}
-	}
+	std::vector<int> bp = DotNotationToPairVector(structure);
 
 	std::function<double(int, int, bool)>factor_in_ij;
 	factor_in_ij = [&sequence, &bp, &factor_in_ij](const int i, const int j, const bool ext) {
@@ -570,24 +543,6 @@ double EvalSpecificStructure(const std::string& sequence, const std::vector<std:
 
 	//塩基対を組んでいる各塩基について、相手を求めてbpに記録する。
 	std::vector<int> bp(n, -1);
-	//std::stack<int> stk;
-	//for (int i = 0; i < n; ++i) {
-	//	switch (structure[i]) {
-	//	case '(':
-	//		stk.push(i);
-	//		break;
-	//	case ')':
-	//		bp[i] = stk.top();
-	//		bp[stk.top()] = i;
-	//		stk.pop();
-	//		break;
-	//	case '.':
-	//		break;
-	//	default:
-	//		assert(0);
-	//		break;
-	//	}
-	//}
 	for (int i = 1; i <= n; ++i) {
 		int x = -1;
 		for (int j = i + 1; j <= n; ++j)if (structure[i][j]) {
@@ -676,6 +631,31 @@ std::string MatrixToDotNotation(const std::vector<std::vector<int>>& structure) 
 		answer[j] = ')';
 	}
 
+	return answer;
+}
+
+std::set<std::pair<int, int>> DotNotationToBasePairSet(const std::string& structure) {
+	std::set<std::pair<int, int>>answer;
+	std::stack<int>s;
+	for (int i = 0; i < structure.size(); ++i) {
+		if (structure[i] == '(')s.push(i);
+		else if (structure[i] == ')') {
+			const int x = s.top();
+			s.pop();
+			answer.insert(std::make_pair(x, i));
+		}
+		else assert(structure[i] == '.');
+	}
+	return answer;
+}
+std::string BasePairSetToDotNotation(const std::set<std::pair<int, int>>& structure, const int len) {
+	std::string answer("");
+	for (int i = 0; i < len; ++i)answer += ".";
+	for (const auto x : structure) {
+		assert(x.first < x.second && answer[x.first] == '.' && answer[x.second] == '.');
+		answer[x.first] = '(';
+		answer[x.second] = ')';
+	}
 	return answer;
 }
 

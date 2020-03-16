@@ -3,8 +3,8 @@ GNU GPL v2
 Copyright (c) 2020 Hiroki Takizawa
 */
 
-#ifndef RINTDWR_SAMPLE_MCCASKILL_H_
-#define RINTDWR_SAMPLE_MCCASKILL_H_
+#ifndef RINTP_SAMPLE_MCCASKILL_H_
+#define RINTP_SAMPLE_MCCASKILL_H_
 
 #include <iostream>
 #include <fstream>
@@ -52,4 +52,4 @@ std::pair<std::vector<std::string>, WideFloating>SampleMcCaskillEnergyAware(
 }
 
 
-#endif//RINTDWR_SAMPLE_MCCASKILL_H_
+#endif//RINTP_SAMPLE_MCCASKILL_H_

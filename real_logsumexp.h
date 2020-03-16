@@ -3,8 +3,8 @@ GNU GPL v2
 Copyright (c) 2020 Hiroki Takizawa
 */
 
-#ifndef RINTDWR_REAL_LOGSUMEXP_H_
-#define RINTDWR_REAL_LOGSUMEXP_H_
+#ifndef RINTP_REAL_LOGSUMEXP_H_
+#define RINTP_REAL_LOGSUMEXP_H_
 
 #include <iostream>
 #include <fstream>
@@ -123,4 +123,4 @@ std::vector<std::vector<Floating>> ConvertBppmToUsualReal(const std::vector<std:
 
 }
 
-#endif//RINTDWR_REAL_LOGSUMEXP_H_
+#endif//RINTP_REAL_LOGSUMEXP_H_
