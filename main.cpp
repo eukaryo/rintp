@@ -235,8 +235,12 @@ int main_(int argc, char *argv[]) {
 		if (algo == std::string("EnumerateAll")) {
 			std::vector<std::pair<std::string, double>>answer = EnumerateStructureAndBoltzmannFactor(sequence, 27.0, W, max_loop);
 
+			std::cout << "sequence: " << sequence << std::endl;
+			std::cout << "max_span: " << W << std::endl;
+			std::cout << "max_loop: " << max_loop << std::endl;
+
 			for (int i = 0; i < answer.size(); ++i) {
-				std::cout << answer[i].first << " " << answer[i].second << std::endl;
+				std::cout << answer[i].first << " " << std::setprecision(20) << answer[i].second << std::endl;
 			}
 
 			return 0;
@@ -318,8 +322,14 @@ int main_(int argc, char *argv[]) {
 
 			std::vector<std::pair<std::string, double>> answer = SimulateGillespie(sequence, structure, 37.0, W, max_loop, step, seed);
 
+			std::cout << "sequence: " << sequence << std::endl;
+			std::cout << "max_span: " << W << std::endl;
+			std::cout << "max_loop: " << max_loop << std::endl;
+			std::cout << "step: " << step << std::endl;
+			std::cout << "seed: " << seed << std::endl;
+
 			for (int i = 0; i < answer.size(); ++i) {
-				std::cout << answer[i].first << " " << answer[i].second << std::endl;
+				std::cout << answer[i].first << " " << std::setprecision(20) << answer[i].second << std::endl;
 			}
 
 			return 0;
