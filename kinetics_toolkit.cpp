@@ -1,4 +1,4 @@
-﻿/*
+/*
 GNU GPL v2
 Copyright (c) 2020 Hiroki Takizawa
 */
@@ -44,7 +44,7 @@ std::vector<std::string> EnumerateNeighbourStructure(
 	std::string new_structure = structure;
 	std::vector<int> pv = DotNotationToPairVector(structure);
 
-	const auto AddBpAtI = [&](const int i, const bool need_to_ckeck_max_loop, const int forbid_j, const bool bigger_j_only) {
+	const auto AddBpAtI = [&](const int i, const bool need_to_check_max_loop, const int forbid_j, const bool bigger_j_only) {
 		query[0] = sequence[i];
 		for (int j = (i + 1) % n; j != i; ++j) {
 
@@ -54,7 +54,7 @@ std::vector<std::string> EnumerateNeighbourStructure(
 				if (bp.find(query) != std::string::npos) {
 					new_structure[std::min(i, j)] = '(';
 					new_structure[std::max(i, j)] = ')';
-					answer.push_back(new_structure);
+					if ((!need_to_check_max_loop) || ComputeMaxLoop(new_structure) <= max_loop)answer.push_back(new_structure);
 					new_structure[i] = '.';
 					new_structure[j] = '.';
 				}
@@ -122,10 +122,10 @@ std::vector<std::string> EnumerateNeighbourStructure(
 			new_structure[i] = '.';
 			new_structure[j] = '.';
 
-			const bool ckeck_flag = max_loop < ComputeMaxLoop(new_structure);
+			const bool check_flag = max_loop < ComputeMaxLoop(new_structure);
 
-			AddBpAtI(i, ckeck_flag, j, false);
-			AddBpAtI(j, ckeck_flag, i, false);
+			AddBpAtI(i, check_flag, j, false);
+			AddBpAtI(j, check_flag, i, false);
 
 			new_structure[i] = '(';
 			new_structure[j] = ')';
