@@ -1,4 +1,4 @@
-﻿/*
+/*
 GNU GPL v2
 Copyright (c) 2020 Hiroki Takizawa
 */
@@ -151,14 +151,16 @@ int verification(const std::string& structure, const std::string& sequence, cons
 	return 0;
 }
 
-void OutputStructuralProfile(const std::pair<std::vector<IntervalVar>, std::vector<std::vector<std::vector<IntervalVar>>>>&answer){
+void OutputStructuralProfile(const std::pair<std::vector<IntervalVar>, std::vector<std::vector<std::vector<IntervalVar>>>>&answer, const std::string& sequence, const std::string& structure) {
 
+	std::cout << ">" << sequence << std::endl;
+	std::cout << ">" << structure << std::endl;
 	std::cout << answer.first.size() << std::endl;
 	for (int i = 0; i < answer.first.size(); ++i) {
 		std::cout << i << " " << answer.first[i].lower() << " " << answer.first[i].upper() << std::endl;
 	}
 
-	std::vector<std::string>features{"bulge","exterior","hairpin","internal","multi","stem"};
+	std::vector<std::string>features{ "bulge","exterior","hairpin","internal","multi","stem" };
 
 	for (int i = 0; i < answer.first.size(); ++i) {
 		for (int j = 0; j < answer.second[i].size() - 1; ++j)for (int k = 0; k < 6; ++k) {
@@ -169,17 +171,19 @@ void OutputStructuralProfile(const std::pair<std::vector<IntervalVar>, std::vect
 				std::cout << i << " " << j << " " << features[k] << " " << 0 << " " << 0 << std::endl;
 			}
 		}
-		
+
 	}
 }
-void OutputStructuralProfile(const std::pair<std::vector<Floating>, std::vector<std::vector<std::vector<Floating>>>>&answer){
+void OutputStructuralProfile(const std::pair<std::vector<Floating>, std::vector<std::vector<std::vector<Floating>>>>&answer, const std::string& sequence, const std::string& structure) {
 
+	std::cout << ">" << sequence << std::endl;
+	std::cout << ">" << structure << std::endl;
 	std::cout << answer.first.size() << std::endl;
 	for (int i = 0; i < answer.first.size(); ++i) {
 		std::cout << i << " " << answer.first[i] << std::endl;
 	}
 
-	std::vector<std::string>features{"bulge","exterior","hairpin","internal","multi","stem"};
+	std::vector<std::string>features{ "bulge","exterior","hairpin","internal","multi","stem" };
 
 	for (int i = 0; i < answer.first.size(); ++i) {
 		for (int j = 0; j < answer.second[i].size() - 1; ++j)for (int k = 0; k < 6; ++k) {
@@ -197,21 +201,21 @@ void OutputStructuralProfile(const std::pair<std::vector<Floating>, std::vector<
 
 int main_(int argc, char *argv[]) {
 
-//#ifdef _WIN64 
-//	SetPriorityClass(GetCurrentProcess(), BELOW_NORMAL_PRIORITY_CLASS);
-//#endif
+	//#ifdef _WIN64 
+	//	SetPriorityClass(GetCurrentProcess(), BELOW_NORMAL_PRIORITY_CLASS);
+	//#endif
 
-	//{
-	//	const std::string sequence = "CCCCAAAAGGGG";
-	//	const std::string structure = "((((....))))";
-	//	const int W = 12;
-	//	const int step = 10;
-	//	const uint64_t seed = 12345;
-	//	const int n = sequence.length();
-	//	const int max_loop = n < 30 ? n : 30;
-	//	std::vector<std::pair<std::string, double>> answer = SimulateGillespie(sequence, structure, 37.0, W, max_loop, step, seed);
-	//	return 0;
-	//}
+		//{
+		//	const std::string sequence = "CCCCAAAAGGGG";
+		//	const std::string structure = "((((....))))";
+		//	const int W = 12;
+		//	const int step = 10;
+		//	const uint64_t seed = 12345;
+		//	const int n = sequence.length();
+		//	const int max_loop = n < 30 ? n : 30;
+		//	std::vector<std::pair<std::string, double>> answer = SimulateGillespie(sequence, structure, 37.0, W, max_loop, step, seed);
+		//	return 0;
+		//}
 
 	if (argc == 2) {
 		if (std::string(argv[1]) == std::string("test")) {
@@ -276,28 +280,28 @@ int main_(int argc, char *argv[]) {
 			typedef WideComplexNumber<Floating> Comp;
 			const auto ans1 = ComputeRintP1Dim<Comp>(sequence, options.S1, options.max_dim1, 37.0, options.max_span, options.max_loop, false);
 			const auto ans2 = RegularizeRintP1Dim(ans1.first, ans1.second);
-			OutputStructuralProfile(ans2);
+			OutputStructuralProfile(ans2, sequence, structure);
 			return 0;
 		}
 		if (algo == std::string("RintPwithFFT")) {
 			typedef WideComplexNumber<Floating> Comp;
 			const auto ans1 = ComputeRintP1Dim<Comp>(sequence, options.S1, options.max_dim1, 37.0, options.max_span, options.max_loop, true);
 			const auto ans2 = RegularizeRintP1Dim(ans1.first, ans1.second);
-			OutputStructuralProfile(ans2);
+			OutputStructuralProfile(ans2, sequence, structure);
 			return 0;
 		}
 		if (algo == std::string("RintPwithDFTInterval")) {
 			typedef WideComplexNumber<IntervalVar> Comp;
 			const auto ans1 = ComputeRintP1Dim<Comp>(sequence, options.S1, options.max_dim1, 37.0, options.max_span, options.max_loop, false);
 			const auto ans2 = RegularizeRintP1Dim(ans1.first, ans1.second);
-			OutputStructuralProfile(ans2);
+			OutputStructuralProfile(ans2, sequence, structure);
 			return 0;
 		}
 		if (algo == std::string("RintPwithFFTInterval")) {
 			typedef WideComplexNumber<IntervalVar> Comp;
 			const auto ans1 = ComputeRintP1Dim<Comp>(sequence, options.S1, options.max_dim1, 37.0, options.max_span, options.max_loop, true);
 			const auto ans2 = RegularizeRintP1Dim(ans1.first, ans1.second);
-			OutputStructuralProfile(ans2);
+			OutputStructuralProfile(ans2, sequence, structure);
 			return 0;
 		}
 		std::cout << "Error: invalid algo." << std::endl;
