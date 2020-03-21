@@ -224,6 +224,7 @@ int main_(int argc, char *argv[]) {
 		}
 	}
 	if (argc == 4) {
+
 		const std::string sequence = std::string(argv[1]);
 		const int W = std::stoi(std::string(argv[2]));
 		const std::string algo = std::string(argv[3]);
@@ -250,15 +251,35 @@ int main_(int argc, char *argv[]) {
 			return 0;
 		}
 
+
 		std::cout << "Error: invalid algo." << std::endl;
 		return 1;
 	}
 	if (argc == 5) {
 
+		const std::string algo = std::string(argv[4]);
+
+		if (algo == std::string("BoltzmannSampling")) {
+			const std::string sequence = std::string(argv[1]);
+			const int num_sample = std::stoi(std::string(argv[2]));
+			const int seed = std::stoi(std::string(argv[3]));
+			const int n = sequence.length();
+			const int max_loop = n < 30 ? n : 30;
+
+			std::pair<std::vector<std::string>, WideFloating> result = SampleMcCaskillEnergyAware(
+				sequence, std::string("Turner2004"), 37.0, num_sample, n, max_loop, false, seed);
+
+			std::cout << ">" << sequence << std::endl;
+			std::cout << num_sample << std::endl;
+			for (int i = 0; i < num_sample; ++i) {
+				std::cout << result.first[i] << std::endl;
+			}
+			return 0;
+		}
+
 		const std::string sequence = std::string(argv[1]);
 		const std::string structure = std::string(argv[2]);
 		const int W = std::stoi(std::string(argv[3]));
-		const std::string algo = std::string(argv[4]);
 		const int n = sequence.length();
 		const int max_loop = n < 30 ? n : 30;
 
@@ -304,6 +325,36 @@ int main_(int argc, char *argv[]) {
 			OutputStructuralProfile(ans2, sequence, structure);
 			return 0;
 		}
+
+		if (algo == std::string("RintDwithDFT")) {
+			typedef WideComplexNumber<Floating> Comp;
+			options.allow_fft = false;
+			const auto ans1 = ComputeRintD1Dim<Comp>(options);
+			const auto ans2 = RegularizeRintD1Dim(ans1);
+			std::cout << ">" << sequence << std::endl;
+			std::cout << ">" << structure << std::endl;
+			std::cout << ans2.size() << std::endl;
+			for (int i = 0; i < ans2.size(); ++i) {
+				std::cout << i << " " << ans2[i] << std::endl;
+			}
+
+			return 0;
+		}
+		if (algo == std::string("RintDwithFFT")) {
+			typedef WideComplexNumber<Floating> Comp;
+			options.allow_fft = false;
+			const auto ans1 = ComputeRintD1Dim<Comp>(options);
+			const auto ans2 = RegularizeRintD1Dim(ans1);
+			std::cout << ">" << sequence << std::endl;
+			std::cout << ">" << structure << std::endl;
+			std::cout << ans2.size() << std::endl;
+			for (int i = 0; i < ans2.size(); ++i) {
+				std::cout << i << " " << ans2[i] << std::endl;
+			}
+
+			return 0;
+		}
+
 		std::cout << "Error: invalid algo." << std::endl;
 		return 1;
 	}
