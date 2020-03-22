@@ -113,17 +113,15 @@ int main_(int argc, char *argv[]) {
 	//	SetPriorityClass(GetCurrentProcess(), BELOW_NORMAL_PRIORITY_CLASS);
 	//#endif
 
-		//{
-		//	const std::string sequence = "CCCCAAAAGGGG";
-		//	const std::string structure = "((((....))))";
-		//	const int W = 12;
-		//	const int step = 10;
-		//	const uint64_t seed = 12345;
-		//	const int n = sequence.length();
-		//	const int max_loop = n < 30 ? n : 30;
-		//	std::vector<std::pair<std::string, double>> answer = SimulateGillespie(sequence, structure, 37.0, W, max_loop, step, seed);
-		//	return 0;
-		//}
+	//{
+	//	const std::string sequence = "AGGACCUACGCUGCCCUAGAGGUUUUGCUAGGGAGGAGACGUGUGUGGCUGUAGCCACCCGUCCCGGGUACAAGUCCCGGGUGGUGAGGACGGUGUCUGUGGUUGUCUUCCCAGACUCUGCUUUCUGCCGUCUUCGGUCAAGUACCAGCUGGUGGUCCGCAUGUUU";
+	//	const std::string structure = ".(((((.((((((((((((........))))))....((((.(.(((((....))))))))))(((((.......))))).((.(((((((((((...((((..((((....)))).))))....)))))))))))..)).....))))..)))))))........";
+	//	const int W = 166;
+	//	const int n = sequence.length();
+	//	const int max_loop = n < 30 ? n : 30;
+	//	std::vector<std::pair<std::string, double>> answer = ComputeLocalMFE(sequence, structure, 37.0, W, max_loop);
+	//	return 0;
+	//}
 
 	if (argc == 2) {
 		if (std::string(argv[1]) == std::string("test")) {
@@ -191,7 +189,7 @@ int main_(int argc, char *argv[]) {
 		const int n = sequence.length();
 		const int max_loop = n < 30 ? n : 30;
 
-		if (VerificateInput(structure, sequence, W, max_loop)) {
+		if (VerificateInput(sequence, structure, W, max_loop)) {
 			return 1;
 		}
 
@@ -264,6 +262,8 @@ int main_(int argc, char *argv[]) {
 		}
 		if (algo == std::string("LocalMFE")) {
 			std::vector<std::pair<std::string, double>>answer = ComputeLocalMFE(sequence, structure, 37.0, W, max_loop);
+			std::cout << ">" << sequence << std::endl;
+			std::cout << ">" << structure << std::endl;
 			std::cout << answer.size() << std::endl;
 			for (int i = 0; i < answer.size(); ++i) {
 				std::cout << answer[i].first << " " << answer[i].second << std::endl;
@@ -286,7 +286,7 @@ int main_(int argc, char *argv[]) {
 		const int n = sequence.length();
 		const int max_loop = n < 30 ? n : 30;
 
-		if (VerificateInput(structure, sequence, W, max_loop)) {
+		if (VerificateInput(sequence, structure, W, max_loop)) {
 			return 1;
 		}
 

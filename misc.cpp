@@ -140,7 +140,7 @@ std::vector<std::vector<int>> VerifyAndParseStructure(const std::string& structu
 	return ans;
 }
 
-int VerificateInput(const std::string& structure, const std::string& sequence, const int max_span, const int max_loop) {
+int VerificateInput(const std::string& sequence, const std::string& structure, const int max_span, const int max_loop) {
 
 	for (const char c : sequence) {
 		if (!(c == 'A' || c == 'U' || c == 'G' || c == 'C')) {

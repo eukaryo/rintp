@@ -85,7 +85,7 @@ std::vector<std::string> EnumerateNeighbourStructure(
 	}
 
 	//塩基を組む。
-	//・exteriorに関して、max-span制約を破るような組み方はできない。
+	//・exteriorに関して、max-span制約やmax-loop制約を破るような組み方はできない。
 	//・pseudo-knotを作るような組み方はできない。つまり組むのは同じループ内の２塩基に限られる。
 	//・TURN3以下のhairpinを作るような組み方はできない。
 
@@ -93,7 +93,7 @@ std::vector<std::string> EnumerateNeighbourStructure(
 		for (int i = 0; i < n; ++i) {
 			query[0] = sequence[i];
 			new_structure[i] = '(';
-			for (int j = i + TURN + 1; j < n && j < i + max_span; ++j) {
+			for (int j = i + TURN + 1; j < n && j < i + max_span && j <= i + max_loop + 1; ++j) {
 				query[1] = sequence[j];
 				if (bp.find(query) != std::string::npos) {
 					new_structure[j] = ')';
@@ -107,7 +107,7 @@ std::vector<std::string> EnumerateNeighbourStructure(
 	else {
 		for (int i = 0; i < n; ++i) {
 			if (structure[i] != '.')continue;
-			AddBpAtI(i, false, -1, true);
+			AddBpAtI(i, true, -1, true);
 		}
 	}
 
@@ -153,7 +153,11 @@ std::vector<std::pair<std::string, double>>ComputeLocalMFE(
 
 	while (true) {
 		const std::vector<std::string> candidates = EnumerateNeighbourStructure(sequence, answer.back().first, max_span, max_loop);
-		for (const auto c : candidates)VerificateInput(sequence, c, max_span, max_loop);
+		for (const auto c : candidates) {
+			VerificateInput(sequence, c, max_span, max_loop);
+			const int h = ComputeHammingDistance(answer.back().first, c);
+			assert(1 <= h && h <= 2);
+		}
 		double score = EvalSpecificStructure(sequence, candidates[0]);
 		int champ = 0;
 		for (int i = 1; i < candidates.size(); ++i) {
@@ -164,7 +168,7 @@ std::vector<std::pair<std::string, double>>ComputeLocalMFE(
 				champ = i;
 			}
 		}
-		if (answer.back().second < score)break;
+		if (score <= answer.back().second)break;
 		answer.push_back(std::make_pair(candidates[champ], score));
 	}
 
