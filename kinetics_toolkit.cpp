@@ -137,6 +137,40 @@ std::vector<std::string> EnumerateNeighbourStructure(
 	return answer;
 }
 
+std::vector<std::pair<std::string, double>>ComputeLocalMFE(
+	const std::string& sequence,
+	const std::string& initial_structure,
+	const double temperature,
+	const int max_span,
+	const int max_loop) {
+
+	//LocalMFEを探す。つまり、山登り法でボルツマン因子が高い構造を探す。
+
+	parasor_param::InitializeParameter("Turner2004", temperature);
+
+	std::vector<std::pair<std::string, double>>answer;
+	answer.push_back(std::make_pair(initial_structure, EvalSpecificStructure(sequence, initial_structure)));
+
+	while (true) {
+		const std::vector<std::string> candidates = EnumerateNeighbourStructure(sequence, answer.back().first, max_span, max_loop);
+		for (const auto c : candidates)VerificateInput(sequence, c, max_span, max_loop);
+		double score = EvalSpecificStructure(sequence, candidates[0]);
+		int champ = 0;
+		for (int i = 1; i < candidates.size(); ++i) {
+			
+			const double s = EvalSpecificStructure(sequence, candidates[i]);
+			if (score < s) {
+				score = s;
+				champ = i;
+			}
+		}
+		if (answer.back().second < score)break;
+		answer.push_back(std::make_pair(candidates[champ], score));
+	}
+
+	return answer;
+}
+
 std::vector<std::pair<std::string, double>> SimulateGillespie(
 	const std::string& sequence,
 	const std::string& initial_structure,

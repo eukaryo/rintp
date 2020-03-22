@@ -26,6 +26,13 @@ Copyright (c) 2020 Hiroki Takizawa
 
 namespace rintp {
 
+std::vector<std::pair<std::string, double>>ComputeLocalMFE(
+	const std::string& sequence,
+	const std::string& initial_structure,
+	const double temperature,
+	const int max_span,
+	const int max_loop);
+
 std::vector<std::pair<std::string, double>> EnumerateStructureAndBoltzmannFactor(
 	const std::string& sequence,
 	const double temperature,

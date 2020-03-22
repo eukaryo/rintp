@@ -31,6 +31,7 @@ std::string MakeRandomRnaSeq(const int length, const int seed);
 std::vector<int> DotNotationToPairVector(const std::string& structure);
 int ComputeMaxLoop(const std::string& structure);
 std::vector<std::vector<int>> VerifyAndParseStructure(const std::string& structure, const std::string& sequence, const int max_span, const int max_loop);
+int VerificateInput(const std::string& structure, const std::string& sequence, const int max_span, const int max_loop);
 std::vector<std::vector<int>> ComputePredistanceMatrix(const std::vector<std::vector<int>>& S);
 int ComputeMaxHammingDistance(const std::string& sequence, const std::vector<std::vector<int>>& S, const int max_span, const int max_loop);
 std::vector<std::string>EnumerateStructures(const std::string& sequence, const int max_span, const int max_loop);

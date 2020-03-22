@@ -140,6 +140,96 @@ std::vector<std::vector<int>> VerifyAndParseStructure(const std::string& structu
 	return ans;
 }
 
+int VerificateInput(const std::string& structure, const std::string& sequence, const int max_span, const int max_loop) {
+
+	for (const char c : sequence) {
+		if (!(c == 'A' || c == 'U' || c == 'G' || c == 'C')) {
+			std::cerr << "Error: The RNA sequence must consist of 'A', 'C', 'G', and 'U' only." << std::endl;
+			return 1;
+		}
+	}
+	for (const char c : structure) {
+		if (!(c == '(' || c == '.' || c == ')')) {
+			std::cerr << "Error: The RNA structure must consist of '(', '.', and ')' only." << std::endl;
+			return 1;
+		}
+	}
+	if (!(structure.size() == sequence.size())) {
+		std::cerr << "Error: The RNA sequence and structure must be the same length." << std::endl;
+		std::cerr << "Your sequence length  = " + std::to_string(sequence.size()) << std::endl;
+		std::cerr << "Your structure length = " + std::to_string(structure.size()) << std::endl;
+		return 1;
+	}
+	if (!(1 <= max_span)) {
+		std::cerr << "Error: The value of max-span constraint must be a positive integer." << std::endl;
+		return 1;
+	}
+	if (!(max_span <= int(structure.size()))) {
+		std::cerr << "Error: The value of max-span constraint must be less than or equal to the length of the RNA sequence." << std::endl;
+		std::cerr << "Your sequence length  = " + std::to_string(sequence.size()) << std::endl;
+		std::cerr << "Your constraint value = " + std::to_string(max_span) << std::endl;
+		return 1;
+	}
+
+	{
+		const int n = int(sequence.size());
+		const std::string bp = "AU UA GC CG GU UG";
+		std::string query = "XX";
+		std::vector<std::vector<int>>ans(n + 1, std::vector<int>(n + 1, 0));
+		std::stack<int> bp_pos;
+		for (int i = 1; i <= n; ++i) {
+			switch (structure[i - 1]) {
+			case '(':
+				bp_pos.push(i);
+				break;
+			case ')':
+				if (!(bp_pos.size() >= 1)) {
+					std::cerr << "Error: The RNA structure is invalid." << std::endl;
+					std::cerr << "')' of position " + std::to_string(i) + " cannot form a base pair." << std::endl;
+					return 1;
+				}
+				if (!(TURN < (i - bp_pos.top()))) {
+					std::cerr << "Error: The RNA structure contains a too short base pair." << std::endl;
+					return 1;
+				}
+				if (!((i - bp_pos.top()) <= max_span)) {
+					std::cerr << "Error: The RNA structure contains the base pair whose length is longer than the max-span constraint." << std::endl;
+					return 1;
+				}
+
+				query[0] = sequence[bp_pos.top() - 1];
+				query[1] = sequence[i - 1];
+				if (!(bp.find(query) != std::string::npos)) {
+					std::cerr << "Error: The RNA structure contains an illegal base pair." << std::endl;
+					std::cerr << "Position " + std::to_string(bp_pos.top()) + " (the base is '" + query.substr(0, 1) + "') and" << std::endl;
+					std::cerr << "position " + std::to_string(i) + " (the base is '" + query.substr(1, 1) + "') " << std::endl;
+					return 1;
+				}
+
+
+				ans[bp_pos.top()][i] = 1;
+				bp_pos.pop();
+				break;
+			case '.':
+				break;
+			default:
+				assert(0);
+				break;
+			}
+		}
+		if (!(bp_pos.size() == 0)) {
+			std::cerr << "Error: The RNA structure is invalid." << std::endl;
+			std::cerr << "'(' is more than ')'." << std::endl;
+			return 1;
+		}
+		if (!(ComputeMaxLoop(structure) <= max_loop)) {
+			std::cerr << "Error: The RNA structure contains the base pair whose length is longer than the max-loop constraint." << std::endl;
+			return 1;
+		}
+	}
+	return 0;
+}
+
 std::vector<std::vector<int>> ComputePredistanceMatrix(const std::vector<std::vector<int>>& S) {
 	//引数SはVerifyAndParseStructureで得られた塩基対行列S(1-origin)で、
 	//sequenceの二次構造としてvalidだとする。
